@@ -1,0 +1,221 @@
+-- PostgreSQL Database for Site
+-- Codinoc IDE Project
+
+-- Group Number 35
+-- NSBM Green University, LK
+-- Plymouth University, UK
+
+-- Database designed by,
+-- -> A.B. Navodya     | PLY ID: 10749851
+--
+-- Database written by,
+-- -> A.B. Navodya     | PLY ID: 10749851
+-- -> L.M. Nishshanka  | PLY ID: 10749846
+--
+-- Database tested by,
+-- -> A.B. Navodya     | PLY ID: 10749851
+-- -> E.C.N. Nandasiri | PLY ID: 10749855
+
+CREATE SCHEMA schema_site;
+CREATE SCHEMA schema_server;
+CREATE SCHEMA schema_admin;
+CREATE SCHEMA schema_category;
+CREATE SCHEMA schema_template;
+
+-- ++ ------------------------------------------------- ++ --
+-- ++ Site                                              ++ --
+-- ++ ------------------------------------------------- ++ --
+
+CREATE TABLE schema_site.tb_info (
+	data_id INT NOT NULL UNIQUE,
+	site_name VARCHAR(256) NOT NULL,
+	site_url VARCHAR(2048) NOT NULL,
+	site_ip VARCHAR(64) NOT NULL
+);
+
+CREATE TABLE schema_site.tb_path (
+	data_id INT NOT NULL UNIQUE,
+	path_cdn VARCHAR(4096) NOT NULL,
+	path_cdn_site VARCHAR(4096) NOT NULL,
+	path_cdn_user VARCHAR(4096) NOT NULL
+);
+
+CREATE TABLE schema_site.tb_time (
+	data_id INT NOT NULL UNIQUE,
+	updated_time TIME NOT NULL,
+	updated_date DATE NOT NULL
+);
+
+CREATE TABLE schema_site.tb_main (
+	site_id INT NOT NULL UNIQUE,
+	id_info INT NOT NULL,
+	id_path INT NOT NULL,
+	id_time INT NOT NULL,
+
+	CONSTRAINT f_info FOREIGN KEY (id_info) REFERENCES schema_site.tb_info (data_id),
+	CONSTRAINT f_path FOREIGN KEY (id_path) REFERENCES schema_site.tb_path (data_id),
+	CONSTRAINT f_time FOREIGN KEY (id_time) REFERENCES schema_site.tb_time (data_id)
+);
+
+-- ++ ------------------------------------------------- ++ --
+-- ++ Users                                             ++ --
+-- ++ ------------------------------------------------- ++ --
+
+CREATE TABLE schema_server.tb_tenant (
+	data_id BIGSERIAL PRIMARY KEY,
+	name_user_db VARCHAR(512) NOT NULL
+);
+
+CREATE TABLE schema_server.tb_info (
+	data_id BIGSERIAL PRIMARY KEY,
+	first_name VARCHAR(256) NOT NULL,
+	middle_name VARCHAR(256),
+	last_name VARCHAR(256),
+	date_of_birth DATE NOT NULL,
+	gender VARCHAR(8) NOT NULL,
+	mobile_number VARCHAR(32) NOT NULL,
+	home_address VARCHAR(2048) NOT NULL
+);
+
+CREATE TABLE schema_server.tb_server (
+	data_id BIGSERIAL PRIMARY KEY,
+	server_code INT NOT NULL UNIQUE,
+	server_name VARCHAR(256) NOT NULL
+);
+
+CREATE TABLE schema_server.tb_security (
+	data_id BIGSERIAL PRIMARY KEY,
+	admin_email VARCHAR(2048) NOT NULL,
+	admin_user_name VARCHAR(64) NOT NULL
+);
+
+CREATE TABLE schema_server.tb_password (
+	data_id BIGSERIAL PRIMARY KEY,
+	hashed_psw VARCHAR(2048) NOT NULL
+);
+
+CREATE TABLE schema_server.tb_status (
+	data_id BIGSERIAL PRIMARY KEY,
+	status_logged BOOLEAN NOT NULL
+);
+
+CREATE TABLE schema_server.tb_main (
+	user_id BIGSERIAL PRIMARY KEY,
+	id_tenant BIGINT NOT NULL,
+	id_info BIGINT NOT NULL,
+	id_server BIGINT NOT NULL,
+	id_security BIGINT NOT NULL,
+	id_password BIGINT NOT NULL,
+	id_status BIGINT NOT NULL,
+
+	CONSTRAINT f_tenant FOREIGN KEY (id_tenant) REFERENCES schema_server.tb_tenant (data_id),
+	CONSTRAINT f_info FOREIGN KEY (id_info) REFERENCES schema_server.tb_info (data_id),
+	CONSTRAINT f_server FOREIGN KEY (id_server) REFERENCES schema_server.tb_server (data_id),
+	CONSTRAINT f_security FOREIGN KEY (id_security) REFERENCES schema_server.tb_security (data_id),
+	CONSTRAINT f_password FOREIGN KEY (id_password) REFERENCES schema_server.tb_password (data_id),
+	CONSTRAINT f_status FOREIGN KEY (id_status) REFERENCES schema_server.tb_status (data_id)
+);
+
+-- ++ ------------------------------------------------- ++ --
+-- ++ Administrators                                    ++ --
+-- ++ ------------------------------------------------- ++ --
+
+CREATE TABLE schema_admin.tb_info (
+	data_id SERIAL PRIMARY KEY,
+	first_name VARCHAR(256) NOT NULL,
+	middle_name VARCHAR(256),
+	last_name VARCHAR(256),
+	date_of_birth DATE NOT NULL,
+	gender VARCHAR(8) NOT NULL,
+	mobile_number VARCHAR(32) NOT NULL,
+	home_number VARCHAR(32),
+	work_number VARCHAR(32),
+	home_address VARCHAR(2048) NOT NULL
+);
+
+CREATE TABLE schema_admin.tb_security (
+	data_id SERIAL PRIMARY KEY,
+	admin_email VARCHAR(2048) NOT NULL,
+	admin_user_name VARCHAR(64) NOT NULL
+);
+
+CREATE TABLE schema_admin.tb_password (
+	data_id SERIAL PRIMARY KEY,
+	hashed_psw VARCHAR(2048) NOT NULL
+);
+
+CREATE TABLE schema_admin.tb_status (
+	data_id SERIAL PRIMARY KEY,
+	status_logged BOOLEAN NOT NULL
+);
+
+CREATE TABLE schema_admin.tb_main (
+	admin_id SERIAL PRIMARY KEY,
+	id_info INT NOT NULL,
+	id_security INT NOT NULL,
+	id_password INT NOT NULL,
+	id_status INT NOT NULL,
+
+	CONSTRAINT f_info FOREIGN KEY (id_info) REFERENCES schema_admin.tb_info (data_id),
+	CONSTRAINT f_security FOREIGN KEY (id_security) REFERENCES schema_admin.tb_security (data_id),
+	CONSTRAINT f_password FOREIGN KEY (id_password) REFERENCES schema_admin.tb_password (data_id),
+	CONSTRAINT f_status FOREIGN KEY (id_status) REFERENCES schema_admin.tb_status (data_id)
+);
+
+-- ++ ------------------------------------------------- ++ --
+-- ++ Category                                          ++ --
+-- ++ ------------------------------------------------- ++ --
+
+CREATE TABLE schema_category.tb_template (
+	data_id SERIAL PRIMARY KEY,
+	category_code INT NOT NULL UNIQUE,
+	category_name VARCHAR(256) NOT NULL
+);
+
+-- ++ ------------------------------------------------- ++ --
+-- ++ Project Template                                  ++ --
+-- ++ ------------------------------------------------- ++ --
+
+CREATE TABLE schema_template.tb_info (
+	data_id BIGSERIAL PRIMARY KEY,
+	template_code INT NOT NULL UNIQUE,
+	template_name VARCHAR(256) NOT NULL
+);
+
+CREATE TABLE schema_template.tb_content (
+	data_id BIGSERIAL PRIMARY KEY,
+	template_title TEXT NOT NULL,
+	template_content TEXT NOT NULL
+);
+
+CREATE TABLE schema_template.tb_status (
+	data_id BIGSERIAL PRIMARY KEY,
+	status_enabled BOOLEAN NOT NULL
+);
+
+CREATE TABLE schema_template.tb_main (
+	template_id BIGSERIAL PRIMARY KEY,
+	category_id INT NOT NULL,
+	id_info BIGINT NOT NULL,
+	id_content BIGINT NOT NULL,
+	id_status BIGINT NOT NULL,
+
+	CONSTRAINT f_category FOREIGN KEY (category_id) REFERENCES schema_category.tb_template (category_code),
+	CONSTRAINT f_info FOREIGN KEY (id_info) REFERENCES schema_template.tb_info (data_id),
+	CONSTRAINT f_content FOREIGN KEY (id_content) REFERENCES schema_template.tb_content (data_id),
+	CONSTRAINT f_status FOREIGN KEY (id_status) REFERENCES schema_template.tb_status (data_id)
+);
+
+-- ************************************************* --
+-- **                                             ** --
+-- ** INSERT DEFAULT VALUES                       ** --
+-- **                                             ** --
+-- ************************************************* --
+
+INSERT INTO schema_category.tb_template (category_code, category_name)
+VALUES (100, 'HTML Template'),
+			 (200, 'CSS Template'),
+			 (300, 'SCSS Template'),
+			 (400, 'SASS Template'),
+			 (500, 'LESS Template'),
+			 (600, 'Java Script Template');

@@ -1,0 +1,183 @@
+<!-- Editor Page
+	--
+	-- Developed by Chanaka Nandasiri
+	-->
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Server Editor</title>
+
+    <link rel="stylesheet" href="../../css/theme.css">
+    <link href="../../library/fontawesome/css/all.css" rel="stylesheet">
+</head>
+<body class="section-logged">
+
+<div class="navbar">
+    <div class="dropdown">
+        <button class="" onclick="logged_nav_menu()">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="drop-content dropdown-menu" id="dropdown-menu">
+            <p class="title">Project</p>
+            <p class="item"><a href="#"><i class="fa-solid fa-folder-plus"></i>Create New Project</a></p>
+            <p class="item"><a href="#"><i class="fa-solid fa-circle-xmark"></i>Close Current Project</a></p>
+            <p class="title">Run</p>
+            <p class="item"><a href="#"><i class="fa-solid fa-up-right-from-square"></i>Preview Once</a></p>
+            <p class="item"><a href="#"><i class="fa-solid fa-play"></i>Live Preview</a></p>
+            <p class="title">Compile</p>
+            <p class="item"><a href="#"><i class="fa-brands fa-sass"></i>Compile SCSS</a></p>
+            <p class="item"><a href="#"><i class="fa-brands fa-js"></i>Compile JS</a></p>
+            <p class="title">Export</p>
+            <p class="item"><a href="#"><i class="fa-solid fa-cloud-arrow-down"></i>Export Project</a></p>
+        </div>
+    </div>
+
+    <span>CODINOC IDE - Project XXX</span>
+
+    <div class="dropdown">
+        <button class="right" onclick="logged_nav_settings()">
+            <i class="fa-solid fa-gear"></i>
+        </button>
+        <div class="drop-content dropdown-settings" id="dropdown-settings">
+            <p class="title">User</p>
+            <p class="item"><a href="#"><i class="fa-solid fa-user"></i>User Profile</a></p>
+            <p class="title">Server</p>
+            <p class="item"><a href="#"><i class="fa-solid fa-server"></i>Server Profile</a></p>
+            <p class="item"><a href="#"><i class="fa-solid fa-people-group"></i>Server Team</a></p>
+            <p class="title">Account</p>
+            <p class="item"><a href="#"><i class="fa-solid fa-arrow-right-from-bracket"></i>Log Out</a></p>
+            <p class="title">Help</p>
+            <p class="item"><a href="#"><i class="fa-solid fa-circle-question"></i>Help</a></p>
+            <p class="item"><a href="#"><i class="fa-solid fa-comment-dots"></i>Feedback</a></p>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <button class="right" onclick="logged_nav_notification()">
+            <i class="fa-solid fa-bell"></i>
+        </button>
+        <div class="drop-content dropdown-notify" id="dropdown-notification">
+            <div class="item">
+                <div class="notification">
+                    <div class="grid">
+                        <div class="column-3">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBwgu1A5zgPSvfE83nurkuzNEoXs9DMNr8Ww&usqp=CAU"
+                                 alt="profile-name">
+                        </div>
+                        <div class="column-6">
+                            <div class="name">Riley Raid</div>
+                            <div class="time">10:59 P.M.</div>
+                        </div>
+                    </div>
+
+                    <div class="message">Sample Notification Content 01</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="notification">
+                    <div class="grid">
+                        <div class="column-3">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBwgu1A5zgPSvfE83nurkuzNEoXs9DMNr8Ww&usqp=CAU"
+                                 alt="profile-name">
+                        </div>
+                        <div class="column-6">
+                            <div class="name">Riley Raid</div>
+                            <div class="time">10:59 P.M.</div>
+                        </div>
+                    </div>
+
+                    <div class="message">Sample Notification Content 02</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="grid">
+    <div class="column-3"></div>
+
+    <div class="column-6">
+        <div class="editor-panel">
+
+            <div class="tab-btn-group">
+                <button class="tab-select activated" onclick="editor_show_html()">
+                    HTML
+                    <span class="icon">
+                        <i class="fa-brands fa-html5"></i>
+                    </span>
+                </button>
+                <button class="tab-select" onclick="editor_show_js()">
+                    JS
+                    <span class="icon">
+                        <i class="fa-brands fa-js-square"></i>
+                    </span>
+                </button>
+                <button class="tab-select" onclick="editor_show_css()">
+                    CSS
+                    <span class="icon">
+                        <i class="fa-brands fa-css3-alt"></i>
+                    </span>
+                </button>
+                <button class="tab-select" onclick="editor_show_scss()">
+                    SCSS
+                    <span class="icon">
+                        <i class="fa-brands fa-sass"></i>
+                    </span>
+                </button>
+            </div>
+
+
+            <!-- HTML Editor -->
+
+            <div id="editor-html" class="editor-page">
+                <div id="ace_editor_html" class="ace-editor"></div>
+            </div>
+
+            <!-- JS Editor -->
+
+            <div id="editor-js" class="editor-page">
+                <div id="ace_editor_js" class="ace-editor"></div>
+            </div>
+
+            <!-- CSS Editor -->
+
+            <div id="editor-css" class="editor-page">
+                <div id="ace_editor_css" class="ace-editor"></div>
+            </div>
+
+            <!-- SCSS Editor -->
+
+            <div id="editor-scss" class="editor-page">
+                <div id="ace_editor_scss" class="ace-editor"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="column-3"></div>
+</div>
+
+<div class="footer">
+    <div class="grid">
+        <div class="column left">{PRIDE_TYPE}</div>
+        <div class="column">Server {SERVER_NAME}</div>
+        <div class="column">Logged Members: {TOTAL_MEMBERS}</div>
+        <div class="column right">Codinoc IDE v1.0.0</div>
+    </div>
+</div>
+
+<!-- ACE Editor CDN https://pagecdn.com/lib/ace -->
+
+<script src="https://pagecdn.io/lib/ace/1.4.14/ace.min.js" crossorigin="anonymous" integrity="sha256-lHff7sYmofr9GsfmfNbPsMy6XbG8HoG0/zJvtovyCMU=" ></script>
+<script src="https://pagecdn.io/lib/ace/1.4.14/mode-html.min.js" crossorigin="anonymous"  ></script>
+<script src="https://pagecdn.io/lib/ace/1.4.14/mode-javascript.min.js" crossorigin="anonymous"  ></script>
+<script src="https://pagecdn.io/lib/ace/1.4.14/mode-css.min.js" crossorigin="anonymous"  ></script>
+<script src="https://pagecdn.io/lib/ace/1.4.14/mode-scss.min.js" crossorigin="anonymous"  ></script>
+
+<script src="../../js/theme.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

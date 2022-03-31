@@ -21,9 +21,7 @@
 - [License and Copyrights](#license-and-copyrights)
 - [Development Team](#development-team)
 
-## Introduction
 
-> TODO
 
 ## Build Test
 

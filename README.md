@@ -39,24 +39,24 @@
 
 ```
 Repository
-	|- Binary       -> Binary Tarball
-	|- Database     -> Database Designed Files
-	|- Design       -> UI Designed Files
-	|- Document     -> Documents
-	|- Interface    -> Developed User Interface
-	|- Readme       -> README Document Assets
-	|- Server       -> Server Root
+  |- Binary       -> Binary Tarball
+  |- Database     -> Database Designed Files
+  |- Design       -> UI Designed Files
+  |- Document     -> Documents
+  |- Interface    -> Developed User Interface
+  |- Readme       -> README Document Assets
+  |- Server       -> Server Root
 ```
 
 ### Server Root Directory Structure
 
 ```
 Server
-	|- adm          -> Administrator Section
-	|- bin          -> Web Application Executable
-	|- cdn          -> Storage
-	|- cmd          -> Application Source
-	|- thm          -> User Interface Theme
+  |- adm          -> Administrator Section
+  |- bin          -> Web Application Executable
+  |- cdn          -> Storage
+  |- cmd          -> Application Source
+  |- thm          -> User Interface Theme
 ```
 
 ## Server Setup and Installation
@@ -87,12 +87,21 @@ go get github.com/gorilla/handlers
 
 1. Follow [this tutorial](https://docs.fedoraproject.org/en-US/quick-docs/postgresql/) or [this tutorial](https://www.linuxshelltips.com/install-postgresql-in-fedora-linux/) to install PostgreSQL on Fedora
 
-> Note:\
-> On the first login, need to create a Database:
-
 ```sh
-psql template1
-CREATE DATABASE sample_db;
+sudo dnf install postgresql-server
+sudo dnf install postgresql-contrib
+
+# Initialize Data Directory for PostgreSQL
+
+sudo postgresql-setup --initdb --unit postgresql
+
+# Start PostgreSQL Server
+
+sudo systemctl start postgresql
+
+# Stop PostgreSQL Server
+
+sudo systemctl stop postgresql
 ```
 
 ### PostgreSQL Databases Setup

@@ -1,25 +1,26 @@
-<div style="text-align: center; padding: 16px; border: 1px solid #555555; margin-bottom: 32px;">
-	<h1 style="font-weight: 200;">Project <span style="font-weight: 600;">CODINOC</span> IDE</h1>
-	<ttS>A Simple Cloud IDE for Web Designing by GO Language</p>
-</div>
+
+# CODINOC IDE
+
+> A Simple Cloud IDE for Web Designing Tasks by GO Language
 
 **Table of Contents**
 
-- [Introduction](#introduction)
-- [Build Test](#build-test)
-- [Requirements](#requirements)
-- [Directory Structure](#directory-structure)
-	- [Repository Directory Structure](#repository-directory-structure)
-	- [Server Root Directory Structure](#server-root-directory-structure)
-- [Server Setup and Installation](#server-setup-and-installation)
-	- [Main Directory Creation](#main-directory-creation)
-	- [Go Language Installation](#go-language-installation)
-	- [PostgreSQL Installation](#postgresql-installation)
-	- [PostgreSQL Databases Setup](#postgresql-databases-setup)
-	- [Restore Server](#restore-server)
-- [Documentation](#documentation)
-- [License and Copyrights](#license-and-copyrights)
-- [Development Team](#development-team)
+- [CODINOC IDE](#codinoc-ide)
+  - [Introduction](#introduction)
+  - [Build Test](#build-test)
+  - [Requirements](#requirements)
+  - [Directory Structure](#directory-structure)
+    - [Repository Directory Structure](#repository-directory-structure)
+    - [Server Root Directory Structure](#server-root-directory-structure)
+  - [Server Setup and Installation](#server-setup-and-installation)
+    - [Main Directory Creation](#main-directory-creation)
+    - [Go Language Installation](#go-language-installation)
+    - [PostgreSQL Installation](#postgresql-installation)
+    - [PostgreSQL Databases Setup](#postgresql-databases-setup)
+    - [Restore Server](#restore-server)
+  - [Documentation](#documentation)
+  - [License and Copyrights](#license-and-copyrights)
+  - [Development Team](#development-team)
 
 ## Introduction
 
@@ -39,13 +40,12 @@
 
 ```
 Repository
-  |- Binary       -> Binary Tarball
   |- Database     -> Database Designed Files
-  |- Design       -> UI Designed Files
   |- Document     -> Documents
-  |- Interface    -> Developed User Interface
-  |- Readme       -> README Document Assets
+  |- Interface    -> UI Designed Files
+  |- Resources    -> Resources Files
   |- Server       -> Server Root
+  |- Theme        -> Developed User Interface
 ```
 
 ### Server Root Directory Structure
@@ -53,7 +53,6 @@ Repository
 ```
 Server
   |- adm          -> Administrator Section
-  |- bin          -> Web Application Executable
   |- cdn          -> Storage
   |- cmd          -> Application Source
   |- thm          -> User Interface Theme
@@ -79,8 +78,10 @@ go env -w GO111MODULE=auto
 ```
 
 ```
+go get github.com/gorilla/handlers &&
 go get github.com/gorilla/mux &&
-go get github.com/gorilla/handlers
+go get github.com/gorilla/handlers &&
+go get github.com/lib/pq
 ```
 
 ### PostgreSQL Installation
@@ -106,13 +107,58 @@ sudo systemctl stop postgresql
 
 ### PostgreSQL Databases Setup
 
-> TODO
+> We didn't create another user and we use default PostgreSQL user role here
+
+1. Login to PostgreSQL and [change password](https://serverfault.com/questions/406606/postgres-error-message-fatal-ident-authentication-failed-for-user)
+
+```sh
+sudo su postgres
+psql
+
+\password
+
+# Then enter and re-enter new password
+
+# Restart postgresql server
+
+sudo systemctl restart postgresql
+```
+
+_hint: use `1234` as password_
+
+2. Find [postgresql details](https://stackoverflow.com/questions/5598517/find-the-host-name-and-port-using-psql-commands)
+
+```sh
+\conninfo
+```
+
+The default values for local server is, `user = postgres` and `port = 5432`
+
+3. [Create](https://www.tutorialspoint.com/postgresql/postgresql_create_database.htm) codinoc site's database
+
+```sql
+CREATE DATABASE db_site;
+```
+
+4. [Upload database](https://www.a2hosting.com/kb/developer-corner/postgresql/import-and-export-a-postgresql-database) that we're created already
+
+_hint: Open terminal in the location that we're stored our database files_
+
+```sql
+sudo su postgres
+psql -U postgres db_site < db_site.psql
+```
+
+5. Show uploaded Database
+
+```sql
+```
 
 **Additional Setup only for Development Server**
 
 Add these content into the `hosts` file using `sudo nano /etc/hosts`
 
-```
+```sh
 # Codinoc IDE
 
 127.0.0.1:8080 codinoc.com
@@ -138,11 +184,11 @@ sudo dnf remove postgresql-server postgresql-contrib
 
 ## Development Team
 
-| Member Name | Plymouth Index | Leader Position | Github Profile |
-| -- | -- | -- | -- |
-| L.M. Nishshanka | | Group Leader | [@las-nish](https://www.github.com/las-nish) |
-| E.C.N. Nandasiri | | Testing Leader | [@ITxChana](https://www.github.com/ITxChana) |
-| M.P.M. Abeyrathne | | Programming Leader | [@mpmabeyrathne](https://www.github.com/mpmabeyrathne) |
-| A.B. Navodya | | Technical Leader | [@ABNavodya](https://www.github.com/ABNavodya) |
-| | | Quality Assurance Leader | |
-| E.L.P. Prasandika | | Planning Leader | [@Prasandika](https://www.github.com/Prasandika) |
+| Member Name       | Plymouth Index | Leader Position          | Github Profile                                         |
+| ----------------- | -------------- | ------------------------ | ------------------------------------------------------ |
+| L.M. Nishshanka   |                | Group Leader             | [@las-nish](https://www.github.com/las-nish)           |
+| E.C.N. Nandasiri  |                | Testing Leader           | [@ITxChana](https://www.github.com/ITxChana)           |
+| M.P.M. Abeyrathne |                | Programming Leader       | [@mpmabeyrathne](https://www.github.com/mpmabeyrathne) |
+| A.B. Navodya      |                | Technical Leader         | [@ABNavodya](https://www.github.com/ABNavodya)         |
+|                   |                | Quality Assurance Leader |                                                        |
+| E.L.P. Prasandika |                | Planning Leader          | [@Prasandika](https://www.github.com/Prasandika)       |

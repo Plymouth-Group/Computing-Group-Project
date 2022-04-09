@@ -1,0 +1,78 @@
+<!-- Editor Page
+	--
+	-- Developed by Chanaka Nandasiri
+	-->
+
+{{template "head.html" .}}
+
+{{template "navbar.html" .}}
+
+<div class="grid">
+    <div class="column-3">
+        {{template "panel_team.html" .}}
+    </div>
+
+    <div class="column-6">
+        <div class="editor-panel">
+
+            <div class="tab-btn-group">
+                <button id="editor-btn-html" class="tab-select" onclick="editor_show_html()">
+                    HTML
+                    <span class="icon">
+                        <i class="fa-brands fa-html5"></i>
+                    </span>
+                </button>
+                <button id="editor-btn-js" class="tab-select" onclick="editor_show_js()">
+                    JS
+                    <span class="icon">
+                        <i class="fa-brands fa-js-square"></i>
+                    </span>
+                </button>
+                <button id="editor-btn-css" class="tab-select" onclick="editor_show_css()">
+                    CSS
+                    <span class="icon">
+                        <i class="fa-brands fa-css3-alt"></i>
+                    </span>
+                </button>
+                <button id="editor-btn-scss" class="tab-select" onclick="editor_show_scss()">
+                    SCSS
+                    <span class="icon">
+                        <i class="fa-brands fa-sass"></i>
+                    </span>
+                </button>
+            </div>
+
+            <!-- HTML Editor -->
+
+            <div id="editor-html" class="editor-page">
+                <div id="ace_editor_html" class="ace-editor"></div>
+            </div>
+
+            <!-- JS Editor -->
+
+            <div id="editor-js" class="editor-page">
+                <div id="ace_editor_js" class="ace-editor"></div>
+            </div>
+
+            <!-- CSS Editor -->
+
+            <div id="editor-css" class="editor-page">
+                <div id="ace_editor_css" class="ace-editor"></div>
+            </div>
+
+            <!-- SCSS Editor -->
+
+            <div id="editor-scss" class="editor-page">
+                <div id="ace_editor_scss" class="ace-editor"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="column-3">
+        {{template "panel_chat.html" .}}
+    </div>
+</div>
+
+{{template "footer.html" .}}
+
+{{template "bottom.html" .}}

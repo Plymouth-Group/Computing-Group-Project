@@ -1,0 +1,96 @@
+<!-- Dashboard Page
+	--
+	-- Developed by Chanaka Nandasiri
+	-->
+
+{{template "head.html" .}}
+
+{{template "navbar.html" .}}
+
+<!-- Page Body -->
+
+<div class="grid">
+    <div class="column-3">
+        {{template "panel_team.html" .}}
+    </div>
+
+    <div class="column-6">
+        <!-- Project Create and List -->
+
+        <div class="project-panal">
+            <div class="top">
+                <div class="grid">
+                    <div class="column-6">
+                        <a href="">
+                            <div class="create-project">
+                                <i class="fa-solid fa-cube"></i>
+                            </div>
+
+                            <div class="create-project-name">Create new Project</div>
+                        </a>
+                    </div>
+
+                    <div class="column-6">
+                        <div class="dashboard-details">
+                            <div class="title">Server Raid Dashboard</div>
+                            <div class="sub-title">The Dashboard for Project Raid by GULUGULU SOFT Corp.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="line"></div>
+
+            <div class="bottom">
+                <div class="grid">
+                    <div class="column-6">
+                        <div class="title">Recent Codinoc Projects</div>
+
+                        <div class="grid">
+                            <div class="column-12">
+                                <a href="#">
+                                    <div class="project-card">
+                                        <i class="fa-solid fa-bandage"></i>
+                                        <p>CSS Project</p>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="column-12">
+                                <a href="#">
+                                    <div class="project-card">
+                                        <i class="fa-solid fa-brush"></i>
+                                        <p>Java Script Project</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column-6">
+                        <div class="title" style="margin-left: 64px">
+                            Server Dashboard Wiki
+                            <span class="icon">
+                                <a href="#">
+                                    <i class="fa-solid fa-marker"></i>
+                                </a>
+                            </span>
+                        </div>
+
+                        <div class="wiki-card">
+                            This is a Sample Wiki content for Server's Dashboard
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="column-3">
+        {{template "panel_chat.html" .}}
+    </div>
+</div>
+
+{{template "footer.html" .}}
+
+{{template "bottom.html" .}}

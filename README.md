@@ -1,4 +1,3 @@
-
 # CODINOC IDE
 
 > A Simple Cloud IDE for Web Designing Tasks by GO Language
@@ -16,8 +15,9 @@
     - [Main Directory Creation](#main-directory-creation)
     - [Go Language Installation](#go-language-installation)
     - [PostgreSQL Installation](#postgresql-installation)
-    - [PostgreSQL Databases Setup](#postgresql-databases-setup)
-    - [Restore Server](#restore-server)
+      - [Download, Install and Setup PostgreSQL Server](#download-install-and-setup-postgresql-server)
+      - [Setup Software for manage Local Database](#setup-software-for-manage-local-database)
+      - [Setup Codinoc's Main Site Databases](#setup-codinocs-main-site-databases)
   - [Documentation](#documentation)
   - [License and Copyrights](#license-and-copyrights)
   - [Development Team](#development-team)
@@ -70,14 +70,17 @@ Server
 
 ### Go Language Installation
 
-1. Follow [this tutorial](https://golangdocs.com/install-go-linux) or [this tutorial](https://linuxtect.com/how-to-install-go-golang-in-linux/) to install GO Language in any linux distribution
-2. Setup GO Packages used by the project
+Follow [this tutorial](https://golangdocs.com/install-go-linux) or [this tutorial](https://linuxtect.com/how-to-install-go-golang-in-linux/) to install GO Language in any linux distribution
 
 ```sh
+# Enable go modules
+
 go env -w GO111MODULE=auto
 ```
 
-```
+```sh
+# Download required external modules
+
 go get github.com/gorilla/handlers &&
 go get github.com/gorilla/mux &&
 go get github.com/gorilla/handlers &&
@@ -86,92 +89,108 @@ go get github.com/lib/pq
 
 ### PostgreSQL Installation
 
-1. Follow [this tutorial](https://docs.fedoraproject.org/en-US/quick-docs/postgresql/) or [this tutorial](https://www.linuxshelltips.com/install-postgresql-in-fedora-linux/) to install PostgreSQL on Fedora
+#### Download, Install and Setup PostgreSQL Server
+
+Follow [this tutorial](https://docs.fedoraproject.org/en-US/quick-docs/postgresql/) or [this tutorial](https://www.linuxshelltips.com/install-postgresql-in-fedora-linux/) to install PostgreSQL on Fedora
 
 ```sh
-sudo dnf install postgresql-server
-sudo dnf install postgresql-contrib
+# Install PostgreSQL on Fedora
 
-# Initialize Data Directory for PostgreSQL
+sudo dnf install postgresql-server postgresql-contrib
+
+# Install PostgreSQL on Debian
+
+sudo apt install postgresql postgresql-contrib
+```
+
+Following steps are common to any linux distribution
+
+```sh
+# Initialize Data Directory
 
 sudo postgresql-setup --initdb --unit postgresql
+```
+
+```sh
+# Configure PostgreSQL for multi application use
+
+sudo nano /var/lib/pgsql/data/pg_hba.conf
+
+# Now, edit
+# host all all 127.0.0.1/32 ident -> host all all 127.0.0.1/32 md5
+```
+
+```sh
+# System Enable PostgreSQL Server (Only for Production Server)
+
+sudo systemctl enable postgresql
+
+# System Enable PostgreSQL Server (Only for Production Server)
+
+sudo systemctl disable postgresql
 
 # Start PostgreSQL Server
 
 sudo systemctl start postgresql
 
-# Stop PostgreSQL Server
+# Restart PostgreSQL Server
+
+sudo systemctl restart postgresql
+
+# stop PostgreSQL Server
 
 sudo systemctl stop postgresql
 ```
 
-### PostgreSQL Databases Setup
+```sh
+# Login to PostgreSQl Server
 
-> We didn't create another user and we use default PostgreSQL user role here
-
-1. Login to PostgreSQL and [change password](https://serverfault.com/questions/406606/postgres-error-message-fatal-ident-authentication-failed-for-user)
+sudo -u postgres psql
+```
 
 ```sh
-sudo su postgres
-psql
+# Change PostgreSQL default user's (postgres) password
 
-\password
+\password postgres
 
-# Then enter and re-enter new password
-
-# Restart postgresql server
-
-sudo systemctl restart postgresql
+# Set Password into '1234'
 ```
-
-_hint: use `1234` as password_
-
-2. Find [postgresql details](https://stackoverflow.com/questions/5598517/find-the-host-name-and-port-using-psql-commands)
 
 ```sh
-\conninfo
+# Create user role for our project
+
+CREATE USER admin_codinoc WITH PASSWORD '1234';
 ```
 
-The default values for local server is, `user = postgres` and `port = 5432`
+**Analyzed Details**
 
-3. [Create](https://www.tutorialspoint.com/postgresql/postgresql_create_database.htm) codinoc site's database
+| User            | Password | Host        | Port   | Details              |
+| --------------- | -------- | ----------- | ------ | -------------------- |
+| `postgres`      | `1234`   | `localhost` | `5432` | Default User         |
+| `admin_codinoc` | `1234`   | `localhost` | `5432` | Used by this Project |
 
-```sql
-CREATE DATABASE db_site;
-```
+#### Setup Software for manage Local Database
 
-4. [Upload database](https://www.a2hosting.com/kb/developer-corner/postgresql/import-and-export-a-postgresql-database) that we're created already
+In this project we use software called [DBeaver CE](https://dbeaver.io/) and follow [this link](https://www.tipsonunix.com/2022/02/install-dbeaver-ce-on-ubuntu-almalinux-fedora/) to install it on your Linux.
 
-_hint: Open terminal in the location that we're stored our database files_
+| Detail   | Value           |
+| -------- | --------------- |
+| Host     | `localhost`     |
+| Port     | `5432`          |
+| Database | `db_site`       |
+| Username | `admin_codinoc` |
+| Password | `123`           |
 
-```sql
-sudo su postgres
-psql -U postgres db_site < db_site.psql
-```
-
-5. Show uploaded Database
-
-```sql
-```
-
-**Additional Setup only for Development Server**
-
-Add these content into the `hosts` file using `sudo nano /etc/hosts`
+#### Setup Codinoc's Main Site Databases
 
 ```sh
-# Codinoc IDE
+# Login to PostgreSQL
 
-127.0.0.1:8080 codinoc.com
-```
+sudo -u postgres psql
 
-So after that, we can access to site site using `codinoc.com:8080/` in web browser
+# Create main site's database
 
-### Restore Server
-
-```sh
-# Remove PostgreSQL
-
-sudo dnf remove postgresql-server postgresql-contrib
+CREATE DATABASE db_site OWNER admin_codinoc;
 ```
 
 ## Documentation

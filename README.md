@@ -17,7 +17,7 @@
     - [PostgreSQL Installation](#postgresql-installation)
       - [Download, Install and Setup PostgreSQL Server](#download-install-and-setup-postgresql-server)
       - [Setup Software for manage Local Database](#setup-software-for-manage-local-database)
-      - [Setup Codinoc's Main Site Databases](#setup-codinocs-main-site-databases)
+      - [Setup Codinoc's Main Databases](#setup-codinocs-main-databases)
   - [Documentation](#documentation)
   - [License and Copyrights](#license-and-copyrights)
   - [Development Team](#development-team)
@@ -179,9 +179,9 @@ In this project we use software called [DBeaver CE](https://dbeaver.io/) and fol
 | Port     | `5432`          |
 | Database | `db_site`       |
 | Username | `admin_codinoc` |
-| Password | `123`           |
+| Password | `1234`          |
 
-#### Setup Codinoc's Main Site Databases
+#### Setup Codinoc's Main Databases
 
 ```sh
 # Login to PostgreSQL
@@ -192,6 +192,8 @@ sudo -u postgres psql
 
 CREATE DATABASE db_site OWNER admin_codinoc;
 ```
+
+Use DBeaver software to insert postgre sql database tables
 
 ## Documentation
 

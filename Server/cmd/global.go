@@ -37,27 +37,32 @@ const (
 var db_site *sql.DB
 var db_server *sql.DB
 
-type sign_up struct {
+type Sign_up struct {
 	server_name string
 	server_code string
 	admin_email string
 	admin_password string
 }
 
-type sign_in_admin struct {
+type Sign_in_admin struct {
 	server_code string
 	admin_email string
 	admin_password string
 }
 
-type sign_in_member struct {
+type Sign_in_member struct {
 	server_code string
 	member_uname string
 	member_password string
 }
 
-type forgot_password struct {
+type Forgot_password struct {
 	server_code string
 	admin_email string
 	new_password string
 }
+
+var glob_sign_up Sign_up
+var glob_sign_in_admin Sign_in_admin
+var glob_sign_in_member Sign_in_member
+var glob_forgot_password Forgot_password

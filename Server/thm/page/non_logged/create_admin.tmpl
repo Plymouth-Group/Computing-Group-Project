@@ -3,13 +3,13 @@
 	-- Developed by Piyumi Prasandika
 	-->
 
-{{template "head.html" .}}
+{{template "head.tmpl" .}}
 
 <body>
 
 	<div class="section-non-logged">
 		<div class="form">
-			<div class="title">Create Administrator Account for Server <span class="bold">{NAME}</span></div>
+			<div class="title">Create Administrator Account for Server <span class="bold">{{.Server_name}}</span></div>
 
 			<div class="grid grid-center item-center">
 				<div class="column-4">
@@ -61,7 +61,7 @@
 			</div>
 		</div>
 
-		{{template "footer_form.html" .}}
+		{{template "footer_form.tmpl" .}}
 	</div>
 
-	{{template "bottom.html" .}}
+	{{template "bottom.tmpl" .}}

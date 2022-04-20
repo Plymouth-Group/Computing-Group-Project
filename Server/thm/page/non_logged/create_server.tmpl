@@ -3,7 +3,7 @@
 	-- Developed by Piyumi Prasandika
 	-->
 
-{{template "head.html" .}}
+{{template "head.tmpl" .}}
 
 <body>
 
@@ -15,7 +15,7 @@
 				<div class="column-4">
 					<div class="box">
 
-						<form method="POST" action="/create_server" enctype="multipart/form-data">
+						<form method="POST" action="/create_server" enctype="application/x-www-form-urlencoded">
 							<div class="grid">
 								<div class="column-6">
 									<div class="label">Server Name</div>
@@ -33,15 +33,15 @@
 
 							<div class="line"></div>
 
-							<div class="link">Already have a Server? <a href="/account_select">Sign In</a></div>
 						</form>
+						<div class="link">Already have a Server? <a href="/account_select">Sign In</a></div>
 
 					</div>
 				</div>
 			</div>
 		</div>
 
-		{{template "footer_form.html" .}}
+		{{template "footer_form.tmpl" .}}
 	</div>
 
-	{{template "bottom.html" .}}
+	{{template "bottom.tmpl" .}}

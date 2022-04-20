@@ -1,16 +1,15 @@
-<!-- Password Reset Page
+<!-- Update Password Page
 	--
 	-- Developed by Piyumi Prasandika
 	-->
 
-{{template "head.html" .}}
+{{template "head.tmpl" .}}
 
 <body>
 
 	<div class="section-non-logged">
-
 		<div class="form">
-			<div class="title">Reset Password</div>
+			<div class="title">Create New Password for <span class="bold">sample@sample.com</span></div>
 
 			<div class="grid grid-center item-center">
 				<div class="column-4">
@@ -18,35 +17,36 @@
 						<form>
 							<div class="grid">
 								<div class="column-6">
-									<div class="label">Server Code</div>
+									<div class="label">New Password</div>
 								</div>
 								<div class="column-6">
 									<div class="label"><span class="right error">* Error Message</span></div>
 								</div>
 							</div>
 
-							<input id="input_scode" type="text" placeholder="">
+							<input id="input_psw" type="password" placeholder="">
 
 							<div class="grid">
 								<div class="column-6">
-									<div class="label">Administrator Email Address</div>
+									<div class="label">Confirm New Password</div>
 								</div>
 								<div class="column-6">
 									<div class="label"><span class="right error">* Error Message</span></div>
 								</div>
 							</div>
 
-							<input id="input_email" type="text" placeholder="">
+							<input id="input_cnfpsw" type="password" placeholder="">
 
 							<div class="grid grid-end">
-								<button>Send Instructions</button>
+								<button>Reset Password</button>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
 		</div>
-		{{template "footer_form.html" .}}
+
+		{{template "footer_form.tmpl" .}}
 	</div>
 
-	{{template "bottom.html" .}}
+	{{template "bottom.tmpl" .}}

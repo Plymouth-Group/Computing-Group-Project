@@ -79,12 +79,13 @@ go env -w GO111MODULE=auto
 ```
 
 ```sh
-# Download required external modules
+# External GO Modules
 
 go get github.com/gorilla/handlers &&
 go get github.com/gorilla/mux &&
 go get github.com/gorilla/handlers &&
-go get github.com/lib/pq
+go get github.com/lib/pq &&
+go get github.com/gorilla/schema
 ```
 
 ### PostgreSQL Installation
@@ -191,9 +192,19 @@ sudo -u postgres psql
 # Create main site's database
 
 CREATE DATABASE db_site OWNER admin_codinoc;
+
+# Delete default 'public' schema
+
+\c db_site
+DROP SCHEMA public CASCADE;
 ```
 
-Use DBeaver software to insert postgre sql database tables
+Use DBeaver software to insert PostgreSQL database tables
+
+1. Right click on database name in Database Navigator
+2. Goto `SQL Editor -> Open SQL Script`
+3. Paste PostgreSQL code
+4. Press `Execute SQL Script` button
 
 ## Documentation
 

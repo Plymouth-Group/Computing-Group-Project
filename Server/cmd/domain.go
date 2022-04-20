@@ -1,13 +1,20 @@
 // Codinoc IDE
 //
-// Domain Routing Functions
+// Project by Group 35
+// Computing Group Project
+//
+// Plymouth University UK
+// NSBM Green University LK
+//
+// Domain Routing Structure
 
-package route
+package main
 
 import (
-	"html/template"
-	"log"
+	"fmt"
 	"net/http"
+	"html/template"
+	_ "github.com/gorilla/schema"
 )
 
 // Server Section Domain Routing
@@ -16,7 +23,7 @@ func Server_404(w http.ResponseWriter, r *http.Request) {
 	parsedTemplate, err := template.ParseFiles("thm/page/server/404.html")
 
 	if err != nil {
-		log.Fatal("Unable to parse html file : ", err)
+		fmt.Println("> Unable to parse html file : ", err)
 	}
 
 	parsedTemplate.Execute(w, nil)
@@ -26,7 +33,7 @@ func Server_error(w http.ResponseWriter, r *http.Request) {
 	parsedTemplate, err := template.ParseFiles("thm/page/server/error.html")
 
 	if err != nil {
-		log.Fatal("Unable to parse html file : ", err)
+		fmt.Println("> Unable to parse html file : ", err)
 	}
 
 	parsedTemplate.Execute(w, nil)
@@ -36,7 +43,7 @@ func Server_maintenance(w http.ResponseWriter, r *http.Request) {
 	parsedTemplate, err := template.ParseFiles("thm/page/server/maintenance.html")
 
 	if err != nil {
-		log.Fatal("Unable to parse html file : ", err)
+		fmt.Println("> Unable to parse html file : ", err)
 	}
 
 	parsedTemplate.Execute(w, nil)
@@ -46,7 +53,7 @@ func Server_mobile(w http.ResponseWriter, r *http.Request) {
 	parsedTemplate, err := template.ParseFiles("thm/page/server/mobile.html")
 
 	if err != nil {
-		log.Fatal("Unable to parse html file : ", err)
+		fmt.Println("> Unable to parse html file : ", err)
 	}
 
 	parsedTemplate.Execute(w, nil)
@@ -65,7 +72,7 @@ func Non_logged_home(w http.ResponseWriter, r *http.Request) {
 		"thm/page/_part/non_logged/footer.html")
 
 	if err != nil {
-		log.Fatal("Unable to parse html file : ", err)
+		fmt.Println("> Unable to parse html file : ", err)
 	}
 
 	parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title})
@@ -82,7 +89,7 @@ func Non_logged_about(w http.ResponseWriter, r *http.Request) {
 		"thm/page/_part/non_logged/footer.html")
 
 	if err != nil {
-		log.Fatal("Unable to parse html file : ", err)
+		fmt.Println("> Unable to parse html file : ", err)
 	}
 
 	parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title})
@@ -99,7 +106,7 @@ func Non_logged_contact(w http.ResponseWriter, r *http.Request) {
 		"thm/page/_part/non_logged/footer.html")
 
 	if err != nil {
-		log.Fatal("Unable to parse html file : ", err)
+		fmt.Println("> Unable to parse html file : ", err)
 	}
 
 	parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title})
@@ -116,7 +123,7 @@ func Non_logged_legal(w http.ResponseWriter, r *http.Request) {
 		"thm/page/_part/non_logged/footer.html")
 
 	if err != nil {
-		log.Fatal("Unable to parse html file : ", err)
+		fmt.Println("> Unable to parse html file : ", err)
 	}
 
 	parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title})
@@ -133,7 +140,7 @@ func Non_logged_site_map(w http.ResponseWriter, r *http.Request) {
 		"thm/page/_part/non_logged/footer.html")
 
 	if err != nil {
-		log.Fatal("Unable to parse html file : ", err)
+		fmt.Println("> Unable to parse html file : ", err)
 	}
 
 	parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title})
@@ -149,7 +156,7 @@ func Non_logged_account_select(w http.ResponseWriter, r *http.Request) {
 		"thm/page/_part/non_logged/footer_form.html")
 
 	if err != nil {
-		log.Fatal("Unable to parse html file : ", err)
+		fmt.Println("> Unable to parse html file : ", err)
 	}
 
 	parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title})
@@ -165,7 +172,7 @@ func Non_logged_admin_signin(w http.ResponseWriter, r *http.Request) {
 		"thm/page/_part/non_logged/footer_form.html")
 
 	if err != nil {
-		log.Fatal("Unable to parse html file : ", err)
+		fmt.Println("> Unable to parse html file : ", err)
 	}
 
 	parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title})
@@ -181,26 +188,37 @@ func Non_logged_member_signin(w http.ResponseWriter, r *http.Request) {
 		"thm/page/_part/non_logged/footer_form.html")
 
 	if err != nil {
-		log.Fatal("Unable to parse html file : ", err)
+		fmt.Println("> Unable to parse html file : ", err)
 	}
 
 	parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title})
 }
 
 func Non_logged_create_server(w http.ResponseWriter, r *http.Request) {
-	var Page_Title = "Create Server"
+	if r.Method == "GET" {
+		var Page_Title = "Create Server"
 
-	parsedTemplate, err := template.ParseFiles(
-		"thm/page/non_logged/create_server.html",
-		"thm/page/_part/non_logged/head.html",
-		"thm/page/_part/non_logged/bottom.html",
-		"thm/page/_part/non_logged/footer_form.html")
+		parsedTemplate, err := template.ParseFiles(
+			"thm/page/non_logged/create_server.html",
+			"thm/page/_part/non_logged/head.html",
+			"thm/page/_part/non_logged/bottom.html",
+			"thm/page/_part/non_logged/footer_form.html")
 
-	if err != nil {
-		log.Fatal("Unable to parse html file : ", err)
+		if err != nil {
+			fmt.Println("> Unable to parse html file : ", err)
+		}
+
+		parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title})
+	} else {
+		parse_error := r.ParseForm()
+
+		if parse_error != nil {
+			fmt.Println(parse_error)
+			return
+		}
+
+		fmt.Println("Server Name:", r.Form["input_sname"])
 	}
-
-	parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title})
 }
 
 func Non_logged_create_admin(w http.ResponseWriter, r *http.Request) {
@@ -213,7 +231,7 @@ func Non_logged_create_admin(w http.ResponseWriter, r *http.Request) {
 		"thm/page/_part/non_logged/footer_form.html")
 
 	if err != nil {
-		log.Fatal("Unable to parse html file : ", err)
+		fmt.Println("> Unable to parse html file : ", err)
 	}
 
 	parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title})
@@ -229,14 +247,14 @@ func Non_logged_create_admin_success(w http.ResponseWriter, r *http.Request) {
 		"thm/page/_part/non_logged/footer_form.html")
 
 	if err != nil {
-		log.Fatal("Unable to parse html file : ", err)
+		fmt.Println("> Unable to parse html file : ", err)
 	}
 
 	parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title})
 }
 
 func Non_logged_reset_password(w http.ResponseWriter, r *http.Request) {
-	var Page_Title = "Reser Password"
+	var Page_Title = "Reset Password"
 
 	parsedTemplate, err := template.ParseFiles(
 		"thm/page/non_logged/reset_password.html",
@@ -245,7 +263,7 @@ func Non_logged_reset_password(w http.ResponseWriter, r *http.Request) {
 		"thm/page/_part/non_logged/footer_form.html")
 
 	if err != nil {
-		log.Fatal("Unable to parse html file : ", err)
+		fmt.Println("> Unable to parse html file : ", err)
 	}
 
 	parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title})
@@ -261,7 +279,7 @@ func Non_logged_reset_sent(w http.ResponseWriter, r *http.Request) {
 		"thm/page/_part/non_logged/footer_form.html")
 
 	if err != nil {
-		log.Fatal("Unable to parse html file : ", err)
+		fmt.Println("> Unable to parse html file : ", err)
 	}
 
 	parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title})
@@ -277,7 +295,7 @@ func Non_logged_reset_new(w http.ResponseWriter, r *http.Request) {
 		"thm/page/_part/non_logged/footer_form.html")
 
 	if err != nil {
-		log.Fatal("Unable to parse html file : ", err)
+		fmt.Println("> Unable to parse html file : ", err)
 	}
 
 	parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title})
@@ -293,7 +311,7 @@ func Non_logged_reset_failed(w http.ResponseWriter, r *http.Request) {
 		"thm/page/_part/non_logged/footer_form.html")
 
 	if err != nil {
-		log.Fatal("Unable to parse html file : ", err)
+		fmt.Println("> Unable to parse html file : ", err)
 	}
 
 	parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title})
@@ -309,7 +327,7 @@ func Non_logged_reset_success(w http.ResponseWriter, r *http.Request) {
 		"thm/page/_part/non_logged/footer_form.html")
 
 	if err != nil {
-		log.Fatal("Unable to parse html file : ", err)
+		fmt.Println("> Unable to parse html file : ", err)
 	}
 
 	parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title})
@@ -330,7 +348,7 @@ func Logged_dashboard(w http.ResponseWriter, r *http.Request) {
 		"thm/page/_part/logged/panel_chat.html")
 
 	if err != nil {
-		log.Fatal("Unable to parse html file : ", err)
+		fmt.Println("> Unable to parse html file : ", err)
 	}
 
 	parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title})
@@ -349,7 +367,7 @@ func Logged_editor(w http.ResponseWriter, r *http.Request) {
 		"thm/page/_part/logged/panel_chat.html")
 
 	if err != nil {
-		log.Fatal("Unable to parse html file : ", err)
+		fmt.Println("> Unable to parse html file : ", err)
 	}
 
 	parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title})

@@ -3,19 +3,10 @@
 	-- Developed by Piyumi Prasandika
 	-->
 
-<html>
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport"
-				content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Create Server</title>
-	<link rel="stylesheet" href="../../css/theme.css">
-	<script src="../../js/theme.js"></script>
-</head>
+{{template "head.html" .}}
+
 <body>
 
-<div class="section-non-logged">
 	<div class="section-non-logged">
 		<div class="form">
 			<div class="title">Create a Fresh Codinoc Server</div>
@@ -23,7 +14,8 @@
 			<div class="grid grid-center item-center">
 				<div class="column-4">
 					<div class="box">
-						<form>
+
+						<form method="POST" action="/create_server" enctype="multipart/form-data">
 							<div class="grid">
 								<div class="column-6">
 									<div class="label">Server Name</div>
@@ -33,26 +25,23 @@
 								</div>
 							</div>
 
-							<input id="input_sname" type="text" placeholder="">
+							<input name="input_sname" type="text">
 
 							<div class="grid grid-end">
-								<button>Next</button>
+								<button type="submit">Next</button>
 							</div>
 
 							<div class="line"></div>
 
-							<div class="link">Already have a Server? <a href="#">Sign In</a></div>
+							<div class="link">Already have a Server? <a href="/account_select">Sign In</a></div>
 						</form>
+
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="footer">
-			Made with 💜 by NSBM, Plymouth CSe Batch 09 Group 35
-		</div>
+		{{template "footer_form.html" .}}
 	</div>
-</div>
 
-</body>
-</html>
+	{{template "bottom.html" .}}

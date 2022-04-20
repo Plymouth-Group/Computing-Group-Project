@@ -3,76 +3,65 @@
 	-- Developed by Piyumi Prasandika
 	-->
 
-<html>
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport"
-				content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Member Sign In</title>
-	<link rel="stylesheet" href="../../css/theme.css">
-	<script src="../../js/theme.js"></script>
-</head>
+{{template "head.html" .}}
+
 <body>
 
-<div class="section-non-logged">
-	<div class="form">
-		<div class="title">Sign into Server as a Member</div>
+	<div class="section-non-logged">
+		<div class="form">
+			<div class="title">Sign into Server as a Member</div>
 
-		<div class="grid grid-center item-center">
-			<div class="column-4">
-				<div class="box">
-					<form>
-						<div class="grid">
-							<div class="column-6">
-								<div class="label">Server Code</div>
+			<div class="grid grid-center item-center">
+				<div class="column-4">
+					<div class="box">
+						<form>
+							<div class="grid">
+								<div class="column-6">
+									<div class="label">Server Code</div>
+								</div>
+								<div class="column-6">
+									<div class="label"><span class="right error">* Error Message</span></div>
+								</div>
 							</div>
-							<div class="column-6">
-								<div class="label"><span class="right error">* Error Message</span></div>
+
+							<input id="input_scode" type="text" placeholder="">
+
+							<div class="grid">
+								<div class="column-6">
+									<div class="label">User Name</div>
+								</div>
+								<div class="column-6">
+									<div class="label"><span class="right error">* Error Message</span></div>
+								</div>
 							</div>
-						</div>
 
-						<input id="input_scode" type="text" placeholder="">
+							<input id="input_uname" type="text" placeholder="">
 
-						<div class="grid">
-							<div class="column-6">
-								<div class="label">User Name</div>
+							<div class="grid">
+								<div class="column-6">
+									<div class="label">Password</div>
+								</div>
+								<div class="column-6">
+									<div class="label"><span class="right error">* Error Message</span></div>
+								</div>
 							</div>
-							<div class="column-6">
-								<div class="label"><span class="right error">* Error Message</span></div>
+
+							<input id="input_psw" type="password" placeholder="">
+
+							<div class="grid grid-end">
+								<button>Sign In</button>
 							</div>
-						</div>
 
-						<input id="input_uname" type="text" placeholder="">
+							<div class="line"></div>
 
-						<div class="grid">
-							<div class="column-6">
-								<div class="label">Password</div>
-							</div>
-							<div class="column-6">
-								<div class="label"><span class="right error">* Error Message</span></div>
-							</div>
-						</div>
-
-						<input id="input_psw" type="password" placeholder="">
-
-						<div class="grid grid-end">
-							<button>Sign In</button>
-						</div>
-
-						<div class="line"></div>
-
-						<div class="link">Don't have a Server? <a href="#">Create a New Server</a></div>
-					</form>
+							<div class="link">Don't have a Server? <a href="/create_server">Create a New Server</a></div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
+
+		{{template "footer_form.html" .}}
 	</div>
 
-	<div class="footer">
-		Made with 💜 by NSBM, Plymouth CSe Batch 09 Group 35
-	</div>
-</div>
-
-</body>
-</html>
+	{{template "bottom.html" .}}

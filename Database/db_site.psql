@@ -79,7 +79,7 @@ CREATE TABLE schema_server.tb_info (
 
 CREATE TABLE schema_server.tb_server (
 	data_id BIGSERIAL PRIMARY KEY,
-	server_code INT NOT NULL UNIQUE,
+	server_code VARCHAR(256) NOT NULL UNIQUE,
 	server_name VARCHAR(256) NOT NULL
 );
 

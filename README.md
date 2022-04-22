@@ -85,7 +85,10 @@ go get github.com/gorilla/handlers &&
 go get github.com/gorilla/mux &&
 go get github.com/gorilla/handlers &&
 go get github.com/lib/pq &&
-go get github.com/gorilla/schema
+go get github.com/gorilla/schema &&
+go get github.com/prastuvwxyz/argon2 &&
+go get golang.org/x/crypto/bcrypt &&
+go get github.com/mailjet/mailjet-apiv3-go
 ```
 
 ### PostgreSQL Installation
@@ -196,6 +199,12 @@ CREATE DATABASE db_site OWNER admin_codinoc;
 # Delete default 'public' schema
 
 \c db_site
+DROP SCHEMA public CASCADE;
+
+# Create Server Template Database
+
+CREATE DATABASE db_server OWNER admin_codinoc;
+\c db_server
 DROP SCHEMA public CASCADE;
 ```
 

@@ -112,13 +112,13 @@
 			</div>
 
 			<div class="message">
-				<p>Congratulations! Your server <span class="bold">{NAME}</span> has been created</p>
+				<p>Congratulations! Your server <span class="bold">{{.Server_Name}}</span> has been created</p>
 
 				<div class="grid grid-center">
 					<div class="column-4">
 						<div class="box">
 							<div class="note">
-								Your server's Code is <span class="red">200000116</span>
+								Your server's Code is <span class="red">{{.Server_Code}}</span>
 							</div>
 
 							<div class="sub-note">
@@ -130,7 +130,7 @@
 				</div>
 
 				<div class="line"></div>
-				<p><a>&hookrightarrow; Please Sign In</a></p>
+				<p><a href="/admin_signin">&hookrightarrow; Please Sign In</a></p>
 			</div>
 		</div>
 

@@ -23,21 +23,24 @@ func site_db_connect() {
 	psql_site_db_info := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 	DB_SITE_HOST, DB_SITE_PORT, DB_SITE_USER, DB_SITE_PASSWORD, DB_SITE_NAME)
 
-	db_site, db_site_error := sql.Open("postgres", psql_site_db_info)
+	// Info
+	// https://stackoverflow.com/questions/26125143/invalid-memory-address-error-when-running-postgres-queries
 
-	if db_site_error != nil {
-		panic(db_site_error)
-		return
-	}
+	db_site, _ = sql.Open("postgres", psql_site_db_info)
 
-	defer db_site.Close()
+	// if db_site_error != nil {
+	// 	panic(db_site_error)
+	// 	return
+	// }
 
-	db_site_error = db_site.Ping()
+	// defer db_site.Close()
 
-	if db_site_error != nil {
-		panic(db_site_error)
-		return
-	}
+	// db_site_error = db_site.Ping()
+
+	// if db_site_error != nil {
+	// 	panic(db_site_error)
+	// 	return
+	// }
 
 	fmt.Println("> Site Database \"" + DB_SITE_NAME + "\" Connected")
 }

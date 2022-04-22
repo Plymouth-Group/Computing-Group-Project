@@ -42,6 +42,8 @@ type Sign_up struct {
 	server_code string
 	admin_email string
 	admin_password string
+
+	is_account_created bool
 }
 
 type Sign_in_admin struct {
@@ -60,6 +62,8 @@ type Forgot_password struct {
 	server_code string
 	admin_email string
 	new_password string
+
+	is_password_reset_available bool
 }
 
 var glob_sign_up Sign_up

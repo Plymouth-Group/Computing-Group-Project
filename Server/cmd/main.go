@@ -21,6 +21,9 @@ import (
 )
 
 func main() {
+	glob_sign_up.is_account_created = false
+	glob_forgot_password.is_password_reset_available = false
+
 	// Main Database Connection
 
 	site_db_connect()
@@ -48,7 +51,7 @@ func main() {
 	router.HandleFunc("/member_signin", Non_logged_member_signin).Methods("GET", "POST")
 
 	router.HandleFunc("/create_server", Non_logged_create_server).Methods("GET", "POST")
-	router.HandleFunc("/create_admin/{server_name}", Non_logged_create_admin).Methods("GET", "POST")
+	router.HandleFunc("/create_admin", Non_logged_create_admin).Methods("GET", "POST")
 	router.HandleFunc("/create_admin_success", Non_logged_create_admin_success).Methods("GET", "POST")
 
 	router.HandleFunc("/reset_password", Non_logged_reset_password).Methods("GET", "POST")

@@ -14,7 +14,7 @@ import (
 	"fmt"
 	"net/http"
 	"html/template"
-	"github.com/gorilla/mux"
+	"strings"
 )
 
 // Server Section Domain Routing
@@ -218,14 +218,18 @@ func Non_logged_create_server(w http.ResponseWriter, r *http.Request) {
 		}
 
 		glob_sign_up.server_name = r.FormValue("input_sname")
-		http.Redirect(w, r, fmt.Sprintf("/create_admin/%s", glob_sign_up.server_name), 302)
+		http.Redirect(w, r, fmt.Sprintf("/create_admin?server_name=%s", glob_sign_up.server_name), 302)
 	}
 }
 
 func Non_logged_create_admin(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
-		vars := mux.Vars(r)
-		server_name := vars["server_name"]
+		server_name := r.URL.Query().Get("server_name")
+
+		if server_name == "" {
+			http.Redirect(w, r, fmt.Sprintf("/404"), 302)
+			return
+		}
 
 		var Page_Title = "Create Server Administrator"
 
@@ -241,11 +245,30 @@ func Non_logged_create_admin(w http.ResponseWriter, r *http.Request) {
 
 		parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title, "Server_name": server_name})
 	} else {
-		// TODO
+		parse_error := r.ParseForm()
+
+		if parse_error != nil {
+			fmt.Println(parse_error)
+			return
+		}
+
+		glob_sign_up.admin_email = r.FormValue("admin_email")
+
+		// Password hashing
+
+		glob_sign_up.admin_password = Hash_Password(r.FormValue("admin_password"))
+
+		glob_sign_up.is_account_created = true
+		http.Redirect(w, r, fmt.Sprintf("/create_admin_success"), 302)
 	}
 }
 
 func Non_logged_create_admin_success(w http.ResponseWriter, r *http.Request) {
+	if glob_sign_up.is_account_created == false {
+		http.Redirect(w, r, fmt.Sprintf("/404"), 302)
+		return
+	}
+
 	var Page_Title = "Congratulations"
 
 	parsedTemplate, err := template.ParseFiles(
@@ -258,26 +281,57 @@ func Non_logged_create_admin_success(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("> Unable to parse html file : ", err)
 	}
 
-	parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title})
+	var Server_Name = glob_sign_up.server_name
+	var Server_Code = strings.ToLower(Create_ServerCode(Server_Name))
+
+	parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title, "Server_Name": Server_Name, "Server_Code": Server_Code})
+
+	glob_sign_up.server_code = Server_Code
+	Create_Server(glob_sign_up.server_name,glob_sign_up.server_code,glob_sign_up.admin_email,glob_sign_up.admin_password)
+
+	// TODO Send Congratulation email
+	// main_server_created(glob_sign_up.admin_email, glob_sign_up.server_name)
+
+	glob_sign_up.is_account_created = false
 }
 
 func Non_logged_reset_password(w http.ResponseWriter, r *http.Request) {
-	var Page_Title = "Reset Password"
+	if r.Method == "GET" {
+		var Page_Title = "Reset Password"
 
-	parsedTemplate, err := template.ParseFiles(
-		"thm/page/non_logged/reset_password.tmpl",
-		"thm/page/_part/non_logged/head.tmpl",
-		"thm/page/_part/non_logged/bottom.tmpl",
-		"thm/page/_part/non_logged/footer_form.tmpl")
+		parsedTemplate, err := template.ParseFiles(
+			"thm/page/non_logged/reset_password.tmpl",
+			"thm/page/_part/non_logged/head.tmpl",
+			"thm/page/_part/non_logged/bottom.tmpl",
+			"thm/page/_part/non_logged/footer_form.tmpl")
 
-	if err != nil {
-		fmt.Println("> Unable to parse html file : ", err)
+		if err != nil {
+			fmt.Println("> Unable to parse html file : ", err)
+		}
+
+		parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title})
+	} else {
+		parse_error := r.ParseForm()
+
+		if parse_error != nil {
+			fmt.Println(parse_error)
+			return
+		}
+
+		glob_forgot_password.server_code = strings.ToLower(Create_ServerCode(r.FormValue("input_scode")))
+		glob_forgot_password.admin_email = r.FormValue("input_email")
+
+		glob_forgot_password.is_password_reset_available = true
+		http.Redirect(w, r, fmt.Sprintf("/reset_sent?server_email=%s", glob_forgot_password.admin_email), 302)
 	}
-
-	parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title})
 }
 
 func Non_logged_reset_sent(w http.ResponseWriter, r *http.Request) {
+	if glob_forgot_password.is_password_reset_available == false {
+		http.Redirect(w, r, fmt.Sprintf("/404"), 302)
+		return
+	}
+
 	var Page_Title = "Check your Email"
 
 	parsedTemplate, err := template.ParseFiles(
@@ -290,23 +344,57 @@ func Non_logged_reset_sent(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("> Unable to parse html file : ", err)
 	}
 
-	parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title})
+	parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title, "ServerName": glob_forgot_password.server_code, "Email_Sent": glob_forgot_password.admin_email})
+
+	// TODO send password reset instructions
+	// password_reset_instruction_sent(glob_forgot_password.server_code, glob_forgot_password.admin_email)
+
+	glob_forgot_password.is_password_reset_available = false
 }
 
 func Non_logged_reset_new(w http.ResponseWriter, r *http.Request) {
-	var Page_Title = "Set New Password"
+	server_code := r.URL.Query().Get("scode")
+	server_email := r.URL.Query().Get("semail")
 
-	parsedTemplate, err := template.ParseFiles(
-		"thm/page/non_logged/reset_new.tmpl",
-		"thm/page/_part/non_logged/head.tmpl",
-		"thm/page/_part/non_logged/bottom.tmpl",
-		"thm/page/_part/non_logged/footer_form.tmpl")
 
-	if err != nil {
-		fmt.Println("> Unable to parse html file : ", err)
+
+	if r.Method == "GET" {
+		var Page_Title = "Set New Password"
+
+		if server_code == "" {
+			http.Redirect(w, r, fmt.Sprintf("/reset_failed"), 302)
+			return
+		}
+
+		if server_email == "" {
+			http.Redirect(w, r, fmt.Sprintf("/reset_failed"), 302)
+			return
+		}
+
+		parsedTemplate, err := template.ParseFiles(
+			"thm/page/non_logged/reset_new.tmpl",
+			"thm/page/_part/non_logged/head.tmpl",
+			"thm/page/_part/non_logged/bottom.tmpl",
+			"thm/page/_part/non_logged/footer_form.tmpl")
+
+		if err != nil {
+			fmt.Println("> Unable to parse html file : ", err)
+		}
+
+		parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title, "ServerEmail": server_email, "ServerCode": server_code})
+	} else {
+		parse_error := r.ParseForm()
+
+		if parse_error != nil {
+			fmt.Println(parse_error)
+			return
+		}
+
+		glob_forgot_password.new_password = Hash_Password(r.FormValue("input_psw"))
+		Reset_password(glob_forgot_password.server_code, glob_forgot_password.admin_email, glob_forgot_password.new_password)
+
+		http.Redirect(w, r, fmt.Sprintf("/reset_success"), 302)
 	}
-
-	parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title})
 }
 
 func Non_logged_reset_failed(w http.ResponseWriter, r *http.Request) {

@@ -21,20 +21,21 @@
 									<div class="label">Server Name</div>
 								</div>
 								<div class="column-6">
-									<div class="label"><span class="right error">* Error Message</span></div>
+									<div class="label"><span id="sname_error_label" class="right error">* Error Message</span>
+									</div>
 								</div>
 							</div>
 
-							<input name="input_sname" type="text">
+							<input name="input_sname" id="input_sname" type="text" autocomplete="off">
 
 							<div class="grid grid-end">
-								<button type="submit">Next</button>
+								<button id="submit-btn" type="submit">Next</button>
 							</div>
 
 							<div class="line"></div>
 
+							<div class="link">Already have a Server? <a href="/account_select">Sign In</a></div>
 						</form>
-						<div class="link">Already have a Server? <a href="/account_select">Sign In</a></div>
 
 					</div>
 				</div>
@@ -43,5 +44,8 @@
 
 		{{template "footer_form.tmpl" .}}
 	</div>
+
+	<script type="text/javascript">
+	</script>
 
 	{{template "bottom.tmpl" .}}

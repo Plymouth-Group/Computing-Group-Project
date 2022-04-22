@@ -58,7 +58,7 @@ CREATE TABLE schema_site.tb_main (
 );
 
 -- ++ ------------------------------------------------- ++ --
--- ++ Users                                             ++ --
+-- ++ Server / Users                                    ++ --
 -- ++ ------------------------------------------------- ++ --
 
 CREATE TABLE schema_server.tb_tenant (
@@ -71,7 +71,6 @@ CREATE TABLE schema_server.tb_info (
 	first_name VARCHAR(256) NOT NULL,
 	middle_name VARCHAR(256),
 	last_name VARCHAR(256),
-	date_of_birth DATE NOT NULL,
 	gender VARCHAR(8) NOT NULL,
 	mobile_number VARCHAR(32) NOT NULL,
 	home_address VARCHAR(2048) NOT NULL
@@ -85,8 +84,7 @@ CREATE TABLE schema_server.tb_server (
 
 CREATE TABLE schema_server.tb_security (
 	data_id BIGSERIAL PRIMARY KEY,
-	admin_email VARCHAR(2048) NOT NULL,
-	admin_user_name VARCHAR(64) NOT NULL
+	admin_email VARCHAR(2048) NOT NULL
 );
 
 CREATE TABLE schema_server.tb_password (

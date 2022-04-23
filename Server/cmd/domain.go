@@ -147,6 +147,12 @@ func Non_logged_site_map(w http.ResponseWriter, r *http.Request) {
 }
 
 func Non_logged_account_select(w http.ResponseWriter, r *http.Request) {
+	// redirect to dashboard if user is already logged
+
+	if glob_sign_in.is_logged == true {
+		http.Redirect(w, r, fmt.Sprintf("/dashboard"), 302)
+	}
+
 	var Page_Title = "Select account for Sign In"
 
 	parsedTemplate, err := template.ParseFiles(
@@ -163,22 +169,68 @@ func Non_logged_account_select(w http.ResponseWriter, r *http.Request) {
 }
 
 func Non_logged_admin_signin(w http.ResponseWriter, r *http.Request) {
-	var Page_Title = "Sign in As Administrator"
+	// redirect to dashboard if user is already logged
 
-	parsedTemplate, err := template.ParseFiles(
-		"thm/page/non_logged/signin_admin.tmpl",
-		"thm/page/_part/non_logged/head.tmpl",
-		"thm/page/_part/non_logged/bottom.tmpl",
-		"thm/page/_part/non_logged/footer_form.tmpl")
-
-	if err != nil {
-		fmt.Println("> Unable to parse html file : ", err)
+	if glob_sign_in.is_logged == true {
+		http.Redirect(w, r, fmt.Sprintf("/dashboard"), 302)
 	}
 
-	parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title})
+	if r.Method == "GET" {
+		error_server := r.URL.Query().Get("serror")
+
+		var Page_Title = "Sign in As Administrator"
+
+		parsedTemplate, err := template.ParseFiles(
+			"thm/page/non_logged/signin_admin.tmpl",
+			"thm/page/_part/non_logged/head.tmpl",
+			"thm/page/_part/non_logged/bottom.tmpl",
+			"thm/page/_part/non_logged/footer_form.tmpl")
+
+		if err != nil {
+			fmt.Println("> Unable to parse html file : ", err)
+		}
+
+		parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title, "Error_Server": error_server})
+	} else {
+		parse_error := r.ParseForm()
+
+		if parse_error != nil {
+			fmt.Println(parse_error)
+			return
+		}
+
+		server_code := r.FormValue("input_scode")
+		admin_email := r.FormValue("input_email")
+		admin_password := r.FormValue("input_psw")
+
+		if Signin_admin_check(server_code, admin_email, admin_password) == false {
+			http.Redirect(w, r, fmt.Sprintf("/admin_signin?serror=%s", "Check Login Details Again"), 302)
+			return
+		}
+
+		// Store session
+
+		// sign_in_session, _ := sign_in_store.Get(r, "login_session")
+		// sign_in_session.Values["email"] = admin_email
+		// sign_in_session.Values["password"] = admin_password
+		// sign_in_session.Save(r, w)
+
+		// Connect server database
+
+		server_db_connect(fmt.Sprintf("db_%s", server_code))
+
+		glob_sign_in.is_logged = true
+		http.Redirect(w, r, fmt.Sprintf("/dashboard"), 302)
+	}
 }
 
 func Non_logged_member_signin(w http.ResponseWriter, r *http.Request) {
+	// redirect to dashboard if user is already logged
+
+	if glob_sign_in.is_logged == true {
+		http.Redirect(w, r, fmt.Sprintf("/dashboard"), 302)
+	}
+
 	var Page_Title = "Sign in As Member"
 
 	parsedTemplate, err := template.ParseFiles(
@@ -195,6 +247,12 @@ func Non_logged_member_signin(w http.ResponseWriter, r *http.Request) {
 }
 
 func Non_logged_create_server(w http.ResponseWriter, r *http.Request) {
+	// redirect to dashboard if user is already logged
+
+	if glob_sign_in.is_logged == true {
+		http.Redirect(w, r, fmt.Sprintf("/dashboard"), 302)
+	}
+
 	if r.Method == "GET" {
 		var Page_Title = "Create Server"
 
@@ -223,6 +281,12 @@ func Non_logged_create_server(w http.ResponseWriter, r *http.Request) {
 }
 
 func Non_logged_create_admin(w http.ResponseWriter, r *http.Request) {
+	// redirect to dashboard if user is already logged
+
+	if glob_sign_in.is_logged == true {
+		http.Redirect(w, r, fmt.Sprintf("/dashboard"), 302)
+	}
+
 	if r.Method == "GET" {
 		server_name := r.URL.Query().Get("server_name")
 
@@ -264,6 +328,12 @@ func Non_logged_create_admin(w http.ResponseWriter, r *http.Request) {
 }
 
 func Non_logged_create_admin_success(w http.ResponseWriter, r *http.Request) {
+	// redirect to dashboard if user is already logged
+
+	if glob_sign_in.is_logged == true {
+		http.Redirect(w, r, fmt.Sprintf("/dashboard"), 302)
+	}
+
 	if glob_sign_up.is_account_created == false {
 		http.Redirect(w, r, fmt.Sprintf("/404"), 302)
 		return
@@ -296,6 +366,12 @@ func Non_logged_create_admin_success(w http.ResponseWriter, r *http.Request) {
 }
 
 func Non_logged_reset_password(w http.ResponseWriter, r *http.Request) {
+	// redirect to dashboard if user is already logged
+
+	if glob_sign_in.is_logged == true {
+		http.Redirect(w, r, fmt.Sprintf("/dashboard"), 302)
+	}
+
 	if r.Method == "GET" {
 		var Page_Title = "Reset Password"
 
@@ -327,6 +403,12 @@ func Non_logged_reset_password(w http.ResponseWriter, r *http.Request) {
 }
 
 func Non_logged_reset_sent(w http.ResponseWriter, r *http.Request) {
+	// redirect to dashboard if user is already logged
+
+	if glob_sign_in.is_logged == true {
+		http.Redirect(w, r, fmt.Sprintf("/dashboard"), 302)
+	}
+
 	if glob_forgot_password.is_password_reset_available == false {
 		http.Redirect(w, r, fmt.Sprintf("/404"), 302)
 		return
@@ -353,10 +435,14 @@ func Non_logged_reset_sent(w http.ResponseWriter, r *http.Request) {
 }
 
 func Non_logged_reset_new(w http.ResponseWriter, r *http.Request) {
+	// redirect to dashboard if user is already logged
+
+	if glob_sign_in.is_logged == true {
+		http.Redirect(w, r, fmt.Sprintf("/dashboard"), 302)
+	}
+
 	server_code := r.URL.Query().Get("scode")
 	server_email := r.URL.Query().Get("semail")
-
-
 
 	if r.Method == "GET" {
 		var Page_Title = "Set New Password"
@@ -398,6 +484,12 @@ func Non_logged_reset_new(w http.ResponseWriter, r *http.Request) {
 }
 
 func Non_logged_reset_failed(w http.ResponseWriter, r *http.Request) {
+	// redirect to dashboard if user is already logged
+
+	if glob_sign_in.is_logged == true {
+		http.Redirect(w, r, fmt.Sprintf("/dashboard"), 302)
+	}
+
 	var Page_Title = "Password Reset Failed"
 
 	parsedTemplate, err := template.ParseFiles(
@@ -414,6 +506,12 @@ func Non_logged_reset_failed(w http.ResponseWriter, r *http.Request) {
 }
 
 func Non_logged_reset_success(w http.ResponseWriter, r *http.Request) {
+	// redirect to dashboard if user is already logged
+
+	if glob_sign_in.is_logged == true {
+		http.Redirect(w, r, fmt.Sprintf("/dashboard"), 302)
+	}
+
 	var Page_Title = "Password Reset Success"
 
 	parsedTemplate, err := template.ParseFiles(
@@ -432,6 +530,12 @@ func Non_logged_reset_success(w http.ResponseWriter, r *http.Request) {
 // Logged Section Domain Routing
 
 func Logged_dashboard(w http.ResponseWriter, r *http.Request) {
+	// redirect to sign in selection page if user not logged in
+
+	if glob_sign_in.is_logged == false {
+		http.Redirect(w, r, fmt.Sprintf("/account_select"), 302)
+	}
+
 	var Page_Title = "Server Dashboard"
 
 	parsedTemplate, err := template.ParseFiles(
@@ -451,6 +555,12 @@ func Logged_dashboard(w http.ResponseWriter, r *http.Request) {
 }
 
 func Logged_editor(w http.ResponseWriter, r *http.Request) {
+	// redirect to sign in selection page if user not logged in
+
+	if glob_sign_in.is_logged == false {
+		http.Redirect(w, r, fmt.Sprintf("/account_select"), 302)
+	}
+
 	var Page_Title = "Codinoc Editor"
 
 	parsedTemplate, err := template.ParseFiles(

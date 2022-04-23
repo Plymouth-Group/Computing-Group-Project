@@ -48,24 +48,24 @@ func site_db_connect() {
 // Server Database Connect
 
 func server_db_connect(DB_SERVER_NAME string) {
-	psql_site_db_info := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+	psql_server_db_info := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 	DB_SERVER_HOST, DB_SERVER_PORT, DB_SERVER_USER, DB_SERVER_PASSWORD, DB_SERVER_NAME)
 
-	db_site, db_site_error := sql.Open("postgres", psql_site_db_info)
+	db_server, db_server_error := sql.Open("postgres", psql_server_db_info)
 
-	if db_site_error != nil {
-		panic(db_site_error)
+	if db_server_error != nil {
+		panic(db_server_error)
 		return
 	}
 
-	defer db_site.Close()
+	defer db_server.Close()
 
-	db_site_error = db_site.Ping()
+	db_server_error = db_server.Ping()
 
-	if db_site_error != nil {
-		panic(db_site_error)
+	if db_server_error != nil {
+		panic(db_server_error)
 		return
 	}
 
-	fmt.Println("> User / Server Database \"" + DB_SERVER_NAME + "\" Connected")
+	fmt.Println("> User / Server Database \"" + DB_SERVER_NAME + "\" has been Connected")
 }

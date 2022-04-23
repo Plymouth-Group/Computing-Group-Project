@@ -12,6 +12,8 @@ package main
 
 import (
 	"database/sql"
+	"github.com/gorilla/securecookie"
+	_ "github.com/gorilla/sessions"
 )
 
 const (
@@ -46,16 +48,16 @@ type Sign_up struct {
 	is_account_created bool
 }
 
-type Sign_in_admin struct {
+type Sign_in struct {
 	server_code string
+
 	admin_email string
 	admin_password string
-}
 
-type Sign_in_member struct {
-	server_code string
 	member_uname string
 	member_password string
+
+	is_logged bool
 }
 
 type Forgot_password struct {
@@ -67,6 +69,11 @@ type Forgot_password struct {
 }
 
 var glob_sign_up Sign_up
-var glob_sign_in_admin Sign_in_admin
-var glob_sign_in_member Sign_in_member
+var glob_sign_in Sign_in
 var glob_forgot_password Forgot_password
+
+// var sign_in_store = sessions.NewCookieStore([byte]("login_session"))
+
+var cookieHandler = securecookie.New(
+	securecookie.GenerateRandomKey(64),
+	securecookie.GenerateRandomKey(32))

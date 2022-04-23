@@ -46,7 +46,7 @@ func main() {
 	router.HandleFunc("/legal", Non_logged_legal).Methods("GET")
 	router.HandleFunc("/site_map", Non_logged_site_map).Methods("GET")
 
-	router.HandleFunc("/account_select", Non_logged_account_select).Methods("GET", "POST")
+	router.HandleFunc("/account_select", Non_logged_account_select).Methods("GET")
 	router.HandleFunc("/admin_signin", Non_logged_admin_signin).Methods("GET", "POST")
 	router.HandleFunc("/member_signin", Non_logged_member_signin).Methods("GET", "POST")
 

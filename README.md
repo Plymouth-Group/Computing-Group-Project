@@ -88,7 +88,10 @@ go get github.com/lib/pq &&
 go get github.com/gorilla/schema &&
 go get github.com/prastuvwxyz/argon2 &&
 go get golang.org/x/crypto/bcrypt &&
-go get github.com/mailjet/mailjet-apiv3-go
+go get github.com/mailjet/mailjet-apiv3-go &&
+go get github.com/gorilla/securecookie &&
+go get github.com/gorilla/sessions &&
+go get github.com/gorilla/securecookie
 ```
 
 ### PostgreSQL Installation

@@ -24,6 +24,20 @@ func Create_ServerCode(cur_code string) string {
 	return updated_code
 }
 
+// Check server is already available
+
+func Check_Server(server_code string) bool {
+	var query_get_scode = fmt.Sprintf("SELECT data_id FROM schema_server.tb_server WHERE server_code='%s';", server_code)
+	row_get_scode, err_row_get_scode := db_site.Query(query_get_scode)
+	CheckError(err_row_get_scode)
+
+	if row_get_scode.Next() != true {
+		return true
+	}
+
+	return false
+}
+
 // Create new server account
 
 func Create_Server(server_name string, server_code string, admin_email string, admin_password string) {

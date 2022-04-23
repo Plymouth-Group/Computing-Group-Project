@@ -254,6 +254,8 @@ func Non_logged_create_server(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if r.Method == "GET" {
+		error_server := r.URL.Query().Get("serror")
+
 		var Page_Title = "Create Server"
 
 		parsedTemplate, err := template.ParseFiles(
@@ -266,7 +268,7 @@ func Non_logged_create_server(w http.ResponseWriter, r *http.Request) {
 			fmt.Println("> Unable to parse html file : ", err)
 		}
 
-		parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title})
+		parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title, "Server_Error": error_server})
 	} else {
 		parse_error := r.ParseForm()
 
@@ -276,6 +278,16 @@ func Non_logged_create_server(w http.ResponseWriter, r *http.Request) {
 		}
 
 		glob_sign_up.server_name = r.FormValue("input_sname")
+
+		// Check server is already available or not
+
+		var Server_Code = strings.ToLower(Create_ServerCode(glob_sign_up.server_name))
+
+		if Check_Server(Server_Code) == false {
+			http.Redirect(w, r, fmt.Sprintf("/create_server?serror=%s", "Server Already Available"), 302)
+			return
+		}
+
 		http.Redirect(w, r, fmt.Sprintf("/create_admin?server_name=%s", glob_sign_up.server_name), 302)
 	}
 }
@@ -373,6 +385,9 @@ func Non_logged_reset_password(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if r.Method == "GET" {
+		error_server := r.URL.Query().Get("serror")
+		error_email := r.URL.Query().Get("merror")
+
 		var Page_Title = "Reset Password"
 
 		parsedTemplate, err := template.ParseFiles(
@@ -385,7 +400,7 @@ func Non_logged_reset_password(w http.ResponseWriter, r *http.Request) {
 			fmt.Println("> Unable to parse html file : ", err)
 		}
 
-		parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title})
+		parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title, "ServerError": error_server, "EmailError": error_email})
 	} else {
 		parse_error := r.ParseForm()
 
@@ -396,6 +411,11 @@ func Non_logged_reset_password(w http.ResponseWriter, r *http.Request) {
 
 		glob_forgot_password.server_code = strings.ToLower(Create_ServerCode(r.FormValue("input_scode")))
 		glob_forgot_password.admin_email = r.FormValue("input_email")
+
+		if CheckServerfor_PasswordReset(glob_forgot_password.server_code) == false {
+			http.Redirect(w, r, fmt.Sprintf("/reset_password?serror=%s", "No Server Found"), 302)
+			return
+		}
 
 		glob_forgot_password.is_password_reset_available = true
 		http.Redirect(w, r, fmt.Sprintf("/reset_sent?server_email=%s", glob_forgot_password.admin_email), 302)

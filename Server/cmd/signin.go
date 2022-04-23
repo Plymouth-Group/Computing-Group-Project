@@ -12,15 +12,16 @@ package main
 
 import (
 	"fmt"
-	"github.com/gorilla/mux"
-	"github.com/gorilla/securecookie"
+	"net/http"
+	_ "github.com/gorilla/mux"
+	_ "github.com/gorilla/securecookie"
 )
 
 // user sign in
 
 func Session_SignIn(email_address string, response http.ResponseWriter) {
 	value := map[string]string {
-		"username": userName,
+		"username": email_address,
 	}
 
 	encoded, err := cookieHandler.Encode("session", value)

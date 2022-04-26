@@ -268,3 +268,35 @@
   margin-bottom: 40px;
   border: 1px solid #EAEAEA;
 }
+
+/* ------------------------------------------------- */
+/* ------------------------------------------------- */
+/* ------------------------------------------------- */
+
+/* Version controlling modals */
+
+.editor-custom .file-name {
+  margin-top: 32px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #555555;
+}
+
+.editor-custom .version-button {
+  margin-bottom: 16px;
+
+  float: right;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 8px 32px;
+  border: 1px solid #FAFAFA;
+  border-radius: 5px;
+  background-color: #FAFAFA;
+  color: #252525;
+}
+
+.editor-custom .version-button:hover {
+  cursor: pointer;
+  background-color: #EAEAEA;
+}

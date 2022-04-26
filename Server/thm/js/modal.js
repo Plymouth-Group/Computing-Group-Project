@@ -67,3 +67,59 @@ btn_server_team.onclick = function () {
 span_server_team.onclick = function () {
   modal_server_team.style.display = "none";
 }
+
+// HTML FIle History Modals
+
+var modal_version_html = document.getElementById("modal-version-html");
+var btn_version_html = document.getElementById("btn-modal-version-html");
+var span_version_html = document.getElementById("modal-version-html-close");
+
+btn_version_html.onclick = function () {
+  modal_version_html.style.display = "block";
+}
+
+span_version_html.onclick = function () {
+  modal_version_html.style.display = "none";
+}
+
+// JS FIle History Modals
+
+var modal_version_js = document.getElementById("modal-version-js");
+var btn_version_js = document.getElementById("btn-modal-version-js");
+var span_version_js = document.getElementById("modal-version-js-close");
+
+btn_version_js.onclick = function () {
+  modal_version_js.style.display = "block";
+}
+
+span_version_js.onclick = function () {
+  modal_version_js.style.display = "none";
+}
+
+// CSS FIle History Modals
+
+var modal_version_css = document.getElementById("modal-version-css");
+var btn_version_css = document.getElementById("btn-modal-version-css");
+var span_version_css = document.getElementById("modal-version-css-close");
+
+btn_version_css.onclick = function () {
+  modal_version_css.style.display = "block";
+}
+
+span_version_css.onclick = function () {
+  modal_version_css.style.display = "none";
+}
+
+// SCSS FIle History Modals
+
+var modal_version_scss = document.getElementById("modal-version-scss");
+var btn_version_scss = document.getElementById("btn-modal-version-scss");
+var span_version_scss = document.getElementById("modal-version-scss-close");
+
+btn_version_scss.onclick = function () {
+  modal_version_scss.style.display = "block";
+}
+
+span_version_scss.onclick = function () {
+  modal_version_scss.style.display = "none";
+}

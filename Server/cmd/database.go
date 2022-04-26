@@ -51,21 +51,21 @@ func server_db_connect(DB_SERVER_NAME string) {
 	psql_server_db_info := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 	DB_SERVER_HOST, DB_SERVER_PORT, DB_SERVER_USER, DB_SERVER_PASSWORD, DB_SERVER_NAME)
 
-	db_server, db_server_error := sql.Open("postgres", psql_server_db_info)
+	db_server, _ = sql.Open("postgres", psql_server_db_info)
 
-	if db_server_error != nil {
-		panic(db_server_error)
-		return
-	}
+	// if db_server_error != nil {
+	// 	panic(db_server_error)
+	// 	return
+	// }
 
-	defer db_server.Close()
+	// defer db_server.Close()
 
-	db_server_error = db_server.Ping()
+	// db_server_error = db_server.Ping()
 
-	if db_server_error != nil {
-		panic(db_server_error)
-		return
-	}
+	// if db_server_error != nil {
+	// 	panic(db_server_error)
+	// 	return
+	// }
 
 	fmt.Println("> User / Server Database \"" + DB_SERVER_NAME + "\" has been Connected")
 }

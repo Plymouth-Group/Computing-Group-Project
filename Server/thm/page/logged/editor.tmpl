@@ -44,25 +44,41 @@
 
             <!-- HTML Editor -->
 
-            <div id="editor-html" class="editor-page">
+            <div id="editor-html" class="editor-page editor-custom">
+                <span class="file-name">/index.html</span>
+                <a id="btn-modal-version-html" data-target="#modal-version-html" data-toggle="modal"
+                    href="#modal-version-html" class="version-button">File History</a>
+
                 <div id="ace_editor_html" class="ace-editor"></div>
             </div>
 
             <!-- JS Editor -->
 
-            <div id="editor-js" class="editor-page">
+            <div id="editor-js" class="editor-page editor-custom">
+                <span class="file-name">/source_js.js</span>
+                <a id="btn-modal-version-js" data-target="#modal-version-js" data-toggle="modal"
+                    href="#modal-version-js" class="version-button">File History</a>
+
                 <div id="ace_editor_js" class="ace-editor"></div>
             </div>
 
             <!-- CSS Editor -->
 
-            <div id="editor-css" class="editor-page">
+            <div id="editor-css" class="editor-page editor-custom">
+                <span class="file-name">/source_css.css</span>
+                <a id="btn-modal-version-css" data-target="#modal-version-css" data-toggle="modal"
+                    href="#modal-version-css" class="version-button">File History</a>
+
                 <div id="ace_editor_css" class="ace-editor"></div>
             </div>
 
             <!-- SCSS Editor -->
 
-            <div id="editor-scss" class="editor-page">
+            <div id="editor-scss" class="editor-page editor-custom">
+                <span class="file-name">/source_scss.scss</span>
+                <a id="btn-modal-version-scss" data-target="#modal-version-scss" data-toggle="modal"
+                    href="#modal-version-scss" class="version-button">File History</a>
+
                 <div id="ace_editor_scss" class="ace-editor"></div>
             </div>
         </div>
@@ -73,6 +89,106 @@
     </div>
 </div>
 
-{{template "footer.tmpl" .}}
+<div id="modal-version-html" class="codinoc-modal">
+    <div class="modal-content">
+        <span id="modal-version-html-close" class="close">&times;</span>
+        <p class="title">History for <b>HTML</b> File</p>
+        <div class="line"></div>
+
+        <div class="modal-body t-modal">
+            <table>
+                <tr>
+                    <th class="title">File Name</th>
+                    <th class="title">Date</th>
+                    <th class="title">Time</th>
+                </tr>
+
+                <tr>
+                    <th class="item">Sample File</th>
+                    <th class="item">Sample Date</th>
+                    <th class="item">Sample Time</th>
+                    <th class="item"><a href="#" target="_blank">Show File</a></th>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="modal-version-js" class="codinoc-modal">
+    <div class="modal-content">
+        <span id="modal-version-js-close" class="close">&times;</span>
+        <p class="title">History for <b>JS</b> File</p>
+        <div class="line"></div>
+
+        <div class="modal-body t-modal">
+            <table>
+                <tr>
+                    <th class="title">File Name</th>
+                    <th class="title">Date</th>
+                    <th class="title">Time</th>
+                </tr>
+
+                <tr>
+                    <th class="item">Sample File</th>
+                    <th class="item">Sample Date</th>
+                    <th class="item">Sample Time</th>
+                    <th class="item"><a href="#" target="_blank">Show File</a></th>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="modal-version-css" class="codinoc-modal">
+    <div class="modal-content">
+        <span id="modal-version-css-close" class="close">&times;</span>
+        <p class="title">History for <b>CSS</b> File</p>
+        <div class="line"></div>
+
+        <div class="modal-body t-modal">
+            <table>
+                <tr>
+                    <th class="title">File Name</th>
+                    <th class="title">Date</th>
+                    <th class="title">Time</th>
+                </tr>
+
+                <tr>
+                    <th class="item">Sample File</th>
+                    <th class="item">Sample Date</th>
+                    <th class="item">Sample Time</th>
+                    <th class="item"><a href="#" target="_blank">Show File</a></th>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="modal-version-scss" class="codinoc-modal">
+    <div class="modal-content">
+        <span id="modal-version-scss-close" class="close">&times;</span>
+        <p class="title">History for <b>SCSS</b> File</p>
+        <div class="line"></div>
+
+        <div class="modal-body t-modal">
+            <table>
+                <tr>
+                    <th class="title">File Name</th>
+                    <th class="title">Date</th>
+                    <th class="title">Time</th>
+                </tr>
+
+                <tr>
+                    <th class="item">Sample File</th>
+                    <th class="item">Sample Date</th>
+                    <th class="item">Sample Time</th>
+                    <th class="item"><a href="#" target="_blank">Show File</a></th>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- {{template "footer.tmpl" .}} -->
 
 {{template "bottom.tmpl" .}}

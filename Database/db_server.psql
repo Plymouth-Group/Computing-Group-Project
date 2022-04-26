@@ -29,7 +29,7 @@ CREATE SCHEMA schema_file;
 
 CREATE TABLE schema_server.tb_main (
 	server_id INT PRIMARY KEY,
-	server_code INT NOT NULL UNIQUE,
+	server_code VARCHAR(256) NULL UNIQUE,
 	server_name VARCHAR(256) NOT NULL,
 	dashboard_name VARCHAR(256) NOT NULL,
 	dashboard_description VARCHAR(512) NOT NULL,
@@ -47,10 +47,6 @@ CREATE TABLE schema_team.tb_main (
 	first_name VARCHAR(256) NOT NULL,
 	middle_name VARCHAR(256),
 	last_name VARCHAR(256),
-	last_logged_time TIME,
-	last_logged_date DATE,
-	last_logout_time TIME,
-	last_logout_date DATE,
 	status_current_active BOOLEAN NOT NULL
 );
 
@@ -63,9 +59,7 @@ CREATE TABLE schema_message.tb_main (
 	id_member INT NOT NULL,
 	message_content TEXT NOT NULL,
 	sent_time TIME NOT NULL,
-	sent_date DATE NOT NULL,
-	status_sent BOOLEAN NOT NULL,
-	status_deleted BOOLEAN NOT NULL
+	sent_date DATE NOT NULL
 );
 
 -- ++ ------------------------------------------------- ++ --
@@ -79,8 +73,6 @@ CREATE TABLE schema_project.tb_main (
 	project_title VARCHAR(256) NOT NULL,
 	project_description VARCHAR(512) NOT NULL,
 	project_icon VARCHAR(32) NOT NULL,
-	created_time TIME NOT NULL,
-	created_date DATE NOT NULL,
 	status_pinned BOOLEAN NOT NULL
 );
 
@@ -90,7 +82,7 @@ CREATE TABLE schema_project.tb_main (
 
 CREATE TABLE schema_file.tb_main (
 	file_id BIGSERIAL PRIMARY KEY,
-	id_project INT NOT NULL,
+	project_code VARCHAR(512) NOT NULL,
 	file_type VARCHAR(32) NOT NULL,
 	file_name VARCHAR(256) NOT NULL,
 	file_conetent TEXT,

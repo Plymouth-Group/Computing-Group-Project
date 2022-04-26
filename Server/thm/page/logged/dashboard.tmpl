@@ -33,8 +33,8 @@
 
                     <div class="column-6">
                         <div class="dashboard-details">
-                            <div class="title">Server Raid Dashboard</div>
-                            <div class="sub-title">The Dashboard for Project Raid by GULUGULU SOFT Corp.</div>
+                            <div class="title">{{.Dashboard_Name}}</div>
+                            <div class="sub-title">{{.Dashboard_Description}}</div>
                         </div>
                     </div>
                 </div>
@@ -48,23 +48,14 @@
                         <div class="title">Recent Codinoc Projects</div>
 
                         <div class="grid">
-                            <div class="column-12">
+                            <!-- TODO <div class="column-12">
                                 <a href="#">
                                     <div class="project-card">
                                         <i class="fa-solid fa-bandage"></i>
                                         <p>CSS Project</p>
                                     </div>
                                 </a>
-                            </div>
-
-                            <div class="column-12">
-                                <a href="#">
-                                    <div class="project-card">
-                                        <i class="fa-solid fa-brush"></i>
-                                        <p>Java Script Project</p>
-                                    </div>
-                                </a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
@@ -79,9 +70,7 @@
                             </span>
                         </div>
 
-                        <div class="wiki-card">
-                            This is a Sample Wiki content for Server's Dashboard
-                        </div>
+                        <div class="wiki-card">{{.Wiki_Content}}</div>
                     </div>
                 </div>
             </div>

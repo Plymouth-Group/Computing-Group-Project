@@ -161,16 +161,6 @@ CREATE TABLE schema_admin.tb_main (
 );
 
 -- ++ ------------------------------------------------- ++ --
--- ++ Category                                          ++ --
--- ++ ------------------------------------------------- ++ --
-
-CREATE TABLE schema_category.tb_template (
-	data_id SERIAL PRIMARY KEY,
-	category_code INT NOT NULL UNIQUE,
-	category_name VARCHAR(256) NOT NULL
-);
-
--- ++ ------------------------------------------------- ++ --
 -- ++ Project Template                                  ++ --
 -- ++ ------------------------------------------------- ++ --
 
@@ -203,17 +193,3 @@ CREATE TABLE schema_template.tb_main (
 	CONSTRAINT f_content FOREIGN KEY (id_content) REFERENCES schema_template.tb_content (data_id),
 	CONSTRAINT f_status FOREIGN KEY (id_status) REFERENCES schema_template.tb_status (data_id)
 );
-
--- ************************************************* --
--- **                                             ** --
--- ** INSERT DEFAULT VALUES                       ** --
--- **                                             ** --
--- ************************************************* --
-
-INSERT INTO schema_category.tb_template (category_code, category_name)
-VALUES (100, 'HTML Template'),
-			 (200, 'CSS Template'),
-			 (300, 'SCSS Template'),
-			 (400, 'SASS Template'),
-			 (500, 'LESS Template'),
-			 (600, 'Java Script Template');

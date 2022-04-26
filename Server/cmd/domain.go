@@ -571,7 +571,12 @@ func Logged_dashboard(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("> Unable to parse html file : ", err)
 	}
 
-	parsedTemplate.Execute(w, map[string]string{"Page_Title": Page_Title})
+	parsedTemplate.Execute(w, map[string]string{
+		"Page_Title": Page_Title,
+		"Server_Code": Get_ServerCode(),
+		"Dashboard_Name": Get_DashboardName(),
+		"Dashboard_Description": Get_DashboardDescription(),
+		"Wiki_Content": Get_WikiContent()})
 }
 
 func Logged_editor(w http.ResponseWriter, r *http.Request) {

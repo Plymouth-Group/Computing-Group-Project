@@ -31,10 +31,8 @@ CREATE TABLE schema_server.tb_main (
 	server_id INT PRIMARY KEY,
 	server_code INT NOT NULL UNIQUE,
 	server_name VARCHAR(256) NOT NULL,
-
 	dashboard_name VARCHAR(256) NOT NULL,
 	dashboard_description VARCHAR(512) NOT NULL,
-
 	dashboard_wiki TEXT
 );
 
@@ -44,19 +42,15 @@ CREATE TABLE schema_server.tb_main (
 
 CREATE TABLE schema_team.tb_main (
 	member_id SERIAL PRIMARY KEY,
-
 	member_user_name VARCHAR(64) NOT NULL,
 	hashed_psw VARCHAR(2048) NOT NULL,
-
 	first_name VARCHAR(256) NOT NULL,
 	middle_name VARCHAR(256),
 	last_name VARCHAR(256),
-
 	last_logged_time TIME,
 	last_logged_date DATE,
 	last_logout_time TIME,
 	last_logout_date DATE,
-
 	status_current_active BOOLEAN NOT NULL
 );
 
@@ -68,13 +62,11 @@ CREATE TABLE schema_message.tb_main (
 	message_id BIGSERIAL PRIMARY KEY,
 	id_member INT NOT NULL,
 	message_content TEXT NOT NULL,
-
 	sent_time TIME NOT NULL,
-	sent_date DATE NOT NULL
-
+	sent_date DATE NOT NULL,
 	status_sent BOOLEAN NOT NULL,
 	status_deleted BOOLEAN NOT NULL
-}
+);
 
 -- ++ ------------------------------------------------- ++ --
 -- ++ Project                                           ++ --
@@ -83,17 +75,12 @@ CREATE TABLE schema_message.tb_main (
 CREATE TABLE schema_project.tb_main (
 	project_id SERIAL PRIMARY KEY,
 	project_code VARCHAR(512) NOT NULL UNIQUE,
-
 	server_directory VARCHAR(1024) NOT NULL,
-
 	project_title VARCHAR(256) NOT NULL,
 	project_description VARCHAR(512) NOT NULL,
-
 	project_icon VARCHAR(32) NOT NULL,
-
 	created_time TIME NOT NULL,
 	created_date DATE NOT NULL,
-
 	status_pinned BOOLEAN NOT NULL
 );
 
@@ -108,6 +95,6 @@ CREATE TABLE schema_file.tb_main (
 	file_name VARCHAR(256) NOT NULL,
 	file_conetent TEXT,
 	updated_time TIME NOT NULL,
-	updated_date DATA NOT NULL,
+	updated_date DATE NOT NULL,
 	is_last_save BOOLEAN NOT NULL
 );

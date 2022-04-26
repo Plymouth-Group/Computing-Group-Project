@@ -21,6 +21,7 @@ CREATE SCHEMA schema_team;
 CREATE SCHEMA schema_editor;
 CREATE SCHEMA schema_message;
 CREATE SCHEMA schema_project;
+CREATE SCHEMA schema_file;
 
 -- ++ ------------------------------------------------- ++ --
 -- ++ Server                                            ++ --
@@ -41,151 +42,72 @@ CREATE TABLE schema_server.tb_main (
 -- ++ Team                                              ++ --
 -- ++ ------------------------------------------------- ++ --
 
-CREATE TABLE schema_team.tb_appearance (
-	data_id SERIAL PRIMARY KEY,
-	ide_theme INT NOT NULL,
-	editor_theme INT NOT NULL
-);
+CREATE TABLE schema_team.tb_main (
+	member_id SERIAL PRIMARY KEY,
 
-CREATE TABLE schema_team.tb_info (
-	data_id SERIAL PRIMARY KEY,
+	member_user_name VARCHAR(64) NOT NULL,
+	hashed_psw VARCHAR(2048) NOT NULL,
+
 	first_name VARCHAR(256) NOT NULL,
 	middle_name VARCHAR(256),
 	last_name VARCHAR(256),
-	date_of_birth DATE NOT NULL,
-	gender VARCHAR(8) NOT NULL,
-	mobile_number VARCHAR(32) NOT NULL,
-	home_address VARCHAR(2048) NOT NULL,
-);
 
-CREATE TABLE schema_team.tb_pride (
-	data_id SERIAL PRIMARY KEY,
-	is_pride BOOLEAN NOT NULL,
-	pride_type INT
-);
-
-CREATE TABLE schema_team.tb_security (
-	data_id SERIAL PRIMARY KEY,
-	member_email VARCHAR(2048) NOT NULL,
-	member_user_name VARCHAR(64) NOT NULL
-);
-
-CREATE TABLE schema_team.tb_password (
-	data_id SERIAL PRIMARY KEY,
-	hashed_psw VARCHAR(2048) NOT NULL
-);
-
-CREATE TABLE schema_team.tb_time (
-	data_id SERIAL PRIMARY KEY,
 	last_logged_time TIME,
 	last_logged_date DATE,
 	last_logout_time TIME,
-	last_logout_date DATE
-);
+	last_logout_date DATE,
 
-CREATE TABLE schema_team.tb_status (
-	data_id SERIAL PRIMARY KEY,
 	status_current_active BOOLEAN NOT NULL
-);
-
-CREATE TABLE schema_team.tb_main (
-	member_id SERIAL PRIMARY KEY,
-	id_appearance INT NOT NULL,
-	id_info INT NOT NULL,
-	id_pride INT NOT NULL,
-	id_security INT NOT NULL,
-	id_password INT NOT NULL,
-	id_time INT NOT NULL,
-	id_status INT NOT NULL,
-
-	CONSTRAINT f_appearance FOREIGN KEY (id_appearance) REFERENCES schema_team.tb_appearance (data_id),
-	CONSTRAINT f_info FOREIGN KEY (id_info) REFERENCES schema_team.tb_info (data_id),
-	CONSTRAINT f_pride FOREIGN KEY (id_pride) REFERENCES schema_team.tb_pride (data_id),
-	CONSTRAINT f_security FOREIGN KEY (id_security) REFERENCES schema_team.tb_security (data_id),
-	CONSTRAINT f_password FOREIGN KEY (id_password) REFERENCES schema_team.tb_password (data_id),
-	CONSTRAINT f_time FOREIGN KEY (id_time) REFERENCES schema_team.tb_time (data_id),
-	CONSTRAINT f_status FOREIGN KEY (id_status) REFERENCES schema_team.tb_status (data_id)
 );
 
 -- ++ ------------------------------------------------- ++ --
 -- ++ Message                                           ++ --
 -- ++ ------------------------------------------------- ++ --
 
-CREATE TABLE schema_message.tb_info (
-	data_id BIGSERIAL PRIMARY KEY,
-	id_member INT NOT NULL,
-	message_content TEXT NOT NULL
-);
-
-CREATE TABLE schema_message.tb_time (
-	data_id BIGSERIAL PRIMARY KEY,
-	sent_time TIME NOT NULL,
-	sent_date DATE NOT NULL
-);
-
-CREATE TABLE schema_message.tb_status (
-	data_id BIGSERIAL PRIMARY KEY,
-	status_sent BOOLEAN NOT NULL,
-	status_deleted BOOLEAN NOT NULL
-);
-
 CREATE TABLE schema_message.tb_main (
 	message_id BIGSERIAL PRIMARY KEY,
-	id_info BIGINT NOT NULL,
-	id_time BIGINT NOT NULL,
-	id_status BIGINT NOT NULL,
+	id_member INT NOT NULL,
+	message_content TEXT NOT NULL,
 
-	CONSTRAINT f_info FOREIGN KEY (id_info) REFERENCES schema_message.tb_info (data_id),
-	CONSTRAINT f_time FOREIGN KEY (id_time) REFERENCES schema_message.tb_time (data_id),
-	CONSTRAINT f_status FOREIGN KEY (id_status) REFERENCES schema_message.tb_status (data_id)
-);
+	sent_time TIME NOT NULL,
+	sent_date DATE NOT NULL
+
+	status_sent BOOLEAN NOT NULL,
+	status_deleted BOOLEAN NOT NULL
+}
 
 -- ++ ------------------------------------------------- ++ --
 -- ++ Project                                           ++ --
 -- ++ ------------------------------------------------- ++ --
 
-CREATE TABLE schema_project.tb_data (
-	data_id SERIAL PRIMARY KEY,
-	project_code BIGINT NOT NULL UNIQUE
-);
+CREATE TABLE schema_project.tb_main (
+	project_id SERIAL PRIMARY KEY,
+	project_code VARCHAR(512) NOT NULL UNIQUE,
 
-CREATE TABLE schema_project.tb_info (
-	data_id SERIAL PRIMARY KEY,
+	server_directory VARCHAR(1024) NOT NULL,
+
 	project_title VARCHAR(256) NOT NULL,
 	project_description VARCHAR(512) NOT NULL,
 
-	project_icon VARCHAR(32) NOT NULL
-);
+	project_icon VARCHAR(32) NOT NULL,
 
-CREATE TABLE schema_project.tb_access (
-	data_id SERIAL PRIMARY KEY,
-	server_directory VARCHAR(1024) NOT NULL
-);
-
-CREATE TABLE schema_project.tb_time (
-	data_id SERIAL PRIMARY KEY,
 	created_time TIME NOT NULL,
 	created_date DATE NOT NULL,
-	pinned_time TIME,
-	pinned_date DATE
-);
 
-CREATE TABLE schema_project.tb_status (
-	data_id SERIAL PRIMARY KEY,
 	status_pinned BOOLEAN NOT NULL
 );
 
-CREATE TABLE schema_project.tb_main (
-	project_id SERIAL PRIMARY KEY,
-	id_data INT NOT NULL,
-	id_info INT NOT NULL,
-	id_access INT NOT NULL,
-	id_time INT NOT NULL,
-	id_status INT NOT NULL,
+-- ++ ------------------------------------------------- ++ --
+-- ++ File                                              ++ --
+-- ++ ------------------------------------------------- ++ --
 
-	CONSTRAINT f_data FOREIGN KEY (id_data) REFERENCES schema_project.tb_data (data_id),
-	CONSTRAINT f_info FOREIGN KEY (id_info) REFERENCES schema_project.tb_info (data_id),
-	CONSTRAINT f_access FOREIGN KEY (id_access) REFERENCES schema_project.tb_access (data_id),
-	CONSTRAINT f_time FOREIGN KEY (id_time) REFERENCES schema_project.tb_time (data_id),
-	CONSTRAINT f_status FOREIGN KEY (id_status) REFERENCES schema_project.tb_status (data_id)
+CREATE TABLE schema_file.tb_main (
+	file_id BIGSERIAL PRIMARY KEY,
+	id_project INT NOT NULL,
+	file_type VARCHAR(32) NOT NULL,
+	file_name VARCHAR(256) NOT NULL,
+	file_conetent TEXT,
+	updated_time TIME NOT NULL,
+	updated_date DATA NOT NULL,
+	is_last_save BOOLEAN NOT NULL
 );

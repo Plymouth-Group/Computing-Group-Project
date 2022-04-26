@@ -21,7 +21,8 @@
             <div class="top">
                 <div class="grid">
                     <div class="column-6">
-                        <a href="">
+                        <a id="btn-create-new-project" data-target="#create-new-project" data-toggle="modal"
+                            href="#create-new-project">
                             <div class="create-project">
                                 <i class="fa-solid fa-cube"></i>
                             </div>
@@ -71,7 +72,8 @@
                         <div class="title" style="margin-left: 64px">
                             Server Dashboard Wiki
                             <span class="icon">
-                                <a href="#">
+                                <a id="btn-edit-dashboard-wiki" data-target="#edit-dashboard-wiki" data-toggle="modal"
+                                    href="#edit-dashboard-wiki">
                                     <i class="fa-solid fa-marker"></i>
                                 </a>
                             </span>
@@ -90,6 +92,261 @@
         {{template "panel_chat.tmpl" .}}
     </div>
 </div>
+
+<!-- Modals -->
+
+<div id="edit-dashboard-wiki" class="codinoc-modal">
+    <div class="modal-content">
+        <span id="edit-dashboard-wiki-close" class="close">&times;</span>
+        <p class="title">Edit Server Dashboard Wiki</p>
+        <div class="line"></div>
+
+        <div class="modal-body sdw-modal">
+            <form>
+                <textarea placeholder="Server Dashboard Wiki ...."></textarea>
+                <button type="submit">Update Wiki</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="create-new-project" class="codinoc-modal">
+    <div class="modal-content">
+        <span id="create-new-project-close" class="close">&times;</span>
+        <p class="title">Create new Project</p>
+        <div class="line"></div>
+
+        <div class="modal-body cnp-modal">
+            <form>
+                <div class="grid">
+                    <div class="column">
+                        <input class="project-name" placeholder="Enter project name here ..">
+                    </div>
+                    <div class="column">
+                        <select class="project-icon">
+                            <option value="0">Icon Empire<i class="fa fa-empire" aria-hidden="true"></i></option>
+                            <option value="1">Icon Gg<i class="fa fa-gg" aria-hidden="true"></i></option>
+                            <option value="2">Icon Google Wallet<i class="fa fa-google-wallet" aria-hidden="true"></i>
+                            </option>
+                            <option value="3">Icon Lastfm<i class="fa fa-lastfm" aria-hidden="true"></i></option>
+                            <option value="4">Icon Qq<i class="fa fa-qq" aria-hidden="true"></i></option>
+                            <option value="5">Icon Superpowers<i class="fa fa-superpowers" aria-hidden="true"></i>
+                            </option>
+                            <option value="6">Icon Tripadvisor<i class="fa fa-tripadvisor" aria-hidden="true"></i>
+                            </option>
+                            <option value="7">Icon Linode<i class="fa fa-linode" aria-hidden="true"></i></option>
+                            <option value="8">Icon Grav<i class="fa fa-grav" aria-hidden="true"></i></option>
+                            <option value="9">Icon Bitbucket<i class="fa fa-bitbucket" aria-hidden="true"></i></option>
+                            <option value="10">Icon Jsfiddle<i class="fa fa-jsfiddle" aria-hidden="true"></i></option>
+                        </select>
+                    </div>
+                </div>
+
+                <p class="error-message">* Error Message</p>
+
+                <button type="submit" class="project-create">Create Project</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="user-profile" class="codinoc-modal">
+    <div class="modal-content">
+        <span id="user-profile-close" class="close">&times;</span>
+        <p class="title">User Profile Settings</p>
+        <div class="line"></div>
+
+        <div class="modal-body cpp-modal">
+            <form>
+                <div class="grid bar">
+                    <div class="column-3">
+                        <div class="label">Account Type:</div>
+                    </div>
+                    <div class="column-9">
+                        <input class="text-box" disabled>
+                    </div>
+                </div>
+
+                <div class="grid bar">
+                    <div class="column-3">
+                        <div class="label">First Name:</div>
+                    </div>
+                    <div class="column-9">
+                        <input class="text-box">
+                    </div>
+                </div>
+
+                <div class="grid bar">
+                    <div class="column-3">
+                        <div class="label">Middle Name:</div>
+                    </div>
+                    <div class="column-9">
+                        <input class="text-box">
+                    </div>
+                </div>
+
+                <div class="grid bar">
+                    <div class="column-3">
+                        <div class="label">Last Name:</div>
+                    </div>
+                    <div class="column-9">
+                        <input class="text-box">
+                    </div>
+                </div>
+
+                <div class="grid bar">
+                    <div class="column-3">
+                        <div class="label">User Name:</div>
+                    </div>
+                    <div class="column-9">
+                        <input class="text-box">
+                    </div>
+                </div>
+
+                <div class="grid bar">
+                    <div class="column-3">
+                        <div class="label">Password:</div>
+                    </div>
+                    <div class="column-9">
+                        <div class="grid">
+                            <div class="column"><input class="text-box" type="password" placeholder="New password"
+                                    style="width: 95% !important;">
+                            </div>
+                            <div class="column"><input class="text-box" type="password"
+                                    placeholder="Confirm new password" style="width: 99% !important;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="error-message">* Error Message</p>
+
+                <button type="submit" class="update-button">Update User Profile Details</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="server-profile" class="codinoc-modal">
+    <div class="modal-content">
+        <span id="server-profile-close" class="close">&times;</span>
+        <p class="title">Server Profile Settings</p>
+        <div class="line"></div>
+
+        <div class="modal-body cpp-modal">
+            <form>
+                <div class="grid bar">
+                    <div class="column-3">
+                        <div class="label">Server Code:</div>
+                    </div>
+                    <div class="column-9">
+                        <input class="text-box" disabled>
+                    </div>
+                </div>
+
+                <div class="grid bar">
+                    <div class="column-3">
+                        <div class="label">Server Name:</div>
+                    </div>
+                    <div class="column-9">
+                        <input class="text-box" disabled>
+                    </div>
+                </div>
+
+                <div class="grid bar">
+                    <div class="column-3">
+                        <div class="label">Dashboard Name:</div>
+                    </div>
+                    <div class="column-9">
+                        <input class="text-box">
+                    </div>
+                </div>
+
+                <div class="grid bar">
+                    <div class="column-3">
+                        <div class="label">Dashboard Description:</div>
+                    </div>
+                    <div class="column-9">
+                        <input class="text-box">
+                    </div>
+                </div>
+
+                <p class="error-message">* Error Message</p>
+
+                <button type="submit" class="update-button">Update Server Profile Details</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="server-team" class="codinoc-modal">
+    <div class="modal-content">
+        <span id="server-team-close" class="close">&times;</span>
+        <p class="title">Server Team Settings</p>
+        <div class="line"></div>
+
+        <div class="modal-body t-modal">
+            <table>
+                <tr>
+                    <th class="title">First Name</th>
+                    <th class="title">Middle Name</th>
+                    <th class="title">Last Name</th>
+                    <th class="title">User Name</th>
+                    <th class="title">Action</th>
+                </tr>
+
+                <tr>
+                    <th class="item">Sample Name</th>
+                    <th class="item">Sample Name</th>
+                    <th class="item">Sample Name</th>
+                    <th class="item">Sample User Name</th>
+                    <th class="item"><a href="#">Remove User</a></th>
+                </tr>
+            </table>
+
+            <div class="line"></div>
+
+            <div class="add-title">Add New Team Member</div>
+
+            <div class="cpp-modal">
+                <form>
+                    <div class="grid bar">
+                        <div class="column-3">
+                            <div class="label">First Name:</div>
+                        </div>
+                        <div class="column-9">
+                            <input class="text-box">
+                        </div>
+                    </div>
+
+                    <div class="grid bar">
+                        <div class="column-3">
+                            <div class="label">User Name:</div>
+                        </div>
+                        <div class="column-9">
+                            <input class="text-box">
+                        </div>
+                    </div>
+
+                    <p class="error-message">* Error Message</p>
+
+                    <button type="submit" class="update-button">Add New Member</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div id="edit-dashboard-wiki" class="codinoc-modal">
+    <div class="modal-content">
+        <span id="edit-dashboard-wiki-close" class="close">&times;</span>
+        <p class="title">Modal Title</p>
+        <div class="line"></div>
+
+        <div class="modal-body">
+        </div>
+    </div>
+</div> -->
 
 {{template "footer.tmpl" .}}
 

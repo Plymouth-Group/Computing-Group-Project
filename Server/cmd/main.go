@@ -7,7 +7,9 @@
 // NSBM Green University LK
 //
 // Custom Services
-// - Email Send: https://sendgrid.com/
+//
+// - Email Send:   https://sendgrid.com/
+// - Font Awesome: https://fontawesome.com/v4/icons/
 //
 // Starting File
 

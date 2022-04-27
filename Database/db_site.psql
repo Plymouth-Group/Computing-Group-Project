@@ -70,10 +70,7 @@ CREATE TABLE schema_server.tb_info (
 	data_id BIGSERIAL PRIMARY KEY,
 	first_name VARCHAR(256) NOT NULL,
 	middle_name VARCHAR(256),
-	last_name VARCHAR(256),
-	gender VARCHAR(8) NOT NULL,
-	mobile_number VARCHAR(32) NOT NULL,
-	home_address VARCHAR(2048) NOT NULL
+	last_name VARCHAR(256)
 );
 
 CREATE TABLE schema_server.tb_server (

@@ -1,0 +1,67 @@
+<!-- Member Sign in to the Server Page
+	--
+	-- Developed by Piyumi Prasandika
+	-->
+
+{{template "head.tmpl" .}}
+
+<body>
+
+	<div class="section-non-logged">
+		<div class="form">
+			<div class="title">Sign into Server as a Member</div>
+
+			<div class="grid grid-center item-center">
+				<div class="column-4">
+					<div class="box">
+						<form>
+							<div class="grid">
+								<div class="column-6">
+									<div class="label">Server Code</div>
+								</div>
+								<div class="column-6">
+									<div class="label"><span class="right error">* Error Message</span></div>
+								</div>
+							</div>
+
+							<input id="input_scode" type="text" placeholder="">
+
+							<div class="grid">
+								<div class="column-6">
+									<div class="label">User Name</div>
+								</div>
+								<div class="column-6">
+									<div class="label"><span class="right error">* Error Message</span></div>
+								</div>
+							</div>
+
+							<input id="input_uname" type="text" placeholder="">
+
+							<div class="grid">
+								<div class="column-6">
+									<div class="label">Password</div>
+								</div>
+								<div class="column-6">
+									<div class="label"><span class="right error">* Error Message</span></div>
+								</div>
+							</div>
+
+							<input id="input_psw" type="password" placeholder="">
+
+							<div class="grid grid-end">
+								<button>Sign In</button>
+							</div>
+
+							<div class="line"></div>
+
+							<div class="link">Don't have a Server? <a href="/create_server">Create a New Server</a></div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{{template "footer_form.tmpl" .}}
+	</div>
+
+	{{template "bottom.tmpl" .}}

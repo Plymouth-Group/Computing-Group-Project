@@ -1,0 +1,71 @@
+<!-- Create Administrator account for the Server Page
+	--
+	-- Developed by Piyumi Prasandika
+	-->
+
+{{template "head.tmpl" .}}
+
+<body>
+
+	<div class="section-non-logged">
+		<div class="form">
+			<div class="title">Create Administrator Account for Server <span class="bold">{{.Server_Name}}</span></div>
+
+			<div class="grid grid-center item-center">
+				<div class="column-4">
+					<div class="box">
+						<form method="POST" action="/process/common/create_admin" enctype="application/x-www-form-urlencoded">
+							<div class="grid">
+								<div class="column-6">
+									<div class="label">Email Address</div>
+								</div>
+								<div class="column-6">
+									<div class="label"><span class="right error">{{.Error_Message}}</span></div>
+								</div>
+							</div>
+
+							<input name="admin_email" type="email" placeholder="" minlength="4" required>
+
+							<input name="server_name" type="text" value="{{.Server_Name}}" style="display: none;">
+
+							<div class="grid">
+								<div class="column-6">
+									<div class="label">Password</div>
+								</div>
+								<div class="column-6">
+									<div class="label"><span id="error-psw" class="right error"></span></div>
+								</div>
+							</div>
+
+							<input id="admin_password" name="admin_password" type="password" placeholder="" autocomplete="off"
+								minlength="4" required>
+
+							<div class="grid">
+								<div class="column-6">
+									<div class="label">Confirm Password</div>
+								</div>
+								<div class="column-6">
+									<div class="label"><span id="error-conf-psw" class="right error"></span></div>
+								</div>
+							</div>
+
+							<input id="admin_password_confirmed" name="admin_password_confirmed" type="password" placeholder=""
+								autocomplete="off" minlength="4" required>
+
+							<div class="grid grid-end">
+								<button id="submit-btn" type="submit">Create Server</button>
+							</div>
+
+							<div class="line"></div>
+
+							<div class="link">Already have a Server? <a href="/account_select">Sign In</a></div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{{template "footer_form.tmpl" .}}
+	</div>
+
+	{{template "bottom.tmpl" .}}

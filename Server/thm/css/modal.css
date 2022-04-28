@@ -1,0 +1,302 @@
+.codinoc-modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+  color: #252525;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.codinoc-modal .modal-content {
+  background-color: #FAFAFA;
+  margin: auto;
+  padding: 32px;
+  border-radius: 5px;
+  width: 80%;
+}
+
+.codinoc-modal .modal-content .title {
+  font-weight: 600;
+  color: #252525;
+}
+
+.codinoc-modal .modal-content .line {
+  width: 100%;
+  margin-top: 32px;
+  margin-bottom: 40px;
+  border: 1px solid #EAEAEA;
+}
+
+.codinoc-modal .modal-content .modal-body {
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+.codinoc-modal .modal-content .close {
+  color: #787878;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.codinoc-modal .modal-content .close:hover,
+.codinoc-modal .modal-content .close:focus {
+  color: #000000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Server Dashboard Wiki */
+
+.sdw-modal textarea {
+  height: 256px;
+  width: 100% !important;
+  border: 1px solid #EAEAEA;
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  padding: 16px;
+  font-size: 16px;
+  outline: none;
+  color: #252525;
+}
+
+.sdw-modal textarea:hover,
+.sdw-modal textarea:focus {
+  outline: none;
+}
+
+.sdw-modal button {
+  width: 100%;
+  margin-top: 32px;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 16px 48px;
+  border: 1px solid #2d333d;
+  border-radius: 5px;
+  background-color: #2d333d;
+  color: #EAEAEA;
+}
+
+.sdw-modal button:hover {
+  cursor: pointer;
+  background-color: #22252a;
+}
+
+/* Create New Project Modal */
+
+.cnp-modal .project-name {
+  width: 100%;
+  height: 56px;
+  border: 1px solid #EAEAEA;
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  padding: 16px;
+  font-size: 16px;
+  outline: none;
+  color: #252525;
+}
+
+.cnp-modal .project-icon {
+  width: 100%;
+  height: 56px;
+  width: 100% !important;
+  border: 1px solid #EAEAEA;
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  padding: 16px;
+  font-size: 16px;
+  outline: none;
+  color: #252525;
+}
+
+.cnp-modal .error-message {
+  font-size: 12px;
+  color: crimson;
+  font-weight: 400;
+  margin-top: 32px;
+}
+
+.cnp-modal .project-create {
+  width: 100%;
+  margin-top: 32px;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 16px 48px;
+  border: 1px solid #2d333d;
+  border-radius: 5px;
+  background-color: #2d333d;
+  color: #EAEAEA;
+}
+
+.cnp-modal .project-create:hover,
+.cnp-modal .project-create:focus {
+  cursor: pointer;
+  background-color: #22252a;
+}
+
+/* User Profile Modal */
+
+.cpp-modal .bar {
+  margin-bottom: 16px;
+}
+
+.cpp-modal .label {
+  height: 56px;
+  padding: 16px;
+  font-size: 16px;
+  outline: none;
+  color: #252525;
+  font-weight: 500;
+}
+
+.cpp-modal .text-box {
+  width: 100% !important;
+  height: 56px;
+  border: 1px solid #EAEAEA;
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  padding: 16px;
+  font-size: 16px;
+  outline: none;
+  color: #252525;
+}
+
+.cpp-modal .select-box {
+  width: 100% !important;
+  height: 56px;
+  border: 1px solid #EAEAEA;
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  padding: 16px;
+  font-size: 16px;
+  outline: none;
+  color: #252525;
+}
+
+.cpp-modal .error-message {
+  font-size: 12px;
+  color: crimson;
+  font-weight: 400;
+  margin-top: 32px;
+}
+
+.cpp-modal .update-button {
+  width: 100%;
+  margin-top: 32px;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 16px 48px;
+  border: 1px solid #2d333d;
+  border-radius: 5px;
+  background-color: #2d333d;
+  color: #EAEAEA;
+}
+
+.cpp-modal .update-button:hover,
+.cpp-modal .update-button:focus {
+  cursor: pointer;
+  background-color: #22252a;
+}
+
+/* Server Profile Modal
+
+  - In Server profile modal, we use same elements that used in user profile modal
+
+  */
+
+/* Team Modal */
+
+.t-modal table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 64px;
+}
+
+.t-modal table .title {
+  text-align: center;
+  font-weight: 500;
+}
+
+.t-modal table td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.t-modal table .item {
+  text-align: left;
+  font-size: 14px;
+  font-weight: 400;
+  background-color: #FAFAFA;
+}
+
+.t-modal table .item a {
+  text-decoration: none;
+  font-weight: 500;
+  color: brown;
+}
+
+.t-modal table .item a:hover
+.t-modal table .item a:focus {
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.t-modal table tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.t-modal .add-title {
+  font-weight: 18px;
+  font-weight: 300;
+  color: #252525;
+  margin-left: 16px;
+  margin-bottom: 32px;
+}
+
+.t-modal .line {
+  width: 100%;
+  margin-top: 32px;
+  margin-bottom: 40px;
+  border: 1px solid #EAEAEA;
+}
+
+/* ------------------------------------------------- */
+/* ------------------------------------------------- */
+/* ------------------------------------------------- */
+
+/* Version controlling modals */
+
+.editor-custom .file-name {
+  margin-top: 32px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #555555;
+}
+
+.editor-custom .version-button {
+  margin-bottom: 16px;
+
+  float: right;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 8px 32px;
+  border: 1px solid #FAFAFA;
+  border-radius: 5px;
+  background-color: #FAFAFA;
+  color: #252525;
+}
+
+.editor-custom .version-button:hover {
+  cursor: pointer;
+  background-color: #EAEAEA;
+}

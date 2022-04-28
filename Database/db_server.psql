@@ -88,3 +88,23 @@ CREATE TABLE schema_file.tb_main (
 	updated_date DATE NOT NULL,
 	is_last_save BOOLEAN NOT NULL
 );
+
+--------------------------
+-- INSERT DEFAULT VALUE --
+--------------------------
+
+INSERT INTO schema_server.tb_main (
+	server_id,
+	server_code,
+	server_name,
+	dashboard_name,
+	dashboard_description,
+	dashboard_wiki
+) VALUES (
+	'1',
+	'Unknown',
+	'Unknown',
+	'Dashboard Name',
+	'Dashboard Description',
+	'Update dashboard wiki here ....'
+);

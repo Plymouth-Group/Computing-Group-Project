@@ -156,37 +156,3 @@ CREATE TABLE schema_admin.tb_main (
 	CONSTRAINT f_password FOREIGN KEY (id_password) REFERENCES schema_admin.tb_password (data_id),
 	CONSTRAINT f_status FOREIGN KEY (id_status) REFERENCES schema_admin.tb_status (data_id)
 );
-
--- ++ ------------------------------------------------- ++ --
--- ++ Project Template                                  ++ --
--- ++ ------------------------------------------------- ++ --
-
-CREATE TABLE schema_template.tb_info (
-	data_id BIGSERIAL PRIMARY KEY,
-	template_code INT NOT NULL UNIQUE,
-	template_name VARCHAR(256) NOT NULL
-);
-
-CREATE TABLE schema_template.tb_content (
-	data_id BIGSERIAL PRIMARY KEY,
-	template_title TEXT NOT NULL,
-	template_content TEXT NOT NULL
-);
-
-CREATE TABLE schema_template.tb_status (
-	data_id BIGSERIAL PRIMARY KEY,
-	status_enabled BOOLEAN NOT NULL
-);
-
-CREATE TABLE schema_template.tb_main (
-	template_id BIGSERIAL PRIMARY KEY,
-	category_id INT NOT NULL,
-	id_info BIGINT NOT NULL,
-	id_content BIGINT NOT NULL,
-	id_status BIGINT NOT NULL,
-
-	CONSTRAINT f_category FOREIGN KEY (category_id) REFERENCES schema_category.tb_template (category_code),
-	CONSTRAINT f_info FOREIGN KEY (id_info) REFERENCES schema_template.tb_info (data_id),
-	CONSTRAINT f_content FOREIGN KEY (id_content) REFERENCES schema_template.tb_content (data_id),
-	CONSTRAINT f_status FOREIGN KEY (id_status) REFERENCES schema_template.tb_status (data_id)
-);

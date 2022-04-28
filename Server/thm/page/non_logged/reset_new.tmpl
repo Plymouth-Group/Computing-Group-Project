@@ -1,0 +1,56 @@
+<!-- Update Password Page
+	--
+	-- Developed by Piyumi Prasandika
+	-->
+
+{{template "head.tmpl" .}}
+
+<body>
+
+	<div class="section-non-logged">
+		<div class="form">
+			<div class="title">Create New Password for <span class="bold">{{.Server_Email}}</span> in {{.Server_Code}}</div>
+
+			<div class="grid grid-center item-center">
+				<div class="column-4">
+					<div class="box">
+						<form method="POST" action="/process/common/new_password" enctype="application/x-www-form-urlencoded">
+							<div class="grid">
+								<div class="column-6">
+									<div class="label">New Password</div>
+								</div>
+								<div class="column-6">
+									<div class="label"><span class="right error">{{.Password_Error}}</span></div>
+								</div>
+							</div>
+
+							<input name="server_code" type="password" placeholder="" value="{{.Server_Code}}" style="display: none;">
+							<input name="server_email" type="password" placeholder="" value="{{.Server_Email}}"
+								style="display: none;">
+
+							<input name="password" type="password" placeholder="" minlength="4" required>
+
+							<div class="grid">
+								<div class="column-6">
+									<div class="label">Confirm New Password</div>
+								</div>
+								<div class="column-6">
+									<div class="label"><span class="right error"></span></div>
+								</div>
+							</div>
+
+							<input name="password_conf" type="password" placeholder="" minlength="4" required>
+
+							<div class="grid grid-end">
+								<button type="submit">Reset Password</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{{template "footer_form.tmpl" .}}
+	</div>
+
+	{{template "bottom.tmpl" .}}

@@ -1,0 +1,785 @@
+// Grid System
+//
+// Written by:
+// - N.L.M. Nishshanka
+
+@use "sass:math";
+
+// Standard Screen Breaking Positions
+
+$ssize-mini: 220px;
+$ssize-xsmall: 320px;
+$ssize-small: 480px;
+$ssize-medium: 768px;
+$ssize-large: 1024px;
+$ssize-xlarge: 1200px;
+$ssize-xxlarge: 1502px;
+
+// Default Screen Sizes
+
+$screen-mini: $ssize-mini + 1;
+$screen-xsmall: $ssize-xsmall + 1;
+$screen-small: $ssize-small + 1;
+$screen-medium: $ssize-medium + 1;
+$screen-large: $ssize-large + 1;
+$screen-xlarge: $ssize-xlarge + 1;
+$screen-xxlarge: $ssize-xxlarge + 1;
+
+// Short Names according to the Screen Sizes
+
+$name-mini: mn;
+$name-xsmall: xsm;
+$name-small: sm;
+$name-medium: md;
+$name-large: lg;
+$name-xlarge: xlg;
+$name-xxlarge: xxlg;
+
+// Base Names of Elements
+
+$grid_base: grid; // Base Name for Grid
+$container_base: container; // Base Name for Container
+$column_base: column; // Base Name for Grid Column
+$display_base: display; // Base Name for Display
+$justify_base: justify; // Base Name for Justify
+$content_base: content; // Base Name for Flex Content Align
+$item_base: item; // Base Name for Flex Item Align
+$self_base: self; // Base Name for Flex Self Align
+$place_base: place; // Base Name for Place Content, Item and Self
+
+$width_base: w; // Base Name for Width
+$min_width_base: mw; // Base Name for Min Width
+$max_width_base: maxw; // Base Name for Max Width
+$height_base: h; // Base Name for Height
+$min_height_base: mh; // Base Name for Min Height
+$max_height_base: maxh; // Base Name for Max Height
+
+$padding_base: pad; // Base Name for Padding
+$margin_base: mar; // Base Name for Padding
+
+$border_base: border; // Base Name for Border
+$shadow_base: shadow; // Base Name for Shadow
+
+$typography_base: text; // Base Name for Typography
+
+// Variables -> Grid system
+
+$total_column: 12;
+$grid_gutter: 10px;
+
+// Variables -> Typography
+
+$rem-base-font: 16px;
+$fl-ratio: 1.4;
+
+/* ----------------------- */
+/* ------- Library ------- */
+/* ----------------------- */
+
+// Convert Pixel to REM
+
+@function pxtorem($_size) {
+	@return $_size / $rem-base-font * 1rem;
+}
+
+// Body
+
+*,
+*::after,
+*::before {
+	// padding: 0;
+	// margin: 0;
+
+	box-sizing: border-box;
+}
+
+// Grid
+
+.#{$grid_base}-#{$name-mini},
+.#{$grid_base}-#{$name-xsmall},
+.#{$grid_base}-#{$name-small},
+.#{$grid_base}-#{$name-medium},
+.#{$grid_base}-#{$name-large},
+.#{$grid_base}-#{$name-xlarge},
+.#{$grid_base}-#{$name-xxlarge},
+.#{$grid_base} {
+	display: flex;
+	flex: 1 1 auto;
+	flex-wrap: wrap;
+	flex-direction: row;
+	margin-left: math.div($grid_gutter, -2);
+	margin-right: math.div($grid_gutter, -2);
+
+	display: -webkit-flex;
+	display: -ms-flexbox;
+
+	-webkit-box-flex: 0;
+	-ms-flex: 1 1 auto;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: row;
+	-ms-flex-wrap: wrap;
+}
+
+.#{$grid_base}::after {
+	clear: both;
+	display: table;
+}
+
+// [responsive] Grid
+
+@mixin default-res-grid-in-media {
+	flex-direction: column;
+
+	-webkit-box-orient: vertical;
+	-ms-flex-direction: column;
+}
+
+@media (max-width: $screen-mini) {
+	.#{$grid_base}-#{$name-mini} {
+		@include default-res-grid-in-media();
+	}
+}
+
+@media (max-width: $screen-xsmall) {
+	.#{$grid_base}-#{$name-xsmall} {
+		@include default-res-grid-in-media();
+	}
+}
+
+@media (max-width: $screen-small) {
+	.#{$grid_base}-#{$name-small} {
+		@include default-res-grid-in-media();
+	}
+}
+
+@media (max-width: $screen-medium) {
+	.#{$grid_base}-#{$name-medium} {
+		@include default-res-grid-in-media();
+	}
+}
+
+@media (max-width: $screen-large) {
+	.#{$grid_base}-#{$name-large} {
+		@include default-res-grid-in-media();
+	}
+}
+
+@media (max-width: $screen-xlarge) {
+	.#{$grid_base}-#{$name-xlarge} {
+		@include default-res-grid-in-media();
+	}
+}
+
+@media (max-width: $screen-xxlarge) {
+	.#{$grid_base}-#{$name-xxlarge} {
+		@include default-res-grid-in-media();
+	}
+}
+
+// Align Content
+
+@mixin set-flex-align-content($_name, $_content) {
+	.#{$content_base}-#{$_name} {
+		align-content: $_content;
+		-webkit-align-content: $_content;
+	}
+}
+
+@include set-flex-align-content(center, center);
+@include set-flex-align-content(start, flex-start);
+@include set-flex-align-content(end, flex-end);
+@include set-flex-align-content(between, space-between);
+@include set-flex-align-content(around, space-around);
+@include set-flex-align-content(evenly, space-evenly);
+
+// Align Item
+
+@mixin set-flex-align-item($_name, $_item) {
+	.#{$item_base}-#{$_name} {
+		align-items: $_item;
+		-webkit-align-items: $_item;
+	}
+}
+
+@include set-flex-align-item(start, flex-start);
+@include set-flex-align-item(end, flex-end);
+@include set-flex-align-item(center, center);
+@include set-flex-align-item(baseline, baseline);
+@include set-flex-align-item(stretch, stretch);
+
+// Align Self
+
+@mixin set-flex-align-self($_name, $_self) {
+	.#{$self_base}-#{$_name} {
+		align-self: $_self;
+		-webkit-align-self: $_self;
+	}
+}
+
+@include set-flex-align-self(auto, auto);
+@include set-flex-align-self(start, flex-start);
+@include set-flex-align-self(end, flex-end);
+@include set-flex-align-self(center, center);
+@include set-flex-align-self(stretch, stretch);
+
+// Place Content
+
+@mixin set-flex-place-content($_name, $_content) {
+	.#{$place_base}-#{$content_base}-#{$_name} {
+		place-content: $_content;
+	}
+}
+
+@include set-flex-place-content(center, center);
+@include set-flex-place-content(start, start);
+@include set-flex-place-content(end, end);
+@include set-flex-place-content(between, space-between);
+@include set-flex-place-content(around, space-around);
+@include set-flex-place-content(evenly, space-evenly);
+@include set-flex-place-content(stretch, stretch);
+
+// Place Item
+
+@mixin set-flex-place-item($_name, $_item) {
+	.#{$place_base}-#{$item_base}-#{$_name} {
+		place-items: $_item;
+	}
+}
+
+@include set-flex-place-item(start, start);
+@include set-flex-place-item(end, end);
+@include set-flex-place-item(center, center);
+@include set-flex-place-item(stretch, stretch);
+
+// Place Self
+
+@mixin set-flex-place-self($_name, $_self) {
+	.#{$place_base}-#{$self_base}-#{$_name} {
+		place-self: $_self;
+	}
+}
+
+@include set-flex-place-self(auto, auto);
+@include set-flex-place-self(start, start);
+@include set-flex-place-self(end, end);
+@include set-flex-place-self(center, center);
+@include set-flex-place-self(stretch, stretch);
+
+// column-mn to column-xxl
+// column
+
+.#{$column_base}-#{$name-mini},
+.#{$column_base}-#{$name-xsmall},
+.#{$column_base}-#{$name-small},
+.#{$column_base}-#{$name-medium},
+.#{$column_base}-#{$name-large},
+.#{$column_base}-#{$name-xlarge},
+.#{$column_base}-#{$name-xxlarge},
+.#{$column_base} {
+	-webkit-flex: 1 1 percentage(math.div(1, $total_column)) !important;
+	-ms-flex: 1 1 percentage(math.div(1, $total_column)) !important;
+
+	flex: 1 1 percentage(math.div(1, $total_column)) !important;
+}
+
+// column-1 to column-12
+// column-mn-1 to column-xxl-12
+
+@for $i from 1 through 12 {
+	.#{$column_base}-#{$name-mini}-#{$i},
+	.#{$column_base}-#{$name-xsmall}-#{$i},
+	.#{$column_base}-#{$name-small}-#{$i},
+	.#{$column_base}-#{$name-medium}-#{$i},
+	.#{$column_base}-#{$name-large}-#{$i},
+	.#{$column_base}-#{$name-xlarge}-#{$i},
+	.#{$column_base}-#{$name-xxlarge}-#{$i},
+	.#{$column_base}-#{$i} {
+		-webkit-flex: 1 1 percentage(math.div($i, $total_column)) !important;
+		-ms-flex: 1 1 percentage(math.div($i, $total_column)) !important;
+
+		flex: 1 1 percentage(math.div($i, $total_column)) !important;
+		max-width: percentage(math.div($i, $total_column));
+	}
+}
+
+// [responsive] column-mn to column-xxl
+// [responsive] column-mn-1 to column-xxl-12
+
+@mixin default-res-column-in-media($_screen_name) {
+	.#{$column_base}-#{$_screen_name} {
+		min-width: 100%;
+	}
+
+	@for $i from 1 through 12 {
+		.#{$column_base}-#{$_screen_name}-#{$i} {
+			-webkit-flex: 1 1 100% !important;
+			-ms-flex: 1 1 100% !important;
+
+			flex: 1 1 100% !important;
+			min-width: 100%;
+		}
+	}
+}
+
+@media (max-width: $screen-mini) {
+	@include default-res-column-in-media($name-mini);
+}
+
+@media (max-width: $screen-xsmall) {
+	@include default-res-column-in-media($name-xsmall);
+}
+
+@media (max-width: $screen-small) {
+	@include default-res-column-in-media($name-small);
+}
+
+@media (max-width: $screen-medium) {
+	@include default-res-column-in-media($name-medium);
+}
+
+@media (max-width: $screen-large) {
+	@include default-res-column-in-media($name-large);
+}
+
+@media (max-width: $screen-xlarge) {
+	@include default-res-column-in-media($name-xlarge);
+}
+
+@media (max-width: $screen-xxlarge) {
+	@include default-res-column-in-media($name-xxlarge);
+}
+
+// Container
+
+.#{$container_base} {
+	margin-left: $grid_gutter;
+	margin-right: $grid_gutter;
+}
+
+// Responsive Containers
+
+@for $i from 1 through 100 {
+	.#{$container_base}-p-#{$i} {
+		margin: auto;
+		width: $i + #{"%"};
+	}
+}
+
+// Fixed Containers
+
+@for $i from 1 through 100 {
+	.#{$container_base}-#{$i} {
+		margin-left: $i + px;
+		margin-right: $i + px;
+	}
+}
+
+// Flex Direction
+
+@mixin set-flex-direction($_name, $_direction) {
+	.#{$grid_base}-direction-#{$_name} {
+		flex-direction: $_direction;
+		-ms-flex-direction: $_direction;
+		-webkit-flex-direction: $_direction;
+	}
+}
+
+@include set-flex-direction(r, row);
+@include set-flex-direction(rr, row-reverse);
+@include set-flex-direction(c, column);
+@include set-flex-direction(cc, column-reverse);
+
+// Display
+
+@mixin set-display($_display) {
+	.#{$display_base}-#{$_display} {
+		display: $_display;
+	}
+}
+
+@include set-display(block);
+@include set-display(inline-block);
+@include set-display(inline);
+@include set-display(flex);
+@include set-display(inline-flex);
+@include set-display(table);
+@include set-display(inline-table);
+@include set-display(table-caption);
+@include set-display(table-cell);
+@include set-display(table-column);
+@include set-display(table-column-group);
+@include set-display(table-footer-group);
+@include set-display(table-header-group);
+@include set-display(table-row-group);
+@include set-display(table-row);
+@include set-display(flow-root);
+@include set-display(grid);
+@include set-display(inline-grid);
+@include set-display(contents);
+@include set-display(list-item);
+@include set-display(none);
+
+// Flex
+
+@mixin set-flex($_name, $_flex) {
+	.#{$grid_base}-flex-#{$_name} {
+		flex: $_flex;
+		-ms-flex: $_flex;
+		-webkit-flex: $_flex;
+	}
+}
+
+@include set-flex(1, 1 1 0%);
+@include set-flex(auto, 1 1 auto);
+@include set-flex(initial, 0 1 auto);
+@include set-flex(none, none);
+
+// Flex Flow
+
+@mixin set-flex-flow($_name, $_flow) {
+	.#{$grid_base}-flow-#{$_name} {
+		flex-flow: $_flow;
+		-webkit-flex-flow: $_flow;
+	}
+}
+
+@include set-flex-flow(rn, row nowrap);
+@include set-flex-flow(cr, column-reverse);
+@include set-flex-flow(cw, column wrap);
+@include set-flex-flow(rrwr, row-reverse wrap-reverse);
+
+// Row Gap
+
+@mixin set-flex-row-gap($_gap) {
+	.#{$grid_base}-gap-r-#{$_gap} {
+		row-gap: $_gap + #{"px"};
+	}
+
+	.#{$grid_base}-gap-r-#{$_gap}-p {
+		row-gap: $_gap + #{"%"};
+	}
+}
+
+// Column Gap
+
+@mixin set-flex-column-gap($_gap) {
+	.#{$grid_base}-gap-c-#{$_gap} {
+		column-gap: $_gap + #{"px"};
+	}
+
+	.#{$grid_base}-gap-c-#{$_gap}-p {
+		column-gap: $_gap + #{"%"};
+	}
+}
+
+// Row and Column Gap
+
+@mixin set-flex-row-and-column-gap($_gap) {
+	.#{$grid_base}-gap-rc-#{$_gap} {
+		gap: $_gap + #{"px"} $_gap + #{"px"};
+	}
+}
+
+@for $i from 1 through 100 {
+	@include set-flex-row-gap($i);
+	@include set-flex-column-gap($i);
+	@include set-flex-row-and-column-gap($i);
+}
+
+// Flex Grow
+
+@mixin set-flex-grow($_name, $_grow) {
+	.#{$grid_base}-grow-#{$_name} {
+		flex-grow: $_grow;
+		-webkit-flex-grow: $_grow;
+	}
+}
+
+@include set-flex-grow(0, 0);
+@include set-flex-grow(1, 1);
+
+// Flex Shrink
+
+@mixin set-flex-shrink($_name, $_shrink) {
+	.#{$grid_base}-shrink-#{$_name} {
+		flex-shrink: $_shrink;
+		-webkit-flex-shrink: $_shrink;
+	}
+}
+
+@include set-flex-shrink(0, 0);
+@include set-flex-shrink(1, 1);
+
+// Offset
+
+@mixin set-column-offset($_name, $_offset) {
+	.#{$column_base}-offset-#{$_name} {
+		margin-left: percentage(math.div($_offset, $total_column));
+	}
+}
+
+@for $i from 1 through 12 {
+	@include set-column-offset($i, $i);
+}
+
+// Order
+
+@mixin set-column-order($_name, $_order) {
+	.#{$column_base}-order-#{$_name} {
+		-webkit-box-ordinal-group: $_order + 1;
+		-ms-flex-order: $_order;
+
+		order: $_order;
+	}
+}
+
+@for $i from 1 through 12 {
+	@include set-column-order($i, $i);
+}
+
+@include set-column-order(none, none);
+@include set-column-order(first, -9999);
+@include set-column-order(last, 9999);
+
+// Position
+
+.#{$grid_base}-start {
+	-webkit-box-pack: start;
+	-ms-flex-pack: start;
+	justify-content: flex-start;
+}
+
+.#{$grid_base}-center {
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+}
+
+.#{$grid_base}-end {
+	-webkit-box-pack: end;
+	-ms-flex-pack: end;
+	justify-content: flex-end;
+}
+
+.#{$grid_base}-top {
+	-webkit-box-align: start;
+	-ms-flex-align: start;
+	align-items: flex-start;
+}
+
+.#{$grid_base}-middle {
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+
+.#{$grid_base}-bottom {
+	-webkit-box-align: end;
+	-ms-flex-align: end;
+	align-items: flex-end;
+}
+
+.#{$grid_base}-stretch {
+	-webkit-box-align: stretch;
+	-ms-flex-align: stretch;
+	align-items: stretch;
+}
+
+.#{$grid_base}-reverse {
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: reverse;
+	-ms-flex-direction: row-reverse;
+	flex-direction: row-reverse;
+}
+
+.#{$grid_base}-around {
+	-ms-flex-pack: distribute;
+	justify-content: space-around;
+}
+
+.#{$grid_base}-between {
+	-webkit-box-pack: justify;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+}
+
+// Flex Wrap
+
+@mixin set-flex-wrap($_name, $_wrap) {
+	.#{$grid_base}-wrap-#{$_name} {
+		flex-wrap: $_wrap;
+		-ms-flex-wrap: $_wrap;
+		-webkit-flex-wrap: $_wrap;
+	}
+}
+
+@include set-flex-wrap(w, wrap);
+@include set-flex-wrap(nw, nowrap);
+@include set-flex-wrap(wr, wrap-reverse);
+
+// Width
+
+@mixin set-width($_value) {
+	.#{$width_base}-#{$_value} {
+		width: $_value + #{"px"};
+	}
+
+	@if $_value <= 100 {
+		.#{$width_base}-#{$_value}-p {
+			width: $_value + #{"%"};
+		}
+	}
+}
+
+@for $i from 1 through 100 {
+	@include set-width($i);
+}
+
+// Min Width
+
+@mixin set-min-width($_value) {
+	.#{$min_width_base}-#{$_value} {
+		min-width: $_value + #{"px"};
+	}
+
+	@if $_value <= 100 {
+		.#{$min_width_base}-#{$_value}-p {
+			min-width: $_value + #{"%"};
+		}
+	}
+}
+
+@for $i from 1 through 100 {
+	@include set-min-width($i);
+}
+
+// Max Width
+
+@mixin set-max-width($_value) {
+	.#{$max_width_base}-#{$_value} {
+		max-width: $_value + #{"px"};
+	}
+
+	@if $_value <= 100 {
+		.#{$max_width_base}-#{$_value}-p {
+			max-width: $_value + #{"%"};
+		}
+	}
+}
+
+@for $i from 1 through 100 {
+	@include set-max-width($i);
+}
+
+// Height
+
+@mixin set-height($_value) {
+	.#{$height_base}-#{$_value} {
+		height: $_value + #{"px"};
+	}
+
+	@if $_value <= 100 {
+		.#{$height_base}-#{$_value}-p {
+			height: $_value + #{"%"};
+		}
+	}
+}
+
+@for $i from 1 through 100 {
+	@include set-height($i);
+}
+
+// Min Height
+
+@mixin set-min-height($_value) {
+	.#{$min_height_base}-#{$_value} {
+		min-height: $_value + #{"px"};
+	}
+
+	@if $_value <= 100 {
+		.#{$min_height_base}-#{$_value}-p {
+			min-height: $_value + #{"%"};
+		}
+	}
+}
+
+@for $i from 1 through 100 {
+	@include set-min-height($i);
+}
+
+// Max Height
+
+@mixin set-max-height($_value) {
+	.#{$max_height_base}-#{$_value} {
+		max-height: $_value + #{"px"};
+	}
+
+	@if $_value <= 100 {
+		.#{$max_height_base}-#{$_value}-p {
+			max-height: $_value + #{"%"};
+		}
+	}
+}
+
+@for $i from 1 through 100 {
+	@include set-max-height($i);
+}
+
+// Padding
+
+@mixin set-padding($_padding, $_value) {
+	@if $_padding == left {
+		.#{$padding_base}-l-#{$_value} {
+			padding-left: $_value + #{"px"};
+		}
+	} @else if $_padding == right {
+		.#{$padding_base}-r-#{$_value} {
+			padding-right: $_value + #{"px"};
+		}
+	} @else if $_padding == bottom {
+		.#{$padding_base}-b-#{$_value} {
+			padding-bottom: $_value + #{"px"};
+		}
+	} @else if $_padding == top {
+		.#{$padding_base}-t-#{$_value} {
+			padding-top: $_value + #{"px"};
+		}
+	}
+}
+
+@for $i from 1 through 100 {
+	@include set-padding(left, $i);
+	@include set-padding(right, $i);
+	@include set-padding(bottom, $i);
+	@include set-padding(top, $i);
+}
+
+// Margin
+
+@mixin set-margin($_margin, $_value) {
+	@if $_margin == left {
+		.#{$margin_base}-l-#{$_value} {
+			margin-left: $_value + #{"px"};
+		}
+	} @else if $_margin == right {
+		.#{$margin_base}-r-#{$_value} {
+			margin-right: $_value + #{"px"};
+		}
+	} @else if $_margin == bottom {
+		.#{$margin_base}-b-#{$_value} {
+			margin-bottom: $_value + #{"px"};
+		}
+	} @else if $_margin == top {
+		.#{$margin_base}-t-#{$_value} {
+			margin-top: $_value + #{"px"};
+		}
+	}
+}
+
+@for $i from 1 through 100 {
+	@include set-margin(left, $i);
+	@include set-margin(right, $i);
+	@include set-margin(bottom, $i);
+	@include set-margin(top, $i);
+}

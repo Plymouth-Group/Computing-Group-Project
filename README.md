@@ -204,6 +204,10 @@ CREATE DATABASE db_site OWNER admin_codinoc;
 \c db_site
 DROP SCHEMA public CASCADE;
 
+# Actually I donno why need to do this, But of you ignore this, bigserial column does not work anymore correctly !!
+
+ALTER TABLE schema_server.tb_main drop column user_id, add column user_id bigserial primary key not null;
+
 # Create Server Template Database
 
 CREATE DATABASE db_server OWNER admin_codinoc;

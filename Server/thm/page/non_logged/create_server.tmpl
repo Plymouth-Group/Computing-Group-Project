@@ -1,0 +1,51 @@
+<!-- Create Server Page
+	--
+	-- Developed by Piyumi Prasandika
+	-->
+
+{{template "head.tmpl" .}}
+
+<body>
+
+	<div class="section-non-logged">
+		<div class="form">
+			<div class="title">Create a Fresh Codinoc Server</div>
+
+			<div class="grid grid-center item-center">
+				<div class="column-4">
+					<div class="box">
+
+						<form method="POST" action="/process/common/create_server" enctype="application/x-www-form-urlencoded">
+							<div class="grid">
+								<div class="column-6">
+									<div class="label">Server Name</div>
+								</div>
+								<div class="column-6">
+									<div class="label"><span id="sname_error_label" class="right error">{{.Server_Error}}</span>
+									</div>
+								</div>
+							</div>
+
+							<input name="input_sname" id="input_sname" type="text" required>
+
+							<div class="grid grid-end">
+								<button id="submit-btn" type="submit">Next</button>
+							</div>
+
+							<div class="line"></div>
+
+							<div class="link">Already have a Server? <a href="/account_select">Sign In</a></div>
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{{template "footer_form.tmpl" .}}
+	</div>
+
+	<script type="text/javascript">
+	</script>
+
+	{{template "bottom.tmpl" .}}

@@ -91,7 +91,7 @@
         <div class="line"></div>
 
         <div class="modal-body sdw-modal">
-            <form method="POST" action="/update_wiki" enctype="application/x-www-form-urlencoded">
+            <form method="POST" action="/process/dashboard/update_wiki" enctype="application/x-www-form-urlencoded">
                 <textarea pattern="[az-AZ-09]" name="wiki_content"
                     placeholder="Server Dashboard Wiki ....">{{.Wiki_Content}}</textarea>
                 <button type="submit">Update Wiki</button>
@@ -266,105 +266,13 @@
                     <th class="title">Action</th>
                 </tr>
 
-                {{if ne .Is_Member_01_Available ""}}
                 <tr>
-                    <th class="item">{{.Member_01_First_Name}}</th>
-                    <th class="item">{{.Member_01_Middle_Name}}</th>
-                    <th class="item">{{.Member_01_Last_Name}}</th>
-                    <th class="item">{{.Member_01_User_Name}}</th>
-                    <th class="item"><a href="/remove_member?uname={{.Member_01_User_Name}}">Remove User</a></th>
+                    <th class="item">Sample</th>
+                    <th class="item">Sample</th>
+                    <th class="item">Sample</th>
+                    <th class="item">Sample</th>
+                    <th class="item"><a href="#">Remove User</a></th>
                 </tr>
-                {{end}}
-
-                {{if ne .Is_Member_02_Available ""}}
-                <tr>
-                    <th class="item">{{.Member_02_First_Name}}</th>
-                    <th class="item">{{.Member_02_Middle_Name}}</th>
-                    <th class="item">{{.Member_02_Last_Name}}</th>
-                    <th class="item">{{.Member_02_User_Name}}</th>
-                    <th class="item"><a href="/remove_member?uname={{.Member_02_User_Name}}">Remove User</a></th>
-                </tr>
-                {{end}}
-
-                {{if ne .Is_Member_03_Available ""}}
-                <tr>
-                    <th class="item">{{.Member_03_First_Name}}</th>
-                    <th class="item">{{.Member_03_Middle_Name}}</th>
-                    <th class="item">{{.Member_03_Last_Name}}</th>
-                    <th class="item">{{.Member_03_User_Name}}</th>
-                    <th class="item"><a href="/remove_member?uname={{.Member_03_User_Name}}">Remove User</a></th>
-                </tr>
-                {{end}}
-
-                {{if ne .Is_Member_04_Available ""}}
-                <tr>
-                    <th class="item">{{.Member_04_First_Name}}</th>
-                    <th class="item">{{.Member_04_Middle_Name}}</th>
-                    <th class="item">{{.Member_04_Last_Name}}</th>
-                    <th class="item">{{.Member_04_User_Name}}</th>
-                    <th class="item"><a href="/remove_member?uname={{.Member_04_User_Name}}">Remove User</a></th>
-                </tr>
-                {{end}}
-
-                {{if ne .Is_Member_05_Available ""}}
-                <tr>
-                    <th class="item">{{.Member_05_First_Name}}</th>
-                    <th class="item">{{.Member_05_Middle_Name}}</th>
-                    <th class="item">{{.Member_05_Last_Name}}</th>
-                    <th class="item">{{.Member_05_User_Name}}</th>
-                    <th class="item"><a href="/remove_member?uname={{.Member_05_User_Name}}">Remove User</a></th>
-                </tr>
-                {{end}}
-
-                {{if ne .Is_Member_06_Available ""}}
-                <tr>
-                    <th class="item">{{.Member_06_First_Name}}</th>
-                    <th class="item">{{.Member_06_Middle_Name}}</th>
-                    <th class="item">{{.Member_06_Last_Name}}</th>
-                    <th class="item">{{.Member_06_User_Name}}</th>
-                    <th class="item"><a href="/remove_member?uname={{.Member_06_User_Name}}">Remove User</a></th>
-                </tr>
-                {{end}}
-
-                {{if ne .Is_Member_07_Available ""}}
-                <tr>
-                    <th class="item">{{.Member_07_First_Name}}</th>
-                    <th class="item">{{.Member_07_Middle_Name}}</th>
-                    <th class="item">{{.Member_07_Last_Name}}</th>
-                    <th class="item">{{.Member_07_User_Name}}</th>
-                    <th class="item"><a href="/remove_member?uname={{.Member_07_User_Name}}">Remove User</a></th>
-                </tr>
-                {{end}}
-
-                {{if ne .Is_Member_08_Available ""}}
-                <tr>
-                    <th class="item">{{.Member_08_First_Name}}</th>
-                    <th class="item">{{.Member_08_Middle_Name}}</th>
-                    <th class="item">{{.Member_08_Last_Name}}</th>
-                    <th class="item">{{.Member_08_User_Name}}</th>
-                    <th class="item"><a href="/remove_member?uname={{.Member_08_User_Name}}">Remove User</a></th>
-                </tr>
-                {{end}}
-
-                {{if ne .Is_Member_09_Available ""}}
-                <tr>
-                    <th class="item">{{.Member_09_First_Name}}</th>
-                    <th class="item">{{.Member_09_Middle_Name}}</th>
-                    <th class="item">{{.Member_09_Last_Name}}</th>
-                    <th class="item">{{.Member_09_User_Name}}</th>
-                    <th class="item"><a href="/remove_member?uname={{.Member_09_User_Name}}">Remove User</a></th>
-                </tr>
-                {{end}}
-
-                {{if ne .Is_Member_10_Available ""}}
-                <tr>
-                    <th class="item">{{.Member_10_First_Name}}</th>
-                    <th class="item">{{.Member_10_Middle_Name}}</th>
-                    <th class="item">{{.Member_10_Last_Name}}</th>
-                    <th class="item">{{.Member_10_User_Name}}</th>
-                    <th class="item"><a href="/remove_member?uname={{.Member_10_User_Name}}">Remove User</a></th>
-                </tr>
-                {{end}}
             </table>
 
             <div class="line"></div>

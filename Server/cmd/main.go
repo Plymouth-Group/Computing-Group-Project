@@ -8,6 +8,17 @@
 //
 // Starting Function
 
+// Known Issues
+//
+// 1. Tenant Database Maximum Limitation
+//
+//  - When     -> Refreshing Dashboard or Editor Multiple Times
+//  - Why      -> Because of using Multi Tenant Database(s)
+//  - Fix      -> Unable to fix coz we doesn't use Cloud Storage or Managed PostgreSQL Database
+//  - Solution -> Restarting the Server
+//  - Error    -> pq: remaining connection slots are reserved for non-replication superuser connections
+//  - Link     -> https://stackoverflow.com/questions/11847144/heroku-psql-fatal-remaining-connection-slots-are-reserved-for-non-replication
+
 package main
 
 import (
@@ -51,6 +62,8 @@ func main() {
 	router.HandleFunc("/dashboard", Route_Dashboard).Methods("GET")
 	router.HandleFunc("/editor", Route_Editor).Methods("GET")
 
+	router.HandleFunc("/sign_out", Route_Account_Sign_Out).Methods("GET")
+
 	router.HandleFunc("/process/common/signin_admin", Route_Process_SignIn_Admin).Methods("GET", "POST")
 	router.HandleFunc("/process/common/signin_member", Route_Process_SignIn_Member).Methods("GET", "POST")
 	router.HandleFunc("/process/common/create_server", Route_Process_Create_Server).Methods("GET", "POST")
@@ -72,4 +85,6 @@ func main() {
 		fmt.Println("> Unable to start codinoc server : ", router_error)
 		return
 	}
+
+	db_site.Close()
 }

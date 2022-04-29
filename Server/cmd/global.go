@@ -12,6 +12,7 @@ package main
 
 import (
 	"database/sql"
+	"github.com/gorilla/sessions"
 )
 
 const (
@@ -26,3 +27,5 @@ const (
 
 var db_site *sql.DB
 var db_server *sql.DB
+
+var store_login = sessions.NewCookieStore([]byte("1234567890"))

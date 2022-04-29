@@ -26,9 +26,14 @@ func Hash_Password(password string) string {
 	return string(bytes)
 }
 
-func Check_Hash_Password(password, hash string) bool {
+func Check_Hash_Password(password string, hash string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
 
-	fmt.Println(fmt.Sprintf("> Password Checked: %s", password))
-	return err == nil
+	fmt.Println(fmt.Sprintf("> Password Checked: %s [%s]", password, hash))
+
+	if err == nil {
+		return true
+	}
+
+	return false
 }

@@ -21,7 +21,7 @@ func SignUp_Add_New_Server(server_name string, admin_email string, admin_passwor
 	first_name := "Codinoc"
 	middle_name := "Server"
 	last_name := "Administrator"
-	server_code := strings.ReplaceAll(server_name, " ", "")
+	server_code := strings.ToLower(strings.ReplaceAll(server_name, " ", ""))
 	tenant_db := strings.ToLower(fmt.Sprintf("db_%s", server_code))
 
 	query_tb_info := fmt.Sprintf("INSERT INTO schema_server.tb_info (first_name, middle_name, last_name) VALUES ('%s', '%s', '%s');", first_name, middle_name, last_name)
@@ -72,6 +72,9 @@ func SignUp_Add_New_Server(server_name string, admin_email string, admin_passwor
 	// Create tenant database
 	//
 	// https://stackoverflow.com/questions/55555836/is-it-possible-to-create-postgresql-databases-with-dynamic-names-with-the-help-o
+
+	// TODO Add session for this Database Connection
+	// https://github.com/antonlindstrom/pgstore
 
 	psql_string := fmt.Sprintf("user=postgres password=%s host=%s sslmode=disable", DB_PASS, DB_HOST)
 	psql_conn, err_psql := sql.Open("postgres", psql_string)

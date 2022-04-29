@@ -91,7 +91,9 @@ go get golang.org/x/crypto/bcrypt &&
 go get github.com/mailjet/mailjet-apiv3-go &&
 go get github.com/gorilla/securecookie &&
 go get github.com/gorilla/sessions &&
-go get github.com/gorilla/securecookie
+go get github.com/gorilla/securecookie &&
+go get github.com/antonlindstrom/pgstore &&
+go get github.com/icza/session
 ```
 
 ### PostgreSQL Installation

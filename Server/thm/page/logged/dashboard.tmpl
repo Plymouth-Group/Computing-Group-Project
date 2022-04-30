@@ -48,14 +48,126 @@
                         <div class="title">Recent Codinoc Projects</div>
 
                         <div class="grid">
+                            {{if ne .Is_Project_01 ""}}
                             <div class="column-12">
-                                <a href="/editor/URL">
+                                <a href="/editor?project={{.Project_01_Code}}">
                                     <div class="project-card">
                                         <i class="fa fa-window-maximize" aria-hidden="true"></i>
-                                        <p>Project Name</p>
+                                        <p>{{.Project_01_Name}}</p>
                                     </div>
                                 </a>
                             </div>
+                            {{end}}
+
+                            {{if ne .Is_Project_02 ""}}
+                            <div class="column-12">
+                                <a href="/editor?project={{.Project_02_Code}}">
+                                    <div class="project-card">
+                                        <i class="fa fa-window-maximize" aria-hidden="true"></i>
+                                        <p>{{.Project_02_Name}}</p>
+                                    </div>
+                                </a>
+                            </div>
+                            {{end}}
+
+                            {{if ne .Is_Project_03 ""}}
+                            <div class="column-12">
+                                <a href="/editor?project={{.Project_03_Code}}">
+                                    <div class="project-card">
+                                        <i class="fa fa-window-maximize" aria-hidden="true"></i>
+                                        <p>{{.Project_03_Name}}</p>
+                                    </div>
+                                </a>
+                            </div>
+                            {{end}}
+
+                            {{if ne .Is_Project_04 ""}}
+                            <div class="column-12">
+                                <a href="/editor?project={{.Project_04_Code}}">
+                                    <div class="project-card">
+                                        <i class="fa fa-window-maximize" aria-hidden="true"></i>
+                                        <p>{{.Project_04_Name}}</p>
+                                    </div>
+                                </a>
+                            </div>
+                            {{end}}
+
+                            {{if ne .Is_Project_05 ""}}
+                            <div class="column-12">
+                                <a href="/editor?project={{.Project_05_Code}}">
+                                    <div class="project-card">
+                                        <i class="fa fa-window-maximize" aria-hidden="true"></i>
+                                        <p>{{.Project_05_Name}}</p>
+                                    </div>
+                                </a>
+                            </div>
+                            {{end}}
+
+                            {{if ne .Is_Project_05 ""}}
+                            <div class="column-12">
+                                <a href="/editor?project={{.Project_05_Code}}">
+                                    <div class="project-card">
+                                        <i class="fa fa-window-maximize" aria-hidden="true"></i>
+                                        <p>{{.Project_05_Name}}</p>
+                                    </div>
+                                </a>
+                            </div>
+                            {{end}}
+
+                            {{if ne .Is_Project_06 ""}}
+                            <div class="column-12">
+                                <a href="/editor?project={{.Project_06_Code}}">
+                                    <div class="project-card">
+                                        <i class="fa fa-window-maximize" aria-hidden="true"></i>
+                                        <p>{{.Project_06_Name}}</p>
+                                    </div>
+                                </a>
+                            </div>
+                            {{end}}
+
+                            {{if ne .Is_Project_07 ""}}
+                            <div class="column-12">
+                                <a href="/editor?project={{.Project_07_Code}}">
+                                    <div class="project-card">
+                                        <i class="fa fa-window-maximize" aria-hidden="true"></i>
+                                        <p>{{.Project_07_Name}}</p>
+                                    </div>
+                                </a>
+                            </div>
+                            {{end}}
+
+                            {{if ne .Is_Project_08 ""}}
+                            <div class="column-12">
+                                <a href="/editor?project={{.Project_08_Code}}">
+                                    <div class="project-card">
+                                        <i class="fa fa-window-maximize" aria-hidden="true"></i>
+                                        <p>{{.Project_08_Name}}</p>
+                                    </div>
+                                </a>
+                            </div>
+                            {{end}}
+
+                            {{if ne .Is_Project_09 ""}}
+                            <div class="column-12">
+                                <a href="/editor?project={{.Project_09_Code}}">
+                                    <div class="project-card">
+                                        <i class="fa fa-window-maximize" aria-hidden="true"></i>
+                                        <p>{{.Project_09_Name}}</p>
+                                    </div>
+                                </a>
+                            </div>
+                            {{end}}
+
+                            {{if ne .Is_Project_10 ""}}
+                            <div class="column-12">
+                                <a href="/editor?project={{.Project_10_Code}}">
+                                    <div class="project-card">
+                                        <i class="fa fa-window-maximize" aria-hidden="true"></i>
+                                        <p>{{.Project_10_Name}}</p>
+                                    </div>
+                                </a>
+                            </div>
+                            {{end}}
                         </div>
                     </div>
 
@@ -82,243 +194,8 @@
     </div>
 </div>
 
-<!-- Modals -->
+{{template "modal.tmpl" .}}
 
-<div id="edit-dashboard-wiki" class="codinoc-modal">
-    <div class="modal-content">
-        <span id="edit-dashboard-wiki-close" class="close">&times;</span>
-        <p class="title">Edit Server Dashboard Wiki</p>
-        <div class="line"></div>
-
-        <div class="modal-body sdw-modal">
-            <form method="POST" action="/process/dashboard/update_wiki" enctype="application/x-www-form-urlencoded">
-                <textarea pattern="[az-AZ-09]" name="wiki_content"
-                    placeholder="Server Dashboard Wiki ....">{{.Wiki_Content}}</textarea>
-                <button type="submit">Update Wiki</button>
-            </form>
-        </div>
-    </div>
-</div>
-
-<div id="create-new-project" class="codinoc-modal">
-    <div class="modal-content">
-        <span id="create-new-project-close" class="close">&times;</span>
-        <p class="title">Create new Project</p>
-        <div class="line"></div>
-
-        <div class="modal-body cnp-modal">
-            <form method="POST" action="/create_project" enctype="application/x-www-form-urlencoded">
-                <div class="grid">
-                    <div class="column">
-                        <input name="project_name" class="project-name" placeholder="Enter project name here ..">
-                    </div>
-                </div>
-
-                <p class="error-message" hidden>* Error Message</p>
-                <button type="submit" class="project-create">Create Project</button>
-            </form>
-        </div>
-    </div>
-</div>
-
-<div id="user-profile" class="codinoc-modal">
-    <div class="modal-content">
-        <span id="user-profile-close" class="close">&times;</span>
-        <p class="title">User Profile Settings</p>
-        <div class="line"></div>
-
-        <div class="modal-body cpp-modal">
-            <form method="POST" action="/update_user" enctype="application/x-www-form-urlencoded">
-                <div class="grid bar">
-                    <div class="column-3">
-                        <div class="label">Account Type:</div>
-                    </div>
-                    <div class="column-9">
-                        <input class="text-box" value="{{.Account_Type}}" disabled>
-                    </div>
-                </div>
-
-                <div class="grid bar">
-                    <div class="column-3">
-                        <div class="label">First Name:</div>
-                    </div>
-                    <div class="column-9">
-                        <input name="first_name" class="text-box" value="{{.First_Name}}">
-                    </div>
-                </div>
-
-                <div class="grid bar">
-                    <div class="column-3">
-                        <div class="label">Middle Name:</div>
-                    </div>
-                    <div class="column-9">
-                        <input name="middle_name" class="text-box" value="{{.Middle_Name}}">
-                    </div>
-                </div>
-
-                <div class="grid bar">
-                    <div class="column-3">
-                        <div class="label">Last Name:</div>
-                    </div>
-                    <div class="column-9">
-                        <input name="last_name" class="text-box" value="{{.Last_Name}}">
-                    </div>
-                </div>
-
-                <div class="grid bar">
-                    <div class="column-3">
-                        <div class="label">User Name:</div>
-                    </div>
-                    <div class="column-9">
-                        <input class="text-box" value="{{.User_Name}}" disabled>
-                    </div>
-                </div>
-
-                <div class="grid bar">
-                    <div class="column-3">
-                        <div class="label">Password:</div>
-                    </div>
-                    <div class="column-9">
-                        <div class="grid">
-                            <div class="column"><input name="password" class="text-box" type="password"
-                                    placeholder="New password" style="width: 95% !important;">
-                            </div>
-                            <div class="column"><input class="text-box" type="password"
-                                    placeholder="Confirm new password" style="width: 99% !important;">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <p class="error-message" hidden>* Error Message</p>
-
-                <button type="submit" class="update-button">Update User Profile Details</button>
-            </form>
-        </div>
-    </div>
-</div>
-
-<div id="server-profile" class="codinoc-modal">
-    <div class="modal-content">
-        <span id="server-profile-close" class="close">&times;</span>
-        <p class="title">Server Profile Settings</p>
-        <div class="line"></div>
-
-        <div class="modal-body cpp-modal">
-            <form method="POST" action="/update_server" enctype="application/x-www-form-urlencoded">
-                <div class="grid bar">
-                    <div class="column-3">
-                        <div class="label">Server Code:</div>
-                    </div>
-                    <div class="column-9">
-                        <input class="text-box" value="{{.Server_Code}}" disabled>
-                    </div>
-                </div>
-
-                <div class="grid bar">
-                    <div class="column-3">
-                        <div class="label">Server Name:</div>
-                    </div>
-                    <div class="column-9">
-                        <input class="text-box" value="{{.Server_Name}}" disabled>
-                    </div>
-                </div>
-
-                <div class="grid bar">
-                    <div class="column-3">
-                        <div class="label">Dashboard Name:</div>
-                    </div>
-                    <div class="column-9">
-                        <input name="dashboard_name" class="text-box" value="{{.Dashboard_Name}}">
-                    </div>
-                </div>
-
-                <div class="grid bar">
-                    <div class="column-3">
-                        <div class="label">Dashboard Description:</div>
-                    </div>
-                    <div class="column-9">
-                        <input name="dashboard_description" class="text-box" value="{{.Dashboard_Description}}">
-                    </div>
-                </div>
-
-                <p class="error-message" hidden>* Error Message</p>
-
-                <button type="submit" class="update-button">Update Server Profile Details</button>
-            </form>
-        </div>
-    </div>
-</div>
-
-<div id="server-team" class="codinoc-modal">
-    <div class="modal-content">
-        <span id="server-team-close" class="close">&times;</span>
-        <p class="title">Server Team Settings</p>
-        <div class="line"></div>
-
-        <div class="modal-body t-modal">
-            <table>
-                <tr>
-                    <th class="title">First Name</th>
-                    <th class="title">Middle Name</th>
-                    <th class="title">Last Name</th>
-                    <th class="title">User Name</th>
-                    <th class="title">Action</th>
-                </tr>
-
-                <tr>
-                    <th class="item">Sample</th>
-                    <th class="item">Sample</th>
-                    <th class="item">Sample</th>
-                    <th class="item">Sample</th>
-                    <th class="item"><a href="#">Remove User</a></th>
-                </tr>
-            </table>
-
-            <div class="line"></div>
-
-            <div class="add-title">Add New Team Member</div>
-
-            <div class="cpp-modal">
-                <form method="POST" action="/update_team" enctype="application/x-www-form-urlencoded">
-                    <div class="grid bar">
-                        <div class="column-3">
-                            <div class="label">User Name:</div>
-                        </div>
-                        <div class="column-9">
-                            <input name="user_name" class="text-box">
-                        </div>
-                    </div>
-
-                    <div class="grid bar">
-                        <div class="column-3">
-                            <div class="label">Password:</div>
-                        </div>
-                        <div class="column-9">
-                            <input name="password" class="text-box" type="password">
-                        </div>
-                    </div>
-
-                    <p class="error-message" hidden>* Error Message</p>
-
-                    <button type="submit" class="update-button">Add New Member</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- <div id="edit-dashboard-wiki" class="codinoc-modal">
-    <div class="modal-content">
-        <span id="edit-dashboard-wiki-close" class="close">&times;</span>
-        <p class="title">Modal Title</p>
-        <div class="line"></div>
-
-        <div class="modal-body">
-        </div>
-    </div>
-</div> -->
-
-{{template "footer.tmpl" .}}
+<!-- {{template "footer.tmpl" .}} -->
 
 {{template "bottom.tmpl" .}}

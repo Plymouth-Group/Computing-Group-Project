@@ -10,14 +10,26 @@
 
 // Known Issues
 //
-// 1. Tenant Database Maximum Limitation
+// 1. PostgreSQL Tenant Database Maximum Limitation
 //
 //  - When     -> Refreshing Dashboard or Editor Multiple Times
 //  - Why      -> Because of using Multi Tenant Database(s)
 //  - Fix      -> Unable to fix coz we doesn't use Cloud Storage or Managed PostgreSQL Database
+//                https://www.dba-ninja.com/2021/06/how-to-fix-postgres-error-remaining-connection-slots-are-reserved-for-non-replication-superuser-conn.html
+//
+//                sudo gedit /var/lib/pgsql/data/postgresql.conf
+//                edit 'max_connections' to maximum value, less than 500
+//
+//                for check connection usage:
+//                SELECT datname, numbackends FROM pg_stat_database;
+//
 //  - Solution -> Restarting the Server
 //  - Error    -> pq: remaining connection slots are reserved for non-replication superuser connections
 //  - Link     -> https://stackoverflow.com/questions/11847144/heroku-psql-fatal-remaining-connection-slots-are-reserved-for-non-replication
+//								https://stackoverflow.com/questions/38555679/aws-rds-postgresql-error-remaining-connection-slots-are-reserved-for-non-replic
+//								https://stackoverflow.com/questions/64060581/psql-fatal-remaining-connection-slots-are-reserved-for-non-replication-superus
+//								https://dba.stackexchange.com/questions/264921/fatal-53300-remaining-connection-slots-are-reserved-for-non-replication-superus
+//								https://dba.stackexchange.com/questions/120694/postgresql-remaining-connection-slots-are-reserved-for-non-replication-superuse
 
 package main
 
@@ -32,6 +44,7 @@ func main() {
 
 	router := mux.NewRouter()
 	router.PathPrefix("/resources/").Handler(http.StripPrefix("/resources/", http.FileServer(http.Dir("thm/"))))
+	router.PathPrefix("/cdn/").Handler(http.StripPrefix("/cdn/", http.FileServer(http.Dir("cdn/"))))
 
 	router.HandleFunc("/", Route_404).Methods("GET")
 	router.HandleFunc("/404", Route_404).Methods("GET")
@@ -77,6 +90,7 @@ func main() {
 	router.HandleFunc("/process/dashboard/remove_team_member", Route_Process_Remove_Team_Member).Methods("GET", "POST")
 	router.HandleFunc("/process/dashboard/create_project", Route_Process_Create_Project).Methods("GET", "POST")
 	router.HandleFunc("/process/dashboard/remove_project", Route_Process_Remove_Project).Methods("GET", "POST")
+	router.HandleFunc("/process/dashboard/update_source", Route_Update_Source).Methods("GET", "POST")
 
 	fmt.Println("> To open Codinoc Server, URL is http://" + CONN_HOST + ":" + CONN_PORT)
 	router_error := http.ListenAndServe(CONN_HOST + ":" + CONN_PORT, router)

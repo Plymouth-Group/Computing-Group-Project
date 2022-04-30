@@ -1,0 +1,337 @@
+<!-- Modals -->
+
+<div id="edit-dashboard-wiki" class="codinoc-modal">
+  <div class="modal-content">
+    <span id="edit-dashboard-wiki-close" class="close">&times;</span>
+    <p class="title">Edit Server Dashboard Wiki</p>
+    <div class="line"></div>
+
+    <div class="modal-body sdw-modal">
+      <form method="POST" action="/process/dashboard/update_wiki" enctype="application/x-www-form-urlencoded">
+        <textarea pattern="[az-AZ-09]" name="wiki_content" placeholder="Server Dashboard Wiki ...." minlength="4"
+          required>{{.Wiki_Content}}</textarea>
+        <button type="submit">Update Wiki</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="create-new-project" class="codinoc-modal">
+  <div class="modal-content">
+    <span id="create-new-project-close" class="close">&times;</span>
+    <p class="title">Create new Project</p>
+    <div class="line"></div>
+
+    <div class="modal-body cnp-modal">
+      <form method="POST" action="/process/dashboard/create_project" enctype="application/x-www-form-urlencoded">
+        <div class="grid">
+          <div class="column">
+            <input name="project_name" class="project-name" placeholder="Enter project name here .." minlength="4"
+              required>
+
+            <input name="server_code" style="display: none;" value="{{.Session_Code}}">
+          </div>
+        </div>
+
+        <p class="error-message" hidden>* Error Message</p>
+        <button type="submit" class="project-create">Create Project</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="user-profile" class="codinoc-modal">
+  <div class="modal-content">
+    <span id="user-profile-close" class="close">&times;</span>
+    <p class="title">User Profile Settings</p>
+    <div class="line"></div>
+
+    <div class="modal-body cpp-modal">
+      <form method="POST" action="/process/dashboard/update_user" enctype="application/x-www-form-urlencoded">
+        <div class="grid bar">
+          <div class="column-3">
+            <div class="label">Account Type:</div>
+          </div>
+          <div class="column-9">
+            <input class="text-box" value="{{.Account_Type}}" disabled>
+          </div>
+        </div>
+
+        <input name="session_type" class="text-box" value="{{.Session_Type}}" style="display: none;">
+        <input name="session_code" class="text-box" value="{{.Session_Code}}" style="display: none;">
+
+        {{if eq .Session_Type "admin"}}
+
+        <div class="grid bar">
+          <div class="column-3">
+            <div class="label">First Name:</div>
+          </div>
+          <div class="column-9">
+            <input name="first_name" class="text-box" value="{{.First_Name}}" minlength="2" required>
+          </div>
+        </div>
+
+        <div class="grid bar">
+          <div class="column-3">
+            <div class="label">Middle Name:</div>
+          </div>
+          <div class="column-9">
+            <input name="middle_name" class="text-box" value="{{.Middle_Name}}">
+          </div>
+        </div>
+
+        <div class="grid bar">
+          <div class="column-3">
+            <div class="label">Last Name:</div>
+          </div>
+          <div class="column-9">
+            <input name="last_name" class="text-box" value="{{.Last_Name}}">
+          </div>
+        </div>
+
+        {{end}}
+
+        <div class="grid bar">
+          <div class="column-3">
+            <div class="label">User Name:</div>
+          </div>
+          <div class="column-9">
+            <input class="text-box" value="{{.User_Name}}" disabled>
+          </div>
+        </div>
+
+        <div class="grid bar">
+          <div class="column-3">
+            <div class="label">Password:</div>
+          </div>
+          <div class="column-9">
+            <div class="grid">
+              <div class="column"><input name="password" class="text-box" type="password" placeholder="New password"
+                  style="width: 95% !important;" minlength="4" required>
+              </div>
+              <div class="column"><input class="text-box" type="password" placeholder="Confirm new password"
+                  style="width: 99% !important;" minlength="4" required>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="error-message" hidden>* Error Message</p>
+
+        <button type="submit" class="update-button">Update User Profile Details</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="server-profile" class="codinoc-modal">
+  <div class="modal-content">
+    <span id="server-profile-close" class="close">&times;</span>
+    <p class="title">Server Profile Settings</p>
+    <div class="line"></div>
+
+    <div class="modal-body cpp-modal">
+      <form method="POST" action="/process/dashboard/update_server" enctype="application/x-www-form-urlencoded">
+        <div class="grid bar">
+          <div class="column-3">
+            <div class="label">Server Code:</div>
+          </div>
+          <div class="column-9">
+            <input class="text-box" value="{{.Server_Code}}" disabled>
+          </div>
+        </div>
+
+        <div class="grid bar">
+          <div class="column-3">
+            <div class="label">Server Name:</div>
+          </div>
+          <div class="column-9">
+            <input class="text-box" value="{{.Server_Name}}" disabled>
+          </div>
+        </div>
+
+        <div class="grid bar">
+          <div class="column-3">
+            <div class="label">Dashboard Name:</div>
+          </div>
+          <div class="column-9">
+            <input name="dashboard_name" class="text-box" value="{{.Dashboard_Name}}" minlength="4" required>
+          </div>
+        </div>
+
+        <div class="grid bar">
+          <div class="column-3">
+            <div class="label">Dashboard Description:</div>
+          </div>
+          <div class="column-9">
+            <input name="dashboard_description" class="text-box" value="{{.Dashboard_Description}}" minlength="4"
+              required>
+          </div>
+        </div>
+
+        <p class="error-message" hidden>* Error Message</p>
+
+        <button type="submit" class="update-button">Update Server Profile Details</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="server-team" class="codinoc-modal">
+  <div class="modal-content">
+    <span id="server-team-close" class="close">&times;</span>
+    <p class="title">Server Team Settings</p>
+    <div class="line"></div>
+
+    <div class="modal-body t-modal">
+      <table>
+        <tr>
+          <th class="title" hidden>Name</th>
+          <th class="title">User Name</th>
+          <th class="title">Action</th>
+        </tr>
+
+        {{if ne .Is_Member_01 ""}}
+        <tr>
+          <th class="item" hidden>{{.Member_01_Name}}</th>
+          <th class="item">{{.Member_01_User_Name}}</th>
+          <th class="item"><a href="/process/dashboard/remove_team_member?uname={{.Member_01_User_Name}}">Remove
+              User</a>
+          </th>
+        </tr>
+        {{end}}
+
+        {{if ne .Is_Member_02 ""}}
+        <tr>
+          <th class="item" hidden>{{.Member_02_Name}}</th>
+          <th class="item">{{.Member_02_User_Name}}</th>
+          <th class="item"><a href="/process/dashboard/remove_team_member?uname={{.Member_02_User_Name}}">Remove
+              User</a>
+          </th>
+        </tr>
+        {{end}}
+
+        {{if ne .Is_Member_03 ""}}
+        <tr>
+          <th class="item" hidden>{{.Member_03_Name}}</th>
+          <th class="item">{{.Member_03_User_Name}}</th>
+          <th class="item"><a href="/process/dashboard/remove_team_member?uname={{.Member_03_User_Name}}">Remove
+              User</a>
+          </th>
+        </tr>
+        {{end}}
+
+        {{if ne .Is_Member_04 ""}}
+        <tr>
+          <th class="item" hidden>{{.Member_04_Name}}</th>
+          <th class="item">{{.Member_04_User_Name}}</th>
+          <th class="item"><a href="/process/dashboard/remove_team_member?uname={{.Member_04_User_Name}}">Remove
+              User</a>
+          </th>
+        </tr>
+        {{end}}
+
+        {{if ne .Is_Member_05 ""}}
+        <tr>
+          <th class="item" hidden>{{.Member_05_Name}}</th>
+          <th class="item">{{.Member_05_User_Name}}</th>
+          <th class="item"><a href="/process/dashboard/remove_team_member?uname={{.Member_05_User_Name}}">Remove
+              User</a>
+          </th>
+        </tr>
+        {{end}}
+
+        {{if ne .Is_Member_06 ""}}
+        <tr>
+          <th class="item" hidden>{{.Member_06_Name}}</th>
+          <th class="item">{{.Member_06_User_Name}}</th>
+          <th class="item"><a href="/process/dashboard/remove_team_member?uname={{.Member_06_User_Name}}">Remove
+              User</a>
+          </th>
+        </tr>
+        {{end}}
+
+        {{if ne .Is_Member_07 ""}}
+        <tr>
+          <th class="item" hidden>{{.Member_07_Name}}</th>
+          <th class="item">{{.Member_07_User_Name}}</th>
+          <th class="item"><a href="/process/dashboard/remove_team_member?uname={{.Member_07_User_Name}}">Remove
+              User</a>
+          </th>
+        </tr>
+        {{end}}
+
+        {{if ne .Is_Member_08 ""}}
+        <tr>
+          <th class="item" hidden>{{.Member_08_Name}}</th>
+          <th class="item">{{.Member_08_User_Name}}</th>
+          <th class="item"><a href="/process/dashboard/remove_team_member?uname={{.Member_08_User_Name}}">Remove
+              User</a>
+          </th>
+        </tr>
+        {{end}}
+
+        {{if ne .Is_Member_09 ""}}
+        <tr>
+          <th class="item" hidden>{{.Member_09_Name}}</th>
+          <th class="item">{{.Member_09_User_Name}}</th>
+          <th class="item"><a href="/process/dashboard/remove_team_member?uname={{.Member_09_User_Name}}">Remove
+              User</a>
+          </th>
+        </tr>
+        {{end}}
+
+        {{if ne .Is_Member_10 ""}}
+        <tr>
+          <th class="item" hidden>{{.Member_10_Name}}</th>
+          <th class="item">{{.Member_10_User_Name}}</th>
+          <th class="item"><a href="/process/dashboard/remove_team_member?uname={{.Member_10_User_Name}}">Remove
+              User</a>
+          </th>
+        </tr>
+        {{end}}
+      </table>
+
+      <div class="line"></div>
+
+      <div class="add-title">Add New Team Member</div>
+
+      <div class="cpp-modal">
+        <form method="POST" action="/process/dashboard/add_team_member" enctype="application/x-www-form-urlencoded">
+          <div class="grid bar">
+            <div class="column-3">
+              <div class="label">User Name:</div>
+            </div>
+            <div class="column-9">
+              <input name="user_name" class="text-box" minlength="4" required>
+            </div>
+          </div>
+
+          <div class="grid bar">
+            <div class="column-3">
+              <div class="label">Password:</div>
+            </div>
+            <div class="column-9">
+              <input name="password" class="text-box" type="password" minlength="4" required>
+            </div>
+          </div>
+
+          <p class="error-message" hidden>* Error Message</p>
+
+          <button type="submit" class="update-button">Add New Member</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div id="edit-dashboard-wiki" class="codinoc-modal">
+  <div class="modal-content">
+      <span id="edit-dashboard-wiki-close" class="close">&times;</span>
+      <p class="title">Modal Title</p>
+      <div class="line"></div>
+
+      <div class="modal-body">
+      </div>
+  </div>
+</div> -->

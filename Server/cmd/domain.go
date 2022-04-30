@@ -11,10 +11,13 @@
 package main
 
 import (
+	"os"
 	"fmt"
+	"time"
 	"strings"
 	"net/http"
 	"html/template"
+	"encoding/json"
 )
 
 func Check_Error(err error) {
@@ -225,7 +228,22 @@ func Route_Member_Signin(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	// ...
+	error_server := r.URL.Query().Get("error")
+
+	parsedTemplate, err := template.ParseFiles(
+		"thm/page/non_logged/signin_member.tmpl",
+		"thm/page/_part/non_logged/head.tmpl",
+		"thm/page/_part/non_logged/bottom.tmpl",
+		"thm/page/_part/non_logged/footer_form.tmpl")
+
+	if err != nil {
+		fmt.Println("> Unable to parse html file : ", err)
+
+		http.Redirect(w, r, fmt.Sprintf("/server"), 302)
+		return
+	}
+
+	parsedTemplate.Execute(w, map[string]string{"Page_Title": "Member Sign In", "Error_Server": error_server})
 }
 
 func Route_Create_Server(w http.ResponseWriter, r *http.Request) {
@@ -519,6 +537,7 @@ func Route_Dashboard(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	var session_string = fmt.Sprintf("%v", session_login.Values["session_string"])
 	var session_type = fmt.Sprintf("%v", session_login.Values["session_type"])
 	var session_code = fmt.Sprintf("%v", session_login.Values["session_code"])
 
@@ -529,7 +548,8 @@ func Route_Dashboard(w http.ResponseWriter, r *http.Request) {
 		"thm/page/_part/logged/navbar.tmpl",
 		"thm/page/_part/logged/footer.tmpl",
 		"thm/page/_part/logged/panel_team.tmpl",
-		"thm/page/_part/logged/panel_chat.tmpl")
+		"thm/page/_part/logged/panel_chat.tmpl",
+		"thm/page/_part/logged/modal.tmpl")
 
 	if err != nil {
 		fmt.Println("> Unable to parse html file : ", err)
@@ -546,12 +566,15 @@ func Route_Dashboard(w http.ResponseWriter, r *http.Request) {
 	Get_First_Name := Dashboard_Get_First_Name(session_type, session_code)
 	Get_Middle_Name := Dashboard_Get_Middle_Name(session_type, session_code)
 	Get_Last_Name := Dashboard_Get_Last_Name(session_type, session_code)
-	Get_User_Name := Dashboard_Get_User_Name(session_type, session_code)
+	// Get_User_Name := Dashboard_Get_User_Name(session_type, session_code)
+	Get_User_Name := session_string
 	Get_Server_Code := Dashboard_Get_Server_Code()
 	Get_Server_Name := Dashboard_Get_Server_Name()
 
 	parsedTemplate.Execute(w, map[string]string{
 		"Page_Title": "Dashboard",
+		"Session_Type": session_type,
+		"Session_Code": session_code,
 		"Navbar_Name": Get_Navbar_Name,
 		"Dashboard_Name": Get_Dashboard_Name,
 		"Dashboard_Description": Get_Dashboard_Description,
@@ -562,7 +585,68 @@ func Route_Dashboard(w http.ResponseWriter, r *http.Request) {
 		"Last_Name": Get_Last_Name,
 		"User_Name": Get_User_Name,
 		"Server_Code": Get_Server_Code,
-		"Server_Name": Get_Server_Name})
+		"Server_Name": Get_Server_Name,
+		"Is_Member_01": Dashboard_Get_Member_Availability(1),
+		"Is_Member_02": Dashboard_Get_Member_Availability(2),
+		"Is_Member_03": Dashboard_Get_Member_Availability(3),
+		"Is_Member_04": Dashboard_Get_Member_Availability(4),
+		"Is_Member_05": Dashboard_Get_Member_Availability(5),
+		"Is_Member_06": Dashboard_Get_Member_Availability(6),
+		"Is_Member_07": Dashboard_Get_Member_Availability(7),
+		"Is_Member_08": Dashboard_Get_Member_Availability(8),
+		"Is_Member_09": Dashboard_Get_Member_Availability(9),
+		"Is_Member_10": Dashboard_Get_Member_Availability(10),
+		"Member_01_Name": Dashboard_Get_Member_Name(1),
+		"Member_02_Name": Dashboard_Get_Member_Name(2),
+		"Member_03_Name": Dashboard_Get_Member_Name(3),
+		"Member_04_Name": Dashboard_Get_Member_Name(4),
+		"Member_05_Name": Dashboard_Get_Member_Name(5),
+		"Member_06_Name": Dashboard_Get_Member_Name(6),
+		"Member_07_Name": Dashboard_Get_Member_Name(7),
+		"Member_08_Name": Dashboard_Get_Member_Name(8),
+		"Member_09_Name": Dashboard_Get_Member_Name(9),
+		"Member_10_Name": Dashboard_Get_Member_Name(10),
+		"Member_01_User_Name": Dashboard_Get_Member_User_Name(1),
+		"Member_02_User_Name": Dashboard_Get_Member_User_Name(2),
+		"Member_03_User_Name": Dashboard_Get_Member_User_Name(3),
+		"Member_04_User_Name": Dashboard_Get_Member_User_Name(4),
+		"Member_05_User_Name": Dashboard_Get_Member_User_Name(5),
+		"Member_06_User_Name": Dashboard_Get_Member_User_Name(6),
+		"Member_07_User_Name": Dashboard_Get_Member_User_Name(7),
+		"Member_08_User_Name": Dashboard_Get_Member_User_Name(8),
+		"Member_09_User_Name": Dashboard_Get_Member_User_Name(9),
+		"Member_10_User_Name": Dashboard_Get_Member_User_Name(10),
+		"Is_Project_01": Dashboard_Get_Project_Availability(1),
+		"Is_Project_02": Dashboard_Get_Project_Availability(2),
+		"Is_Project_03": Dashboard_Get_Project_Availability(3),
+		"Is_Project_04": Dashboard_Get_Project_Availability(4),
+		"Is_Project_05": Dashboard_Get_Project_Availability(5),
+		"Is_Project_06": Dashboard_Get_Project_Availability(6),
+		"Is_Project_07": Dashboard_Get_Project_Availability(7),
+		"Is_Project_08": Dashboard_Get_Project_Availability(8),
+		"Is_Project_09": Dashboard_Get_Project_Availability(9),
+		"Is_Project_10": Dashboard_Get_Project_Availability(10),
+		"Project_01_Name": Dashboard_Get_Project_Name(1),
+		"Project_02_Name": Dashboard_Get_Project_Name(2),
+		"Project_03_Name": Dashboard_Get_Project_Name(3),
+		"Project_04_Name": Dashboard_Get_Project_Name(4),
+		"Project_05_Name": Dashboard_Get_Project_Name(5),
+		"Project_06_Name": Dashboard_Get_Project_Name(6),
+		"Project_07_Name": Dashboard_Get_Project_Name(7),
+		"Project_08_Name": Dashboard_Get_Project_Name(8),
+		"Project_09_Name": Dashboard_Get_Project_Name(9),
+		"Project_10_Name": Dashboard_Get_Project_Name(10),
+		"Project_01_Code": Dashboard_Get_Project_Code(1),
+		"Project_02_Code": Dashboard_Get_Project_Code(2),
+		"Project_03_Code": Dashboard_Get_Project_Code(3),
+		"Project_04_Code": Dashboard_Get_Project_Code(4),
+		"Project_05_Code": Dashboard_Get_Project_Code(5),
+		"Project_06_Code": Dashboard_Get_Project_Code(6),
+		"Project_07_Code": Dashboard_Get_Project_Code(7),
+		"Project_08_Code": Dashboard_Get_Project_Code(8),
+		"Project_09_Code": Dashboard_Get_Project_Code(9),
+		"Project_10_Code": Dashboard_Get_Project_Code(10),
+	})
 }
 
 func Route_Editor(w http.ResponseWriter, r *http.Request) {
@@ -582,7 +666,54 @@ func Route_Editor(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	// ...
+	parsedTemplate, err := template.ParseFiles(
+		"thm/page/logged/editor.tmpl",
+		"thm/page/_part/logged/head.tmpl",
+		"thm/page/_part/logged/bottom.tmpl",
+		"thm/page/_part/logged/navbar.tmpl",
+		"thm/page/_part/logged/footer.tmpl",
+		"thm/page/_part/logged/panel_team.tmpl",
+		"thm/page/_part/logged/panel_chat.tmpl",
+		"thm/page/_part/logged/modal.tmpl")
+
+	if err != nil {
+		fmt.Println("> Unable to parse html file : ", err)
+
+		http.Redirect(w, r, fmt.Sprintf("/server"), 302)
+		return
+	}
+
+	// var session_string = fmt.Sprintf("%v", session_login.Values["session_string"])
+	var session_type = fmt.Sprintf("%v", session_login.Values["session_type"])
+	var session_code = fmt.Sprintf("%v", session_login.Values["session_code"])
+
+	project_code := r.URL.Query().Get("project")
+
+	path_html := fmt.Sprintf("cdn/%s/%s/%s", session_code, project_code, "index.html")
+	path_js := fmt.Sprintf("cdn/%s/%s/%s", session_code, project_code, "source_js.js")
+	path_css := fmt.Sprintf("cdn/%s/%s/%s", session_code, project_code, "source_css.css")
+	path_scss := fmt.Sprintf("cdn/%s/%s/%s", session_code, project_code, "source_scss.scss")
+
+	Get_Navbar_Name := project_code
+
+	// Get_Server_Name := Dashboard_Get_Server_Name()
+
+	fmt.Println()
+
+	// fmt.Println(path_html)
+	// fmt.Println(path_js)
+	// fmt.Println(path_css)
+	// fmt.Println(path_scss)
+
+	parsedTemplate.Execute(w, map[string]string{
+		"Page_Title": "Editor",
+		"Session_Type": session_type,
+		"Navbar_Name": Get_Navbar_Name,
+		"HTML_PATH": path_html,
+		"JS_PATH": path_js,
+		"CSS_PATH": path_css,
+		"SCSS_PATH": path_scss,
+	})
 }
 
 func Route_Account_Sign_Out(w http.ResponseWriter, r *http.Request) {
@@ -641,7 +772,48 @@ func Route_Process_SignIn_Admin(w http.ResponseWriter, r *http.Request) {
 }
 
 func Route_Process_SignIn_Member(w http.ResponseWriter, r *http.Request) {
-	// ...
+	if r.Method == "GET" {
+		http.Redirect(w, r, fmt.Sprintf("/server"), 302)
+		return
+	} else {
+		parse_error := r.ParseForm()
+
+		if parse_error != nil {
+			fmt.Println(parse_error)
+
+			http.Redirect(w, r, fmt.Sprintf("/server"), 302)
+			return
+		}
+
+		server_code := r.FormValue("input_scode")
+		user_name := r.FormValue("input_name")
+		user_password := r.FormValue("input_password")
+
+		if Process_Is_Server_Available_From_Code(server_code) == false {
+			http.Redirect(w, r, fmt.Sprintf("/member_signin?error=%s", "No Server Available"), 302)
+			return
+		}
+
+		if Process_Is_Member_Available_In_Server(server_code, user_name) == false {
+			http.Redirect(w, r, fmt.Sprintf("/member_signin?error=%s", "Invalid Member User Name"), 302)
+			return
+		}
+
+		if Process_Is_Member_Password_Match(server_code, user_name, user_password) == false {
+			http.Redirect(w, r, fmt.Sprintf("/member_signin?error=%s", "Password does not match"), 302)
+			return
+		}
+
+		// Sign In Session Store Process
+
+		SignIn_Session_Enable(w, r, user_name, "member", server_code)
+
+		// Connect Server Database
+
+		SignIn_Database_Connect(server_code)
+
+		http.Redirect(w, r, fmt.Sprintf("/dashboard"), 302)
+	}
 }
 
 func Route_Process_Create_Server(w http.ResponseWriter, r *http.Request) {
@@ -772,29 +944,175 @@ func Route_Process_New_Password(w http.ResponseWriter, r *http.Request) {
 }
 
 func Route_Process_Update_Wiki(w http.ResponseWriter, r *http.Request) {
-	// ...
+	if r.Method == "GET" {
+		http.Redirect(w, r, fmt.Sprintf("/server"), 302)
+		return
+	} else {
+		parse_error := r.ParseForm()
+
+		if parse_error != nil {
+			fmt.Println(parse_error)
+			return
+		}
+
+		new_content := r.FormValue("wiki_content")
+
+		Dashboard_Update_Wiki(new_content)
+
+		http.Redirect(w, r, fmt.Sprintf("/dashboard"), 302)
+	}
 }
 
 func Route_Process_Update_User(w http.ResponseWriter, r *http.Request) {
-	// ...
+	if r.Method == "GET" {
+		http.Redirect(w, r, fmt.Sprintf("/server"), 302)
+		return
+	} else {
+		parse_error := r.ParseForm()
+
+		if parse_error != nil {
+			fmt.Println(parse_error)
+			return
+		}
+
+		session_type := r.FormValue("session_type")
+		session_code := r.FormValue("session_code")
+
+		first_name := r.FormValue("first_name")
+		middle_name := r.FormValue("middle_name")
+		last_name := r.FormValue("last_name")
+		password := r.FormValue("password")
+
+		Dashboard_Update_User_Profile(session_type, session_code, first_name, middle_name, last_name, password)
+
+		http.Redirect(w, r, fmt.Sprintf("/dashboard"), 302)
+	}
 }
 
 func Route_Process_Update_Server(w http.ResponseWriter, r *http.Request) {
-	// ...
+	if r.Method == "GET" {
+		http.Redirect(w, r, fmt.Sprintf("/server"), 302)
+		return
+	} else {
+		parse_error := r.ParseForm()
+
+		if parse_error != nil {
+			fmt.Println(parse_error)
+			return
+		}
+
+		dashboard_name := r.FormValue("dashboard_name")
+		dashboard_description := r.FormValue("dashboard_description")
+
+		Dashboard_Update_Server_Profile(dashboard_name, dashboard_description)
+		http.Redirect(w, r, fmt.Sprintf("/dashboard"), 302)
+	}
 }
 
 func Route_Process_Add_Team_Member(w http.ResponseWriter, r *http.Request) {
-	// ...
+	if r.Method == "GET" {
+		http.Redirect(w, r, fmt.Sprintf("/server"), 302)
+		return
+	} else {
+		parse_error := r.ParseForm()
+
+		if parse_error != nil {
+			fmt.Println(parse_error)
+			return
+		}
+
+		user_name := r.FormValue("user_name")
+		password := r.FormValue("password")
+
+		Dashboard_Create_New_Team_Member(user_name, password)
+
+		http.Redirect(w, r, fmt.Sprintf("/dashboard"), 302)
+	}
 }
 
 func Route_Process_Remove_Team_Member(w http.ResponseWriter, r *http.Request) {
-	// ...
+	user_name := r.URL.Query().Get("uname")
+
+	if user_name == "" {
+		http.Redirect(w, r, fmt.Sprintf("/server"), 302)
+		return
+	}
+
+	Dashboard_Remove_Team_Member(user_name)
+
+	http.Redirect(w, r, fmt.Sprintf("/dashboard"), 302)
 }
 
 func Route_Process_Create_Project(w http.ResponseWriter, r *http.Request) {
-	// ...
+	if r.Method == "GET" {
+		http.Redirect(w, r, fmt.Sprintf("/server"), 302)
+		return
+	} else {
+		parse_error := r.ParseForm()
+
+		if parse_error != nil {
+			fmt.Println(parse_error)
+			return
+		}
+
+		project_name := r.FormValue("project_name")
+		server_code := r.FormValue("server_code")
+
+		Dashboard_Create_New_Project(server_code, project_name)
+
+		http.Redirect(w, r, fmt.Sprintf("/dashboard"), 302)
+	}
 }
 
 func Route_Process_Remove_Project(w http.ResponseWriter, r *http.Request) {
-	// ...
+	if r.Method == "GET" {
+		http.Redirect(w, r, fmt.Sprintf("/server"), 302)
+		return
+	} else {
+	}
+}
+
+func Route_Update_Source(w http.ResponseWriter, r *http.Request) {
+	type Get_Data struct {
+		Content string
+		Type string
+		Path string
+		Project string
+	}
+
+	var data Get_Data
+
+	decoder := json.NewDecoder(r.Body)
+	err := decoder.Decode(&data)
+
+	if err != nil {
+		panic(err)
+	}
+
+	get_Content := fmt.Sprintf("%+v", data.Content)
+	get_Type := fmt.Sprintf("%+v", data.Type)
+	get_Path := fmt.Sprintf("%+v", data.Path)
+	get_Project := fmt.Sprintf("%+v", data.Project)
+
+	get_Time := time.Now()
+	get_Date := "Unknown"
+
+	// fmt.Println("File Content :", get_Content)
+	// fmt.Println("File Type    :", get_Type)
+	// fmt.Println("File Path    :", get_Path)
+
+	file, err := os.Create(get_Path)
+
+	if err != nil {
+		return
+	}
+
+	defer file.Close()
+
+	file.WriteString(get_Content)
+
+	// Create File History
+
+	query_tb_insert := fmt.Sprintf("INSERT INTO schema_file.tb_main ( project_code, file_type, file_name, file_conetent, updated_time, updated_date, is_last_save) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s');", get_Project, get_Type, get_Path, get_Content, get_Time, get_Date, "FALSE")
+	db_server.Query(query_tb_insert)
 }

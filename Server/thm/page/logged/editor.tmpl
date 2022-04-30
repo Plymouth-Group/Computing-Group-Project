@@ -45,41 +45,53 @@
             <!-- HTML Editor -->
 
             <div id="editor-html" class="editor-page editor-custom">
-                <span class="file-name">/index.html</span>
+                <!-- <span class="file-name">/index.html</span> -->
                 <a id="btn-modal-version-html" data-target="#modal-version-html" data-toggle="modal"
                     href="#modal-version-html" class="version-button">File History</a>
 
-                <div id="ace_editor_html" class="ace-editor"></div>
+                <a class="version-button" onclick="save_source_html()">Save Source</a>
+                <a class="version-button" onclick="get_source_html()">Get Source</a>
+
+                <div id="ace_editor_html" class="ace-editor" class="height: 95%"></div>
             </div>
 
             <!-- JS Editor -->
 
             <div id="editor-js" class="editor-page editor-custom">
-                <span class="file-name">/source_js.js</span>
+                <!-- <span class="file-name">/source_js.js</span> -->
                 <a id="btn-modal-version-js" data-target="#modal-version-js" data-toggle="modal"
                     href="#modal-version-js" class="version-button">File History</a>
 
-                <div id="ace_editor_js" class="ace-editor"></div>
+                <a class="version-button" onclick="save_source_js()">Save Source</a>
+                <a class="version-button" onclick="get_source_js()">Get Source</a>
+
+                <div id="ace_editor_js" class="ace-editor" class="height: 95%"></div>
             </div>
 
             <!-- CSS Editor -->
 
             <div id="editor-css" class="editor-page editor-custom">
-                <span class="file-name">/source_css.css</span>
+                <!-- <span class="file-name">/source_css.css</span> -->
                 <a id="btn-modal-version-css" data-target="#modal-version-css" data-toggle="modal"
                     href="#modal-version-css" class="version-button">File History</a>
 
-                <div id="ace_editor_css" class="ace-editor"></div>
+                <a class="version-button" onclick="save_source_css()">Save Source</a>
+                <a class="version-button" onclick="get_source_css()">Get Source</a>
+
+                <div id="ace_editor_css" class="ace-editor" class="height: 95%"></div>
             </div>
 
             <!-- SCSS Editor -->
 
             <div id="editor-scss" class="editor-page editor-custom">
-                <span class="file-name">/source_scss.scss</span>
+                <!-- <span class="file-name">/source_scss.scss</span> -->
                 <a id="btn-modal-version-scss" data-target="#modal-version-scss" data-toggle="modal"
                     href="#modal-version-scss" class="version-button">File History</a>
 
-                <div id="ace_editor_scss" class="ace-editor"></div>
+                <a class="version-button" onclick="save_source_scss()">Save Source</a>
+                <a class="version-button" onclick="get_source_scss()">Get Source</a>
+
+                <div id="ace_editor_scss" class="ace-editor" class="height: 95%"></div>
             </div>
         </div>
     </div>
@@ -88,6 +100,8 @@
         {{template "panel_chat.tmpl" .}}
     </div>
 </div>
+
+<!-- In Page Modals -->
 
 <div id="modal-version-html" class="codinoc-modal">
     <div class="modal-content">
@@ -189,6 +203,274 @@
     </div>
 </div>
 
-<!-- {{template "footer.tmpl" .}} -->
+<script type="text/javascript" charset="utf-8">
+    var ace_editor_html;
+
+    ace_editor_html = ace.edit("ace_editor_html");
+    ace_editor_html.setTheme("ace/theme/monokai");
+    ace_editor_html.session.setMode("ace/mode/html");
+
+    var ace_editor_js;
+
+    ace_editor_js = ace.edit("ace_editor_js");
+    ace_editor_js.setTheme("ace/theme/monokai");
+    ace_editor_js.session.setMode("ace/mode/javascript");
+
+    var ace_editor_css;
+
+    ace_editor_css = ace.edit("ace_editor_css");
+    ace_editor_css.setTheme("ace/theme/monokai");
+    ace_editor_css.session.setMode("ace/mode/css");
+
+    var ace_editor_scss;
+
+    ace_editor_scss = ace.edit("ace_editor_scss");
+    ace_editor_scss.setTheme("ace/theme/monokai");
+    ace_editor_scss.session.setMode("ace/mode/scss");
+
+    fetch('{{.HTML_PATH}}')
+        .then(response_html => response_html.text())
+        .then(data_html => {
+            ace_editor_html.session.setValue(data_html);
+        });
+
+    fetch('{{.JS_PATH}}')
+        .then(response_js => response_js.text())
+        .then(data_js => {
+            ace_editor_js.session.setValue(data_js);
+        });
+
+    fetch('{{.CSS_PATH}}')
+        .then(response_css => response_css.text())
+        .then(data_css => {
+            ace_editor_css.session.setValue(data_css);
+        });
+
+    fetch('{{.SCSS_PATH}}')
+        .then(response_scss => response_scss.text())
+        .then(data_scss => {
+            ace_editor_scss.session.setValue(data_scss);
+        });
+
+    // Save ace editor's source to the local file
+
+    function save_source_html() {
+        var get_Content = ace_editor_html.getSession().getValue();
+
+        let Body = {};
+        Body.Content = get_Content;
+        Body.Type = "HTML";
+        Body.Path = "{{.HTML_PATH}}"
+        Body.Project = "{{.Navbar_Name}}"
+
+        // console.log(Body.Content)
+        // console.log(Body.Type)
+        // console.log(Body.Path)
+
+        fetch("/process/dashboard/update_source", {
+            method: "POST",
+            headers: {
+                "Accept": "application/x-www-form-urlencoded",
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+
+            body: JSON.stringify(Body),
+        }).then((resp) => {
+            console.log(resp);
+        });
+    }
+
+    function save_source_js() {
+        var get_Content = ace_editor_js.getSession().getValue();
+
+        let Body = {};
+        Body.Content = get_Content;
+        Body.Type = "JS";
+        Body.Path = "{{.JS_PATH}}"
+        Body.Project = "{{.Navbar_Name}}"
+
+        // console.log(Body.Content)
+        // console.log(Body.Type)
+        // console.log(Body.Path)
+
+        fetch("/process/dashboard/update_source", {
+            method: "POST",
+            headers: {
+                "Accept": "application/x-www-form-urlencoded",
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+
+            body: JSON.stringify(Body),
+        }).then((resp) => {
+            console.log(resp);
+        });
+    }
+
+    function save_source_css() {
+        var get_Content = ace_editor_css.getSession().getValue();
+
+        let Body = {};
+        Body.Content = get_Content;
+        Body.Type = "CSS";
+        Body.Path = "{{.CSS_PATH}}"
+        Body.Project = "{{.Navbar_Name}}"
+
+        // console.log(Body.Content)
+        // console.log(Body.Type)
+        // console.log(Body.Path)
+
+        fetch("/process/dashboard/update_source", {
+            method: "POST",
+            headers: {
+                "Accept": "application/x-www-form-urlencoded",
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+
+            body: JSON.stringify(Body),
+        }).then((resp) => {
+            console.log(resp);
+        });
+    }
+
+    function save_source_scss() {
+        var get_Content = ace_editor_scss.getSession().getValue();
+
+        let Body = {};
+        Body.Content = get_Content;
+        Body.Type = "SCSS";
+        Body.Path = "{{.SCSS_PATH}}"
+        Body.Project = "{{.Navbar_Name}}"
+
+        // console.log(Body.Content)
+        // console.log(Body.Type)
+        // console.log(Body.Path)
+
+        fetch("/process/dashboard/update_source", {
+            method: "POST",
+            headers: {
+                "Accept": "application/x-www-form-urlencoded",
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+
+            body: JSON.stringify(Body),
+        }).then((resp) => {
+            console.log(resp);
+        });
+    }
+
+    // Fetch source to ace editor
+
+    function get_source_html() {
+        fetch('{{.HTML_PATH}}')
+            .then(response => response.text())
+            .then(data => {
+                ace_editor_html.session.setValue(data);
+            });
+    }
+
+    function get_source_js() {
+        fetch('{{.JS_PATH}}')
+            .then(response => response.text())
+            .then(data => {
+                ace_editor_js.session.setValue(data);
+            });
+    }
+
+    function get_source_css() {
+        fetch('{{.CSS_PATH}}')
+            .then(response => response.text())
+            .then(data => {
+                ace_editor_css.session.setValue(data);
+                console.log(data)
+            });
+    }
+
+    function get_source_scss() {
+        fetch('{{.SCSS_PATH}}')
+            .then(response => response.text())
+            .then(data => {
+                ace_editor_scss.session.setValue(data);
+            });
+    }
+
+    // HTML File History Modals
+
+    var modal_version_html = document.getElementById("modal-version-html");
+    var btn_version_html = document.getElementById("btn-modal-version-html");
+    var span_version_html = document.getElementById("modal-version-html-close");
+
+    btn_version_html.onclick = function () {
+        modal_version_html.style.display = "block";
+    }
+
+    span_version_html.onclick = function () {
+        modal_version_html.style.display = "none";
+    }
+
+    // JS File History Modals
+
+    var modal_version_js = document.getElementById("modal-version-js");
+    var btn_version_js = document.getElementById("btn-modal-version-js");
+    var span_version_js = document.getElementById("modal-version-js-close");
+
+    btn_version_js.onclick = function () {
+        modal_version_js.style.display = "block";
+    }
+
+    span_version_js.onclick = function () {
+        modal_version_js.style.display = "none";
+    }
+
+    // CSS File History Modals
+
+    var modal_version_css = document.getElementById("modal-version-css");
+    var btn_version_css = document.getElementById("btn-modal-version-css");
+    var span_version_css = document.getElementById("modal-version-css-close");
+
+    btn_version_css.onclick = function () {
+        modal_version_css.style.display = "block";
+    }
+
+    span_version_css.onclick = function () {
+        modal_version_css.style.display = "none";
+    }
+
+    // SCSS File History Modals
+
+    var modal_version_scss = document.getElementById("modal-version-scss");
+    var btn_version_scss = document.getElementById("btn-modal-version-scss");
+    var span_version_scss = document.getElementById("modal-version-scss-close");
+
+    btn_version_scss.onclick = function () {
+        modal_version_scss.style.display = "block";
+    }
+
+    span_version_scss.onclick = function () {
+        modal_version_scss.style.display = "none";
+    }
+
+    // Download Project
+
+    function download_project() {
+        var get_Content_html = ace_editor_html.getSession().getValue();
+        var get_Content_js = ace_editor_js.getSession().getValue();
+        var get_Content_css = ace_editor_css.getSession().getValue();
+        var get_Content_scss = ace_editor_scss.getSession().getValue();
+
+        var zip = new JSZip();
+
+        zip.file("index.html", get_Content_html);
+        zip.file("source_js.js", get_Content_js);
+        zip.file("source_css.css", get_Content_css);
+        zip.file("source_scss.scss", get_Content_scss);
+
+        zip.generateAsync({ type: "blob" })
+            .then(function (content) {
+                saveAs(content, "{{.Navbar_Name}}.zip");
+            });
+
+        console.log("Project is downloaded")
+    }
+</script>
 
 {{template "bottom.tmpl" .}}

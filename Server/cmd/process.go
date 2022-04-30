@@ -101,3 +101,15 @@ func Process_Is_Admin_Password_Match(server_code string, admin_email string, adm
 
 	return false
 }
+
+func Process_Is_Member_Available_In_Server(server_code string, user_name string) bool {
+	// FIXME Check those details
+
+	return true
+}
+
+func Process_Is_Member_Password_Match(server_code string, user_name string, password string) bool {
+	// FIXME Check those details
+
+	return true
+}

@@ -1,22 +1,24 @@
 <div class="navbar">
+    {{if eq .Page_Title "Editor"}}
     <div class="dropdown">
         <button class="" onclick="logged_nav_menu()">
             <i class="fa-solid fa-bars"></i>
         </button>
         <div class="drop-content dropdown-menu" id="dropdown-menu">
             <p class="title">Project</p>
-            <p class="item"><a href="#"><i class="fa-solid fa-folder-plus"></i>Create New Project</a></p>
-            <p class="item"><a href="#"><i class="fa-solid fa-circle-xmark"></i>Close Current Project</a></p>
+            <p class="item"><a href="/dashboard"><i class="fa-solid fa-circle-xmark"></i>Close Current Project</a></p>
             <p class="title">Run</p>
-            <p class="item"><a href="#"><i class="fa-solid fa-up-right-from-square"></i>Preview Once</a></p>
-            <p class="item"><a href="#"><i class="fa-solid fa-play"></i>Live Preview</a></p>
+            <p class="item"><a href="{{.HTML_PATH}}" target="_blank"><i class="fa-solid fa-play"></i>Preview Project</a>
+            </p>
             <p class="title">Compile</p>
             <p class="item"><a href="#"><i class="fa-brands fa-sass"></i>Compile SCSS</a></p>
             <p class="item"><a href="#"><i class="fa-brands fa-js"></i>Compile JS</a></p>
             <p class="title">Export</p>
-            <p class="item"><a href="#"><i class="fa-solid fa-cloud-arrow-down"></i>Export Project</a></p>
+            <p class="item"><a href="#" onclick="download_project()"><i class="fa-solid fa-cloud-arrow-down"></i>Export
+                    Project</a></p>
         </div>
     </div>
+    {{end}}
 
     <span>CODINOC IDE <b>{{.Navbar_Name}}</b></span>
 
@@ -25,16 +27,23 @@
             <i class="fa-solid fa-gear"></i>
         </button>
         <div class="drop-content dropdown-settings" id="dropdown-settings">
+            {{if ne .Page_Title "Editor"}}
             <p class="title">User</p>
             <p class="item">
                 <a id="btn-user-profile" data-target="#user-profile" data-toggle="modal" href="#user-profile"><i
                         class="fa-solid fa-user"></i>User Profile</a>
             </p>
+
+            {{if eq .Session_Type "admin"}}
             <p class="title">Server</p>
             <p class="item"><a id="btn-server-profile" data-target="#server-profile" data-toggle="modal"
                     href="#server-profile"><i class="fa-solid fa-server"></i>Server Profile</a></p>
             <p class="item"><a id="btn-server-team" data-target="#server-team" data-toggle="modal"
                     href="#server-team"><i class="fa-solid fa-people-group"></i>Server Team</a></p>
+            {{end}}
+
+            {{end}}
+
             <p class="title">Account</p>
             <p class="item"><a href="/sign_out"><i class="fa-solid fa-arrow-right-from-bracket"></i>Log Out</a></p>
             <p class="title">Help</p>
@@ -43,7 +52,7 @@
         </div>
     </div>
 
-    <div class="dropdown">
+    <!-- <div class="dropdown">
         <button class="right" onclick="logged_nav_notification()">
             <i class="fa-solid fa-bell"></i>
         </button>
@@ -82,5 +91,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>

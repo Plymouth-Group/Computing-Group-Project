@@ -1,3 +1,9 @@
+.section-logged .editor-panel .editor-page .ace-editor {
+  height: 94% !important;
+}
+
+/* --------------------- */
+
 .codinoc-modal {
   display: none;
   position: fixed;
@@ -284,6 +290,7 @@
 
 .editor-custom .version-button {
   margin-bottom: 16px;
+  margin-left: 16px;
 
   float: right;
   text-decoration: none;

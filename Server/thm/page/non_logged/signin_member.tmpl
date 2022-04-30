@@ -14,39 +14,39 @@
 			<div class="grid grid-center item-center">
 				<div class="column-4">
 					<div class="box">
-						<form>
+						<form method="POST" action="/process/common/signin_member" enctype="application/x-www-form-urlencoded">
 							<div class="grid">
 								<div class="column-6">
 									<div class="label">Server Code</div>
 								</div>
 								<div class="column-6">
-									<div class="label"><span class="right error">* Error Message</span></div>
+									<div class="label"><span class="right error">{{.Error_Server}}</span></div>
 								</div>
 							</div>
 
-							<input id="input_scode" type="text" placeholder="">
+							<input name="input_scode" type="text" placeholder="" minlength="4" required>
 
 							<div class="grid">
 								<div class="column-6">
 									<div class="label">User Name</div>
 								</div>
 								<div class="column-6">
-									<div class="label"><span class="right error">* Error Message</span></div>
+									<div class="label"><span class="right error"></span></div>
 								</div>
 							</div>
 
-							<input id="input_uname" type="text" placeholder="">
+							<input name="input_name" type="text" placeholder="" minlength="4" required>
 
 							<div class="grid">
 								<div class="column-6">
 									<div class="label">Password</div>
 								</div>
 								<div class="column-6">
-									<div class="label"><span class="right error">* Error Message</span></div>
+									<div class="label"><span class="right error"></span></div>
 								</div>
 							</div>
 
-							<input id="input_psw" type="password" placeholder="">
+							<input name="input_password" type="password" placeholder="" minlength="4" required>
 
 							<div class="grid grid-end">
 								<button>Sign In</button>

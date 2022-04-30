@@ -86,32 +86,6 @@ function editor_show_scss() {
     document.getElementById("editor-btn-css").classList.remove("activated");
 }
 
-// ACE Editor Collection
-
-var ace_editor_html;
-
-ace_editor_html = ace.edit("ace_editor_html");
-ace_editor_html.setTheme("ace/theme/monokai");
-ace_editor_html.session.setMode("ace/mode/html");
-
-var ace_editor_js;
-
-ace_editor_js = ace.edit("ace_editor_js");
-ace_editor_js.setTheme("ace/theme/monokai");
-ace_editor_js.session.setMode("ace/mode/javascript");
-
-var ace_editor_css;
-
-ace_editor_css = ace.edit("ace_editor_css");
-ace_editor_css.setTheme("ace/theme/monokai");
-ace_editor_css.session.setMode("ace/mode/css");
-
-var ace_editor_scss;
-
-ace_editor_scss = ace.edit("ace_editor_scss");
-ace_editor_scss.setTheme("ace/theme/monokai");
-ace_editor_scss.session.setMode("ace/mode/scss");
-
 // Code from E.L.P. Prasandika
 // ---------------------------
 

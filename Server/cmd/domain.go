@@ -709,6 +709,7 @@ func Route_Editor(w http.ResponseWriter, r *http.Request) {
 		"Page_Title": "Editor",
 		"Session_Type": session_type,
 		"Navbar_Name": Get_Navbar_Name,
+		"Server_Code": session_code,
 		"HTML_PATH": path_html,
 		"JS_PATH": path_js,
 		"CSS_PATH": path_css,
@@ -1065,11 +1066,17 @@ func Route_Process_Create_Project(w http.ResponseWriter, r *http.Request) {
 }
 
 func Route_Process_Remove_Project(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "GET" {
-		http.Redirect(w, r, fmt.Sprintf("/server"), 302)
-		return
-	} else {
-	}
+	project_code := r.URL.Query().Get("project_code")
+
+	// Drop data from table
+
+	var query_tb_delete = fmt.Sprintf("DELETE FROM schema_project.tb_main WHERE project_code='%s';", project_code)
+	_, err_delete := db_server.Query(query_tb_delete)
+	Check_Error(err_delete)
+
+	fmt.Println("> Project Removed: ", project_code)
+
+	http.Redirect(w, r, fmt.Sprintf("/dashboard"), 302)
 }
 
 func Route_Update_Source(w http.ResponseWriter, r *http.Request) {
@@ -1078,6 +1085,7 @@ func Route_Update_Source(w http.ResponseWriter, r *http.Request) {
 		Type string
 		Path string
 		Project string
+		Server string
 	}
 
 	var data Get_Data
@@ -1093,9 +1101,10 @@ func Route_Update_Source(w http.ResponseWriter, r *http.Request) {
 	get_Type := fmt.Sprintf("%+v", data.Type)
 	get_Path := fmt.Sprintf("%+v", data.Path)
 	get_Project := fmt.Sprintf("%+v", data.Project)
+	get_Server := fmt.Sprintf("%+v", data.Server)
 
-	get_Time := time.Now()
-	get_Date := "Unknown"
+	// get_Time := time.Now()
+	// get_Date := "Unknown"
 
 	// fmt.Println("File Content :", get_Content)
 	// fmt.Println("File Type    :", get_Type)
@@ -1103,9 +1112,9 @@ func Route_Update_Source(w http.ResponseWriter, r *http.Request) {
 
 	file, err := os.Create(get_Path)
 
-	if err != nil {
-		return
-	}
+	// if err != nil {
+	// 	return
+	// }
 
 	defer file.Close()
 
@@ -1113,6 +1122,44 @@ func Route_Update_Source(w http.ResponseWriter, r *http.Request) {
 
 	// Create File History
 
-	query_tb_insert := fmt.Sprintf("INSERT INTO schema_file.tb_main ( project_code, file_type, file_name, file_conetent, updated_time, updated_date, is_last_save) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s');", get_Project, get_Type, get_Path, get_Content, get_Time, get_Date, "FALSE")
-	db_server.Query(query_tb_insert)
+	// query_tb_insert := fmt.Sprintf("INSERT INTO schema_file.tb_main ( project_code, file_type, file_name, file_conetent, updated_time, updated_date, is_last_save) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s');", get_Project, get_Type, get_Path, get_Content, get_Time, get_Date, "FALSE")
+	// db_server.Query(query_tb_insert)
+
+	if get_Type == "HTML" {
+		currentTime := time.Now()
+
+		html_name := fmt.Sprintf("history_%s.html", currentTime.Format("2006-01-02_3-4-5-pm"))
+		html_path := fmt.Sprintf("cdn/%s/%s/history_html/%s", get_Server, get_Project, html_name)
+
+		file_html, _ := os.Create(html_path)
+		defer file_html.Close()
+		file_html.WriteString(get_Content)
+	} else if get_Type == "JS" {
+		currentTime := time.Now()
+
+		js_name := fmt.Sprintf("history_%s.js", currentTime.Format("2006-01-02_3-4-5-pm"))
+		js_path := fmt.Sprintf("cdn/%s/%s/history_js/%s", get_Server, get_Project, js_name)
+
+		file_js, _ := os.Create(js_path)
+		defer file_js.Close()
+		file_js.WriteString(get_Content)
+	} else if get_Type == "CSS" {
+		currentTime := time.Now()
+
+		css_name := fmt.Sprintf("history_%s.css", currentTime.Format("2006-01-02_3-4-5-pm"))
+		css_path := fmt.Sprintf("cdn/%s/%s/history_css/%s", get_Server, get_Project, css_name)
+
+		file_css, _ := os.Create(css_path)
+		defer file_css.Close()
+		file_css.WriteString(get_Content)
+	} else if get_Type == "SCSS" {
+		currentTime := time.Now()
+
+		scss_name := fmt.Sprintf("history_%s.scss", currentTime.Format("2006-01-02_3-4-5-pm"))
+		scss_path := fmt.Sprintf("cdn/%s/%s/history_scss/%s", get_Server, get_Project, scss_name)
+
+		file_scss, _ := os.Create(scss_path)
+		defer file_scss.Close()
+		file_scss.WriteString(get_Content)
+	}
 }

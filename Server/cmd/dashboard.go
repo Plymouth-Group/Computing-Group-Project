@@ -331,6 +331,11 @@ func Dashboard_Create_New_Project(server_code string, project_name string) {
 	mkdir_base := fmt.Sprintf("cdn/%s", server_code)
 
 	mkdir_path := fmt.Sprintf("%s/%s", mkdir_base, project_code)
+	mkdir_path_history_html := fmt.Sprintf("%s/%s", mkdir_path, "history_html")
+	mkdir_path_history_js := fmt.Sprintf("%s/%s", mkdir_path, "history_js")
+	mkdir_path_history_css := fmt.Sprintf("%s/%s", mkdir_path, "history_css")
+	mkdir_path_history_scss := fmt.Sprintf("%s/%s", mkdir_path, "history_scss")
+
 	mkfle_html := fmt.Sprintf("%s/index.html", mkdir_path)
 	mkfle_js := fmt.Sprintf("%s/source_js.js", mkdir_path)
 	mkfle_css := fmt.Sprintf("%s/source_css.css", mkdir_path)
@@ -338,10 +343,18 @@ func Dashboard_Create_New_Project(server_code string, project_name string) {
 
 	os.Mkdir(mkdir_base, os.ModePerm)
 	os.Mkdir(mkdir_path, os.ModePerm)
+
 	os.Create(mkfle_html)
 	os.Create(mkfle_js)
 	os.Create(mkfle_css)
 	os.Create(mkfle_scss)
+
+	// Create directories for save old files
+
+	os.Mkdir(mkdir_path_history_html, os.ModePerm)
+	os.Mkdir(mkdir_path_history_js, os.ModePerm)
+	os.Mkdir(mkdir_path_history_css, os.ModePerm)
+	os.Mkdir(mkdir_path_history_scss, os.ModePerm)
 
 	var query_tb_project = fmt.Sprintf("INSERT INTO schema_project.tb_main (project_code, server_directory, project_title, project_description, project_icon, status_pinned) VALUES ('%s', '%s', '%s', '%s', '%s', '%s');", project_code, project_directory, project_name, "Unknown", "Unknown", "FALSE")
 	_, err_project := db_server.Query(query_tb_project)

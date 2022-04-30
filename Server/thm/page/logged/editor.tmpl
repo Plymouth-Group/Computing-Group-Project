@@ -46,8 +46,12 @@
 
             <div id="editor-html" class="editor-page editor-custom">
                 <!-- <span class="file-name">/index.html</span> -->
-                <a id="btn-modal-version-html" data-target="#modal-version-html" data-toggle="modal"
-                    href="#modal-version-html" class="version-button">File History</a>
+
+                <!-- <a id="btn-modal-version-html" data-target="#modal-version-html" data-toggle="modal"
+                    href="#modal-version-html" class="version-button">File History</a> -->
+
+                <a class="version-button" href="cdn/{{.Server_Code}}/{{.Navbar_Name}}/history_html/"
+                    target="_blank">Open History</a>
 
                 <a class="version-button" onclick="save_source_html()">Save Source</a>
                 <a class="version-button" onclick="get_source_html()">Get Source</a>
@@ -59,8 +63,12 @@
 
             <div id="editor-js" class="editor-page editor-custom">
                 <!-- <span class="file-name">/source_js.js</span> -->
-                <a id="btn-modal-version-js" data-target="#modal-version-js" data-toggle="modal"
-                    href="#modal-version-js" class="version-button">File History</a>
+
+                <!-- <a id="btn-modal-version-js" data-target="#modal-version-js" data-toggle="modal"
+                    href="#modal-version-js" class="version-button">File History</a> -->
+
+                <a class="version-button" href="cdn/{{.Server_Code}}/{{.Navbar_Name}}/history_js/" target="_blank">Open
+                    History</a>
 
                 <a class="version-button" onclick="save_source_js()">Save Source</a>
                 <a class="version-button" onclick="get_source_js()">Get Source</a>
@@ -72,8 +80,12 @@
 
             <div id="editor-css" class="editor-page editor-custom">
                 <!-- <span class="file-name">/source_css.css</span> -->
-                <a id="btn-modal-version-css" data-target="#modal-version-css" data-toggle="modal"
-                    href="#modal-version-css" class="version-button">File History</a>
+
+                <!-- <a id="btn-modal-version-css" data-target="#modal-version-css" data-toggle="modal"
+                    href="#modal-version-css" class="version-button">File History</a> -->
+
+                <a class="version-button" href="cdn/{{.Server_Code}}/{{.Navbar_Name}}/history_css/" target="_blank">Open
+                    History</a>
 
                 <a class="version-button" onclick="save_source_css()">Save Source</a>
                 <a class="version-button" onclick="get_source_css()">Get Source</a>
@@ -85,8 +97,13 @@
 
             <div id="editor-scss" class="editor-page editor-custom">
                 <!-- <span class="file-name">/source_scss.scss</span> -->
-                <a id="btn-modal-version-scss" data-target="#modal-version-scss" data-toggle="modal"
-                    href="#modal-version-scss" class="version-button">File History</a>
+
+                <!-- <a id="btn-modal-version-scss" data-target="#modal-version-scss" data-toggle="modal"
+                    href="#modal-version-scss" class="version-button">File History</a> -->
+
+                <a class="version-button" href="cdn/{{.Server_Code}}/{{.Navbar_Name}}/history_scss/"
+                    target="_blank">Open
+                    History</a>
 
                 <a class="version-button" onclick="save_source_scss()">Save Source</a>
                 <a class="version-button" onclick="get_source_scss()">Get Source</a>
@@ -262,6 +279,7 @@
         Body.Type = "HTML";
         Body.Path = "{{.HTML_PATH}}"
         Body.Project = "{{.Navbar_Name}}"
+        Body.Server = "{{.Server_Code}}"
 
         // console.log(Body.Content)
         // console.log(Body.Type)
@@ -288,6 +306,7 @@
         Body.Type = "JS";
         Body.Path = "{{.JS_PATH}}"
         Body.Project = "{{.Navbar_Name}}"
+        Body.Server = "{{.Server_Code}}"
 
         // console.log(Body.Content)
         // console.log(Body.Type)
@@ -314,6 +333,7 @@
         Body.Type = "CSS";
         Body.Path = "{{.CSS_PATH}}"
         Body.Project = "{{.Navbar_Name}}"
+        Body.Server = "{{.Server_Code}}"
 
         // console.log(Body.Content)
         // console.log(Body.Type)
@@ -340,6 +360,7 @@
         Body.Type = "SCSS";
         Body.Path = "{{.SCSS_PATH}}"
         Body.Project = "{{.Navbar_Name}}"
+        Body.Server = "{{.Server_Code}}"
 
         // console.log(Body.Content)
         // console.log(Body.Type)
